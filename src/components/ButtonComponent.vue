@@ -15,15 +15,21 @@
     button {
         cursor: pointer;
         width:100%;
-        height:50px;
-        border:1px solid #eaeaea;
+        // height:50px;
+        height:40px;
+        // border:1px solid #eaeaea;
+        border:1px solid #e0a83978;
         border-radius:4px;
-        background:transparent;
+        // background:transparent;
+        background:#e0a839;
         text-align:center;
-        font-family:'Raleway', sans-serif;
-        font-size:18px;
-        color:#656565;
+        font-family:'Ubuntu', sans-serif;
+        // font-size:18px;
+        font-size:16px;
+        // color:#656565;
+        color:#ffffff;
         text-shadow:0 1px 0 rgba(255,255,255,1);
+        text-shadow:none;
         outline:0;
         box-shadow:inset 0 0 0 rgba(0,0,0,0);
         transition:all 0.2s ease;
@@ -34,22 +40,26 @@
             display:inline-block;
             font-size:14px;
 
-            &:nth-child(odd) {
-                margin-left:6px;
-            }
+            // &:nth-child(odd) {
+            //     margin-left:6px;
+            // }
         }
 
         &:hover {
             /*box-shadow:inset 0 0 50px rgba(0,0,0,0.05);*/
-            background:#fff;
+            // background:#fff;
             border:1px solid rgba(0,0,0,0.1);
+            background: rgb(224, 168, 57);
+            color: rgba(255, 255, 255, 0.9);
         }
 
         &:active {
             box-shadow:inset 0 1px 3px rgba(0,0,0,0.2), inset 0 0 55px rgba(0,0,0,0.25), 0 1px 0 rgba(255,255,255,1);
-            background:rgba(0,0,0,0.03);
-            color:rgba(0,0,0,0.5);
+            // background:rgba(0,0,0,0.03);
+            // color:rgba(0,0,0,0.5);
             border:0 solid rgba(0,0,0,0.1);
+            background: rgb(224, 168, 57);
+            color: rgba(255, 255, 255, 0.9);
         }
 
         &.margined {
@@ -57,9 +67,9 @@
         }
 
         &.blue {
-            border:1px solid #54a7fc;
-            color:#54a7fc;
-            text-shadow:0 1px 0 rgba(255,255,255,0);
+            // border:1px solid #54a7fc;
+            // color:#54a7fc;
+            // text-shadow:0 1px 0 rgba(255,255,255,0);
 
             &:hover {
                 background:#54a7fc;
@@ -74,8 +84,10 @@
         }
 
         &.red {
-            border:1px solid #ff0d0c;
-            color:#ff0d0c;
+            // border:1px solid #ff0d0c;
+            border:none;
+            // color:#ff0d0c;
+            background: #bf3d3d;
             text-shadow:0 1px 0 rgba(255,255,255,0);
 
             &:hover {

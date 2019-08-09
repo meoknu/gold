@@ -19,8 +19,8 @@
 <style lang="scss">
 
     .search {
-        height:30px;
-        line-height:30px;
+        height:40px;
+        line-height:40px;
         background:#fff;
         overflow:hidden;
         padding:0 20px;
@@ -30,7 +30,7 @@
         margin-top:1px;
 
         .icon {
-            font-size:11px;
+            font-size:15px;
             color:#e4e4e4;
             width:18px;
             float:left;
@@ -42,11 +42,12 @@
             outline:0;
             float:left;
             width:calc(100% - 18px);
-            font-size:9px;
+            font-size:14px;
             font-family:'Open Sans',sans-serif;
             color:#000;
             opacity:0.4;
-            height:29px;
+            height:40px;
+            padding-left: 15px;
         }
     }
 

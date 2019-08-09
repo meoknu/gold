@@ -116,7 +116,7 @@
     import * as Actions from '../store/constants';
     import {RouteNames} from '../vue/Routing'
     import Identity from '../models/Identity'
-    import Scatter from '../models/Scatter'
+    import Gold from '../models/Gold'
     import Account from '../models/Account'
     import KeyPair from '../models/KeyPair'
     import {LocationInformation} from '../models/Identity'
@@ -147,7 +147,7 @@
         }},
         computed: {
             ...mapState([
-                'scatter'
+                'gold'
             ]),
             ...mapGetters([
                 'networks',
@@ -156,11 +156,11 @@
         },
         mounted(){
             this.selectNetwork(this.networks[0]);
-            const existing = this.scatter.keychain.identities.find(x => x.publicKey === this.$route.query.publicKey);
+            const existing = this.gold.keychain.identities.find(x => x.publicKey === this.$route.query.publicKey);
             if(existing) this.identity = existing.clone();
             else {
                 this.identity = Identity.placeholder();
-                this.identity.initialize(this.scatter.hash).then(() => {
+                this.identity.initialize(this.gold.hash).then(() => {
                     this.identity.name = `${this.locale(this.langKeys.GENERIC_New)} ${this.locale(this.langKeys.GENERIC_Identity)}`;
                 })
             }
@@ -176,10 +176,10 @@
             async claimIdentity(){
                 const updatedIdentity = await RIDLService.claimIdentity(this.newName, this.identity.clone(), this).catch(() => null);
                 if(updatedIdentity) {
-                    const scatter = this.scatter.clone();
+                    const gold = this.gold.clone();
                     this.identity.name = updatedIdentity.name;
-                    scatter.keychain.updateOrPushIdentity(updatedIdentity);
-                    await this[Actions.UPDATE_STORED_SCATTER](scatter);
+                    gold.keychain.updateOrPushIdentity(updatedIdentity);
+                    await this[Actions.UPDATE_STORED_GOLD](gold);
                     this.$router.back();
                 }
             },
@@ -259,14 +259,14 @@
                 // * Email
                 // * State ( if exists, only 2 characters )
 
-                const scatter = this.scatter.clone();
-                scatter.keychain.updateOrPushIdentity(this.identity);
-                this[Actions.UPDATE_STORED_SCATTER](scatter).then(() => this.$router.back());
+                const gold = this.gold.clone();
+                gold.keychain.updateOrPushIdentity(this.identity);
+                this[Actions.UPDATE_STORED_GOLD](gold).then(() => this.$router.back());
 
             },
             ...mapActions([
                 Actions.SIGN_RIDL,
-                Actions.UPDATE_STORED_SCATTER,
+                Actions.UPDATE_STORED_GOLD,
                 Actions.PUSH_ALERT
             ])
         }
@@ -275,7 +275,7 @@
 
 <style lang="scss">
     .identity {
-        font-family:'Open Sans', sans-serif;
+        font-family:'Ubuntu', sans-serif;
 
 
 
@@ -287,8 +287,11 @@
             }
 
             .header {
-                color:#cecece;
-                font-size:11px;
+                // color:#cecece;
+                // font-size:11px;
+                color: #505050;
+                font-size: 15px;
+                text-transform: uppercase;
                 padding-bottom:5px;
                 margin-top:-5px;
                 margin-bottom:10px;
@@ -296,8 +299,10 @@
             }
 
             .sub-header {
-                color: #505050;
-                font-size:11px;
+                // color: #505050;
+                // font-size:11px;
+                color:#757575;
+                font-size:13px;
                 margin-bottom:20px;
             }
         }

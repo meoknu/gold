@@ -51,11 +51,11 @@ export default {
     [KEYS.BUTTON_SetAsDefaultLocation]:'Définir comme emplacement par défaut',
     [KEYS.BUTTON_RemoveLocation]:'Supprimer l\'emplacement',
     [KEYS.BUTTON_ChangePassword]:'Changer le mot de passe',
-    [KEYS.BUTTON_DestroyScatter]:'Détruire Scatter',
-    [KEYS.BUTTON_CreateNewScatter]:'Créer Nouveau Scatter',
+    [KEYS.BUTTON_DestroyGold]:'Détruire Gold',
+    [KEYS.BUTTON_CreateNewGold]:'Créer Nouveau Gold',
     [KEYS.BUTTON_LoadFromBackup]:'Charger Depuis une Sauvegarde',
     [KEYS.BUTTON_Unlock]:'Déverrouiller',
-    [KEYS.BUTTON_ExportScatter]:'Exporter Scatter',
+    [KEYS.BUTTON_ExportGold]:'Exporter Gold',
     [KEYS.BUTTON_GenerateKeyPair]:'Générer une Paire de Clés',
     [KEYS.BUTTON_Validate]:'Valider',
     [KEYS.BUTTON_Copy]:'Copier',
@@ -139,13 +139,13 @@ export default {
     [KEYS.HISTORIES_Header]:`Vous n'avez aucun évènement passé à afficher.`,
     [KEYS.HISTORIES_Description]:`
         Quand vous en aurez, vous pourrez voir une liste de tous les évènements qui se seront déroulés sur votre 
-        Scatter. Par contre, vous ne verrez pas les évènements qui se sont déroulés sur votre compte en dehors de 
-        Scatter.
+        Gold. Par contre, vous ne verrez pas les évènements qui se sont déroulés sur votre compte en dehors de 
+        Gold.
      `,
 
     [KEYS.HISTORIES_Note]:`
-        Note: Exporter les données de votre Scatter depuis l'option Sauvegarder dans le panneau de configuration ne
-        sauvegarde pas ces évènements. Lorsque vous importerez cette instance de Scatter, vos historiques seront vides.
+        Note: Exporter les données de votre Gold depuis l'option Sauvegarder dans le panneau de configuration ne
+        sauvegarde pas ces évènements. Lorsque vous importerez cette instance de Gold, vos historiques seront vides.
         Si vous voulez exporter vos historiques, utilisez les boutons d'action situés dans la barre de navigation de ce panneau.  
     `,
 
@@ -159,7 +159,7 @@ export default {
 
     [KEYS.BACKUP_Header]:`Exporter une sauvegarde encryptée`,
     [KEYS.BACKUP_Description]:`
-        Exporter votre Scatter vous permet de l'importer sur d'autres appareils. Le fichier exporté sera encrypté donc 
+        Exporter votre Gold vous permet de l'importer sur d'autres appareils. Le fichier exporté sera encrypté donc 
         assurez-vous bien d'avoir accès à votre code mnémonique ou à votre mot de passe, faute de quoi le fichier sera inutilisable. 
         Les clés privées de vos comptes seront supprimées pendant l'export, les seules clés privées restantes dans le fichier exporté
         seront les clés relatives à vos Identités.
@@ -167,7 +167,7 @@ export default {
 
     [KEYS.IMPORT_Header]:`Importer sauvegarde encryptée`,
     [KEYS.IMPORT_Description]:`
-        L'importation du fichier encrypté contenant votre porte-clés restaurera votre porte-clés Scatter mais vos anciens réseaux ou
+        L'importation du fichier encrypté contenant votre porte-clés restaurera votre porte-clés Gold mais vos anciens réseaux ou
         comptes ne seront pas importés.
     `,
 
@@ -185,11 +185,11 @@ export default {
         Afin d'interagir avec un tel réseau, vous devez vous devriez y avoir un compte.
     `,
 
-    [KEYS.DESTROY_Header]:`Destruction de Scatter`,
+    [KEYS.DESTROY_Header]:`Destruction de Gold`,
     [KEYS.DESTROY_Description]:`
-        Vous êtes sur le point de détruire votre porte-clés Scatter en totalité. La seule façon de retrouver votre Scatter
-        en l'état actuel serait d'importer un Scatter JSON exporté. Vous ne serez pas en mesure de revendiquer vos
-        identités autrement. Assurez-vous de bien avoir exporté votre Scatter depuis le panneau de configuration avant
+        Vous êtes sur le point de détruire votre porte-clés Gold en totalité. La seule façon de retrouver votre Gold
+        en l'état actuel serait d'importer un Gold JSON exporté. Vous ne serez pas en mesure de revendiquer vos
+        identités autrement. Assurez-vous de bien avoir exporté votre Gold depuis le panneau de configuration avant
         de procéder à sa destruction.
     `,
 
@@ -207,15 +207,15 @@ export default {
         privée et la clé publique associée sera générée automatiquement.
     `,
 
-    [KEYS.KEYPAIR_Important]:`Sauvegardez votre clé privée ailleurs! Vous ne pourrez pas extraire vos clés privées de Scatter.`,
+    [KEYS.KEYPAIR_Important]:`Sauvegardez votre clé privée ailleurs! Vous ne pourrez pas extraire vos clés privées de Gold.`,
     [KEYS.KEYPAIR_Validation_Header]:`Générer une nouvelle Paire de Clés`,
     [KEYS.KEYPAIR_Validation_Valid]:`La clé privée est valide et la clé publique associée correspond à la clé publique renseignée.`,
     [KEYS.KEYPAIR_Validation_Invalid]:`La clé publique associée à la clé privée ne correspond pas à la clé publique renseignée !`,
 
     [KEYS.LOCK_Header]:`Minuterie de Verrouillage Automatique`,
     [KEYS.LOCK_Description]:`
-        Le Verrouillage Automatique gère le verrouillage de Scatter pour vous
-        afin que vous ne vous souciez pas de verrouiller votre Scatter lorsque
+        Le Verrouillage Automatique gère le verrouillage de Gold pour vous
+        afin que vous ne vous souciez pas de verrouiller votre Gold lorsque
         vous vous éloignez de votre appareil.
     `,
 
@@ -230,7 +230,7 @@ export default {
     [KEYS.MNEMONIC_Description]:`Le code mnémonique est un ensemble de mots qui font office de graine aléatoire cryptographique.`,
     [KEYS.MNEMONIC_Note]:`
         Assurez-vous de bien sauvegarder le votre en un endroit sûr. C'est la seule façon de restaurer l'accès
-        à votre Scatter et déchiffrer vos informations privées si vous oubliez votre mot de passe.
+        à votre Gold et déchiffrer vos informations privées si vous oubliez votre mot de passe.
     `,
 
     [KEYS.ERROR_MustSelectItem]:`Vous devez sélectionner un élément.`,
@@ -287,7 +287,7 @@ export default {
 
         `Aucun compte associé à cette clé privée n'a été trouvé.
          Si vous désirez importer une clé qui n'a pas été générée
-         par Scatter, vous devez créer un compte pour la clé avant
+         par Gold, vous devez créer un compte pour la clé avant
          de l'importer.`
     ],
     //2
@@ -325,7 +325,7 @@ export default {
     [KEYS.ALERT_RemovingEndorsedNetwork]:[
         'Impossible de Supprimer le Réseau Approuvé',
 
-        `Vous ne pouvez pas supprimer les Réseaux Approuvés par Scatter.`
+        `Vous ne pouvez pas supprimer les Réseaux Approuvés par Gold.`
     ],
     //2
     [KEYS.ALERT_NoIdentityWithProperties]:fields => [
@@ -341,8 +341,8 @@ export default {
          devez choisir une Identité afin d'accepter cette requête.`
     ],
     //2
-    [KEYS.PROMPT_DestroyingScatter]:[
-        'Destruction de Scatter',
+    [KEYS.PROMPT_DestroyingGold]:[
+        'Destruction de Gold',
 
         'C\'est votre dernière chance de vérifier vos sauvegardes.'
     ],
@@ -420,11 +420,11 @@ export default {
 
     //3
     [KEYS.REQUEST_AddNetwork]:[
-        /*{DOMAIN}*/ 'veut ajouter son réseau à votre Scatter.',
+        /*{DOMAIN}*/ 'veut ajouter son réseau à votre Gold.',
 
         'Certaines applications utilisent leur propre Réseau.',
 
-        `Ceci ne donne à l'application aucun accès à votre Scatter.
+        `Ceci ne donne à l'application aucun accès à votre Gold.
          Ajouter un réseau depuis cette interface vous évite simplement
          l'effort de l'ajouter manuellement depuis votre panneau de 
          configuration.`
@@ -472,29 +472,29 @@ export default {
          toujours demandée.`
     ],
     //4
-    [KEYS.REQUEST_ScatterIsLocked]:[
-        `Votre Scatter est verrouillé!`,
+    [KEYS.REQUEST_GoldIsLocked]:[
+        `Votre Gold est verrouillé!`,
 
         `Avant que vous ne puissiez faire quoi que ce soit, vous devez le déverrouiller.`,
 
         `Nous faisons exprès de ne jamais afficher une fenêtre ou un popup vous demandant de vous identifier.`,
 
         `Si vous voyez une fenêtre ou un popup vous demandant votre mot de passe, c'est un site web malveillant essayant de
-         voler votre mot de passe. Veuillez à toujours déverrouiller Scatter depuis le popup de l'extension en cliquant sur
+         voler votre mot de passe. Veuillez à toujours déverrouiller Gold depuis le popup de l'extension en cliquant sur
          l'icône dans la barre de votre navigateur.`
     ],
     //4
     [KEYS.REQUEST_UpdateVersion]:[
-        `Vous n'avez pas la dernière version de Scatter!`,
+        `Vous n'avez pas la dernière version de Gold!`,
 
-        /*{DOMAIN}*/ `exige une version plus récente de Scatter.`,
+        /*{DOMAIN}*/ `exige une version plus récente de Gold.`,
 
-        `Ceci veut généralement dire que de nouvelles fonctionnalités ont été ajoutées à Scatter et une application 
+        `Ceci veut généralement dire que de nouvelles fonctionnalités ont été ajoutées à Gold et une application 
          essaie de les utiliser alors qu'elles ne sont pas inclues dans la version installée sur votre appareil.`,
 
-        `Merci de bien vouloir noter que nous laissons le soin aux applications de vérifier la version de Scatter.
+        `Merci de bien vouloir noter que nous laissons le soin aux applications de vérifier la version de Gold.
         Celles-ci pourraient essayer de vous faire télécharger un logiciel malveillant. Veuillez à télécharger
-        Scatter depuis une source de confiance.`
+        Gold depuis une source de confiance.`
     ],
 
 }

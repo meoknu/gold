@@ -4,7 +4,7 @@ import * as InternalMessageTypes from './messages/InternalMessageTypes';
 import InternalMessage from './messages/InternalMessage';
 import StorageService from './services/StorageService'
 import SignatureService from './services/SignatureService'
-import Scatter from './models/Scatter'
+import Gold from './models/Gold'
 import Network from './models/Network'
 import IdentityService from './services/IdentityService'
 import NotificationService from './services/NotificationService'
@@ -19,7 +19,7 @@ import PluginRepository from './plugins/PluginRepository'
 import {Blockchains, BlockchainsArray} from './models/Blockchains'
 import {apis} from './util/BrowserApis';
 import migrate from './migrations/migrator'
-// Gets bound when a user logs into scatter
+// Gets bound when a user logs into gold
 // and unbound when they log out
 // Is not on the Background's scope to keep it private
 let seed = '';
@@ -112,64 +112,64 @@ export default class Background {
     }
 
     /***
-     * Checks whether Scatter is locked
+     * Checks whether Gold is locked
      * @param sendResponse - Delegating response handler
      * @returns {boolean}
      */
     static isUnlocked(sendResponse){
         // Even if a seed is set, that doesn't mean that the seed is correct.
-        if(seed.length) StorageService.get().then(scatter => {
+        if(seed.length) StorageService.get().then(gold => {
             try {
-                scatter.decrypt(seed);
-                sendResponse(!scatter.isEncrypted());
+                gold.decrypt(seed);
+                sendResponse(!gold.isEncrypted());
             } catch(e) {
                 seed = '';
                 sendResponse(false);
             }
         });
-        // If no seed is set, Scatter is definitely locked
+        // If no seed is set, Gold is definitely locked
         else sendResponse(false);
     }
 
     /***
-     * Returns the saved instance of Scatter from the storage
+     * Returns the saved instance of Gold from the storage
      * @param sendResponse - Delegating response handler
-     * @returns {Scatter}
+     * @returns {Gold}
      */
     static load(sendResponse){
-        StorageService.get().then(async scatter => {
+        StorageService.get().then(async gold => {
             // sync the timeout inactivity interval
-            inactivityInterval = scatter.settings.inactivityInterval;
+            inactivityInterval = gold.settings.inactivityInterval;
 
-            if(!seed.length) return sendResponse(scatter);
+            if(!seed.length) return sendResponse(gold);
 
-            scatter.decrypt(seed);
-            const migrated = await migrate(scatter);
-            if(migrated) this.update(() => {}, scatter);
-            sendResponse(scatter)
+            gold.decrypt(seed);
+            const migrated = await migrate(gold);
+            if(migrated) this.update(() => {}, gold);
+            sendResponse(gold)
         })
     }
 
     /***
-     * Updates the Scatter instance inside persistent storage
+     * Updates the Gold instance inside persistent storage
      * @param sendResponse - Delegating response handler
-     * @param scatter - The updated cleartext Scatter instance
+     * @param gold - The updated cleartext Gold instance
      * @returns {boolean}
      */
-    static update(sendResponse, scatter){
+    static update(sendResponse, gold){
         this.lockGuard(sendResponse, () => {
-            scatter = Scatter.fromJson(scatter);
+            gold = Gold.fromJson(gold);
 
             // Private Keys are always separately encrypted
-            scatter.keychain.keypairs.map(keypair => keypair.encrypt(seed));
-            scatter.keychain.identities.map(id => id.encrypt(seed));
+            gold.keychain.keypairs.map(keypair => keypair.encrypt(seed));
+            gold.keychain.identities.map(id => id.encrypt(seed));
 
             // Keychain is always stored encrypted.
-            scatter.encrypt(seed);
+            gold.encrypt(seed);
 
-            StorageService.save(scatter).then(saved => {
-                scatter.decrypt(seed);
-                sendResponse(scatter)
+            StorageService.save(gold).then(saved => {
+                gold.decrypt(seed);
+                sendResponse(gold)
             })
         })
     }
@@ -182,17 +182,17 @@ export default class Background {
      */
     static publicToPrivate(sendResponse, publicKey){
         this.lockGuard(sendResponse, () => {
-            StorageService.get().then(scatter => {
-                scatter.decrypt(seed);
-                let keypair = scatter.keychain.keypairs.find(keypair => keypair.publicKey === publicKey);
-                if(!keypair) keypair = scatter.keychain.identities.find(id => id.publicKey === publicKey);
+            StorageService.get().then(gold => {
+                gold.decrypt(seed);
+                let keypair = gold.keychain.keypairs.find(keypair => keypair.publicKey === publicKey);
+                if(!keypair) keypair = gold.keychain.identities.find(id => id.publicKey === publicKey);
                 sendResponse((keypair) ? AES.decrypt(keypair.privateKey, seed) : null);
             })
         })
     }
 
     /***
-     * Destroys this instance of Scatter
+     * Destroys this instance of Gold
      * @param sendResponse
      */
     static destroy(sendResponse){
@@ -211,10 +211,10 @@ export default class Background {
      * @param _timeoutMinutes - The timeout minutes to set
      */
     static setTimeout(sendResponse, _timeoutMinutes){
-        this.load(scatter => {
+        this.load(gold => {
             inactivityInterval = TimingHelpers.minutes(_timeoutMinutes);
-            scatter.settings.inactivityInterval = inactivityInterval;
-            this.update(() => {}, scatter);
+            gold.settings.inactivityInterval = inactivityInterval;
+            this.update(() => {}, gold);
         });
 
         sendResponse(true);
@@ -242,14 +242,14 @@ export default class Background {
             return false;
         }
 
-        Background.load(scatter => {
+        Background.load(gold => {
             const domain = payload.domain;
-            const permission = IdentityService.identityPermission(domain, scatter);
+            const permission = IdentityService.identityPermission(domain, gold);
             if(!permission){
                 sendResponse(null);
                 return false;
             }
-            const identity = permission.getIdentity(scatter.keychain);
+            const identity = permission.getIdentity(gold.keychain);
             sendResponse(identity.asOnlyRequiredFields(permission.fields));
         });
     }
@@ -261,10 +261,10 @@ export default class Background {
      */
     static getOrRequestIdentity(sendResponse, payload){
         this.lockGuard(sendResponse, () => {
-            Background.load(scatter => {
+            Background.load(gold => {
                 const {domain, fields} = payload;
 
-                IdentityService.getOrRequestIdentity(domain, fields, scatter, (identity, fromPermission) => {
+                IdentityService.getOrRequestIdentity(domain, fields, gold, (identity, fromPermission) => {
                     if(!identity){
                         sendResponse(Error.signatureError("identity_rejected", "User rejected the provision of an Identity"));
                         return false;
@@ -295,14 +295,14 @@ export default class Background {
 
     static forgetIdentity(sendResponse, payload){
         this.lockGuard(sendResponse, () => {
-            Background.load(scatter => {
-                const permission = scatter.keychain.permissions.find(permission => permission.isIdentityOnly() && permission.domain === payload.domain);
+            Background.load(gold => {
+                const permission = gold.keychain.permissions.find(permission => permission.isIdentityOnly() && permission.domain === payload.domain);
                 if(!permission){
                     sendResponse(true);
                     return false;
                 }
 
-                const clone = scatter.clone();
+                const clone = gold.clone();
                 clone.keychain.removePermission(permission);
 
                 this.update(() => {
@@ -320,8 +320,8 @@ export default class Background {
      */
     static authenticate(sendResponse, payload){
         this.lockGuard(sendResponse, () => {
-            Background.load(scatter => {
-                const identity = scatter.keychain.findIdentity(payload.publicKey);
+            Background.load(gold => {
+                const identity = gold.keychain.findIdentity(payload.publicKey);
                 if(!identity) return sendResponse(Error.identityMissing());
                 identity.decrypt(seed);
 
@@ -346,8 +346,8 @@ export default class Background {
      */
     static requestSignature(sendResponse, payload){
         this.lockGuard(sendResponse, () => {
-            Background.load(scatter => {
-                SignatureService.requestSignature(payload, scatter, this, sendResponse);
+            Background.load(gold => {
+                SignatureService.requestSignature(payload, gold, this, sendResponse);
             })
         })
     }
@@ -359,8 +359,8 @@ export default class Background {
      */
     static requestArbitrarySignature(sendResponse, payload){
         this.lockGuard(sendResponse, () => {
-            Background.load(scatter => {
-                SignatureService.requestArbitrarySignature(payload, scatter, this, sendResponse);
+            Background.load(gold => {
+                SignatureService.requestArbitrarySignature(payload, gold, this, sendResponse);
             })
         })
     }
@@ -372,26 +372,26 @@ export default class Background {
      */
     static requestAddNetwork(sendResponse, payload){
         this.lockGuard(sendResponse, () => {
-            Background.load(scatter => {
+            Background.load(gold => {
 
 
                 const network = Network.fromJson(payload.network);
                 console.log('network', network, BlockchainsArray);
 
                 if(!BlockchainsArray.map(x => x.value).includes(network.blockchain)){
-                    sendResponse(new Error('bad_blockchain', 'The blockchain you specified is not supported by Scatter'));
+                    sendResponse(new Error('bad_blockchain', 'The blockchain you specified is not supported by Gold'));
                     return;
                 }
 
                 // Already has network, returning true
-                if(scatter.settings.networks.find(_network => _network.unique() === network.unique())) sendResponse(true);
+                if(gold.settings.networks.find(_network => _network.unique() === network.unique())) sendResponse(true);
 
                 // Prompting for network addition
                 else NotificationService.open(new Prompt(PromptTypes.REQUEST_ADD_NETWORK, payload.domain, payload.network, network, approved => {
                     if(approved === false || approved.hasOwnProperty('isError')) sendResponse(approved);
                     else {
-                        scatter.settings.networks.unshift(network);
-                        this.update(() => sendResponse(approved), scatter);
+                        gold.settings.networks.unshift(network);
+                        this.update(() => sendResponse(approved), gold);
                     }
                 }));
 
@@ -409,7 +409,7 @@ export default class Background {
 
     /***
      * Notifies the user that the application they are using is
-     * requiring a newer version of Scatter than they have installed
+     * requiring a newer version of Gold than they have installed
      * @param sendResponse
      * @param payload
      */
@@ -427,14 +427,14 @@ export default class Background {
     /********************************************/
 
     /***
-     * Returns a an error if Scatter is locked,
-     * or passes through the callback if Scatter is open
+     * Returns a an error if Gold is locked,
+     * or passes through the callback if Gold is open
      * @param sendResponse - Delegating response handler
      * @param cb - Callback to perform if open
      */
     static lockGuard(sendResponse, cb){
         if(!seed.length) {
-            NotificationService.open(Prompt.scatterIsLocked());
+            NotificationService.open(Prompt.goldIsLocked());
             sendResponse(Error.locked());
         }
         else cb();
@@ -448,9 +448,9 @@ export default class Background {
      * @param data
      */
     static addHistory(type, data){
-        this.load(scatter => {
-            // scatter.histories.unshift(new HistoricEvent(type, data));
-            // this.update(() => {}, scatter);
+        this.load(gold => {
+            // gold.histories.unshift(new HistoricEvent(type, data));
+            // this.update(() => {}, gold);
         })
     }
 
@@ -459,12 +459,12 @@ export default class Background {
      * @param permissions
      */
     static addPermissions(permissions){
-        this.load(scatter => {
+        this.load(gold => {
             permissions.map(permission => {
-                if(!scatter.keychain.hasPermission(permission.checksum, permission.fields))
-                    scatter.keychain.permissions.unshift(permission);
+                if(!gold.keychain.hasPermission(permission.checksum, permission.fields))
+                    gold.keychain.permissions.unshift(permission);
             });
-            this.update(() => {}, scatter);
+            this.update(() => {}, gold);
         })
     }
 

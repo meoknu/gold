@@ -21,7 +21,7 @@ let isReady = false;
 
 /***
  * The content script is what gets run on the application.
- * It also injects and instance of Scatterdapp
+ * It also injects and instance of Golddapp
  */
 class Content {
 
@@ -34,22 +34,22 @@ class Content {
     setupEncryptedStream(){
         // Setting up a new encrypted stream for
         // interaction between the extension and the application
-        stream = new EncryptedStream(PairingTags.SCATTER, IdGenerator.text(256));
+        stream = new EncryptedStream(PairingTags.GOLD, IdGenerator.text(256));
         stream.listenWith((msg) => this.contentListener(msg));
 
-        // Binding Scatter to the application once the
+        // Binding Gold to the application once the
         // encrypted streams are synced.
         stream.onSync(async () => {
             const version = await this.getVersion();
             const identity = await this.identityFromPermissions();
 
-            // Pushing an instance of Scatterdapp to the web application
-            stream.send(NetworkMessage.payload(NetworkMessageTypes.PUSH_SCATTER, {version, identity}), PairingTags.INJECTED);
+            // Pushing an instance of Golddapp to the web application
+            stream.send(NetworkMessage.payload(NetworkMessageTypes.PUSH_GOLD, {version, identity}), PairingTags.INJECTED);
 
             // Dispatching the loaded event to the web application.
             isReady = true;
 
-            document.dispatchEvent(new CustomEvent("scatterLoaded"));
+            document.dispatchEvent(new CustomEvent("goldLoaded"));
         })
     }
 

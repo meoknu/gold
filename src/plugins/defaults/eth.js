@@ -25,7 +25,7 @@ let web3;
 
 const proxy = (dummy, handler) => new Proxy(dummy, handler);
 
-class ScatterEthereumWallet {
+class GoldEthereumWallet {
     constructor(){
         this.getAccounts = this.getAccounts.bind(this);
         this.signTransaction = this.signTransaction.bind(this);
@@ -185,7 +185,7 @@ export default class ETH extends Plugin {
             const engine = new ProviderEngine();
             web3 = new _web3(engine);
 
-            const walletSubprovider = new HookedWalletSubprovider(new ScatterEthereumWallet());
+            const walletSubprovider = new HookedWalletSubprovider(new GoldEthereumWallet());
             engine.addProvider(walletSubprovider);
 
             if(_prefix.indexOf('http') !== -1) engine.addProvider(new RpcSubprovider({rpcUrl}));

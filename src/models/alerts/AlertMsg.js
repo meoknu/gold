@@ -134,9 +134,9 @@ export default class AlertMsg {
     /*               Prompts               */
     /***************************************/
 
-    static DestroyingScatter(){
+    static DestroyingGold(){
         return new AlertMsg(AlertTypes.Prompt,
-            'Destroying Scatter',
+            'Destroying Gold',
             'This is your last chance to double check your backups.'
         );
     }

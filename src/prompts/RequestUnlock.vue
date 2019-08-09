@@ -7,13 +7,13 @@
 
         <section class="nothing-here">
             <figure class="header">
-                <b>{{locale(langKeys.REQUEST_ScatterIsLocked)[0]}}</b>
+                <b>{{locale(langKeys.REQUEST_GoldIsLocked)[0]}}</b>
             </figure>
             <figure class="sub-header">
-                {{locale(langKeys.REQUEST_ScatterIsLocked)[1]}}
+                {{locale(langKeys.REQUEST_GoldIsLocked)[1]}}
                 <br><br>
-                <b>{{locale(langKeys.REQUEST_ScatterIsLocked)[2]}}</b><br>
-                {{locale(langKeys.REQUEST_ScatterIsLocked)[3]}}
+                <b>{{locale(langKeys.REQUEST_GoldIsLocked)[2]}}</b><br>
+                {{locale(langKeys.REQUEST_GoldIsLocked)[3]}}
             </figure>
         </section>
 

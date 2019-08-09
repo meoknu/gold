@@ -30,7 +30,7 @@
 
 <style lang="scss">
     .input {
-        height:50px;
+        height:40px;
         position: relative;
         width:100%;
 
@@ -67,7 +67,7 @@
             left:10px;
             top:0;
             bottom:0;
-            line-height:50px;
+            line-height:42px;
             color:#888;
             text-align:center;
             font-size:14px;
@@ -75,11 +75,11 @@
 
         input, .tag-container, .checkbox {
             outline:0;
-            height:50px;
+            height:40px;
             width:100%;
             padding:0 15px;
-            font-family:'Raleway',sans-serif;
-            font-size:18px;
+            font-family:'Ubuntu',sans-serif;
+            font-size:15px;
             background:#fff;
             border:1px solid #eaeaea;
             border-radius:4px;
@@ -100,8 +100,8 @@
         .tag-container {
             .tag {
                 cursor: pointer;
-                height:44px;
-                line-height:44px;
+                height:34px;
+                line-height:34px;
                 margin-top:2px;
                 margin-left:-13px;
                 background:#f5f5f5;
@@ -131,7 +131,7 @@
 
             .icon {
                 width:30px;
-                height:50px;
+                height:40px;
             }
         }
     }

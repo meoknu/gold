@@ -1,7 +1,7 @@
 import * as Actions from './constants'
 import Hasher from '../util/Hasher'
 import Mnemonic from '../util/Mnemonic'
-import Scatter from '../models/Scatter'
+import Gold from '../models/Gold'
 import Identity from '../models/Identity'
 import Meta from '../models/Meta'
 import Network from '../models/Network'
@@ -14,7 +14,7 @@ import IdGenerator from '../util/IdGenerator'
 import ridl from 'ridl';
 
 export const actions = {
-    [Actions.SET_SCATTER]:({commit}, scatter) => commit(Actions.SET_SCATTER, scatter),
+    [Actions.SET_GOLD]:({commit}, gold) => commit(Actions.SET_GOLD, gold),
     [Actions.SET_MNEMONIC]:({commit}, mnemonic) => commit(Actions.SET_MNEMONIC, mnemonic),
     [Actions.IS_UNLOCKED]:() => InternalMessage.signal(InternalMessageTypes.IS_UNLOCKED).send(),
     [Actions.LOCK]:() => InternalMessage.payload(InternalMessageTypes.SET_SEED, '').send(),
@@ -47,73 +47,73 @@ export const actions = {
         })
     },
 
-    [Actions.LOAD_SCATTER]:({dispatch}) => {
+    [Actions.LOAD_GOLD]:({dispatch}) => {
         return new Promise((resolve, reject) => {
-            InternalMessage.signal(InternalMessageTypes.LOAD).send().then(_scatter => {
-                dispatch(Actions.SET_SCATTER, Scatter.fromJson(_scatter));
+            InternalMessage.signal(InternalMessageTypes.LOAD).send().then(_gold => {
+                dispatch(Actions.SET_GOLD, Gold.fromJson(_gold));
                 resolve();
             })
         })
     },
 
-    [Actions.UPDATE_STORED_SCATTER]:({dispatch}, scatter) => {
+    [Actions.UPDATE_STORED_GOLD]:({dispatch}, gold) => {
         return new Promise((resolve, reject) => {
-            InternalMessage.payload(InternalMessageTypes.UPDATE, scatter).send().then(_scatter => {
-                dispatch(Actions.SET_SCATTER, Scatter.fromJson(_scatter));
-                resolve(_scatter)
+            InternalMessage.payload(InternalMessageTypes.UPDATE, gold).send().then(_gold => {
+                dispatch(Actions.SET_GOLD, Gold.fromJson(_gold));
+                resolve(_gold)
             })
         })
     },
 
-    [Actions.IMPORT_SCATTER]:({dispatch}, {imported, seed}) => {
+    [Actions.IMPORT_GOLD]:({dispatch}, {imported, seed}) => {
         return new Promise(async (resolve, reject) => {
 
-            const scatter = Scatter.fromJson(imported);
+            const gold = Gold.fromJson(imported);
 
-            scatter.settings.hasEncryptionKey = true;
+            gold.settings.hasEncryptionKey = true;
 
-            const networkUniques = scatter.settings.networks.map(network => network.unique());
+            const networkUniques = gold.settings.networks.map(network => network.unique());
             await Promise.all(PluginRepository.signatureProviders().map(async plugin => {
                 const network = await plugin.getEndorsedNetwork();
 
-                scatter.settings.networks = scatter.settings.networks.filter(_network => _network.unique() !== network.unique());
-                scatter.settings.networks.push(network);
+                gold.settings.networks = gold.settings.networks.filter(_network => _network.unique() !== network.unique());
+                gold.settings.networks.push(network);
             }));
 
-            scatter.meta = new Meta();
+            gold.meta = new Meta();
 
             InternalMessage.payload(InternalMessageTypes.SET_SEED, seed).send().then(() => {
-                dispatch(Actions.UPDATE_STORED_SCATTER, scatter).then(_scatter => {
+                dispatch(Actions.UPDATE_STORED_GOLD, gold).then(_gold => {
                     resolve();
                 })
             });
         })
     },
 
-    [Actions.CREATE_NEW_SCATTER]:({state, commit, dispatch}, password) => {
+    [Actions.CREATE_NEW_GOLD]:({state, commit, dispatch}, password) => {
         return new Promise(async (resolve, reject) => {
-            const scatter = Scatter.fromJson(state.scatter);
-            scatter.settings.hasEncryptionKey = true;
+            const gold = Gold.fromJson(state.gold);
+            gold.settings.hasEncryptionKey = true;
             await Promise.all(PluginRepository.signatureProviders().map(async plugin => {
                 const network = await plugin.getEndorsedNetwork();
-                scatter.settings.networks.push(network);
+                gold.settings.networks.push(network);
             }));
 
 
             const firstIdentity = Identity.placeholder();
-            await firstIdentity.initialize(scatter.hash);
+            await firstIdentity.initialize(gold.hash);
             const identified = await RIDLService.identify(firstIdentity.publicKey);
             if(identified) {
                 firstIdentity.name = identified;
-                scatter.keychain.updateOrPushIdentity(firstIdentity);
+                gold.keychain.updateOrPushIdentity(firstIdentity);
             }
 
             await StorageService.setSalt(Hasher.insecureHash(IdGenerator.text(32)));
 
             dispatch(Actions.SET_SEED, password).then(mnemonic => {
-                dispatch(Actions.UPDATE_STORED_SCATTER, scatter).then(_scatter => {
+                dispatch(Actions.UPDATE_STORED_GOLD, gold).then(_gold => {
                     dispatch(Actions.SET_MNEMONIC, mnemonic);
-                    dispatch(Actions.SET_SCATTER, Scatter.fromJson(_scatter));
+                    dispatch(Actions.SET_GOLD, Gold.fromJson(_gold));
                     resolve();
                 })
             })

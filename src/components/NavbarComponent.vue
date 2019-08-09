@@ -1,6 +1,6 @@
 <template>
     <nav :class="navState()">
-        <figure class="logo" v-if="showLogo()">Scatter</figure>
+        <figure class="logo" v-if="showLogo()">Gold</figure>
         <section class="breadcrumb" v-else>
             <figure class="icon" v-on:click="back">
                 <i class="fa fa-chevron-left"></i>
@@ -20,7 +20,7 @@
     export default {
         computed: {
             ...mapState([
-                'scatter'
+                'gold'
             ])
         },
         methods: {
@@ -37,10 +37,10 @@
             },
             navState(){
                 switch(this.$route.name){
-                    case RouteNames.ENTRY: if(this.scatter.settings.hasEncryptionKey) return 'locked';
+                    case RouteNames.ENTRY: if(this.gold.settings.hasEncryptionKey) return 'locked';
                                            else return 'no-chain';
                     case RouteNames.MAIN_MENU: return 'main-menu-nav';
-                    default: return '';
+                    default: return 'main-menu-nav';
                 }
             },
             breadcrumb(){
@@ -80,7 +80,8 @@
         height:600px;
         max-height:60px;
         line-height:60px;
-        background:#fff;
+        // background:#fff;
+        background: #545454;
         transition:all 0.2s ease;
         transition-property: max-height, line-height, background;
         padding:0 20px;
@@ -90,11 +91,13 @@
         z-index:2;
 
         .logo {
-            font-family: 'Grand Hotel', sans-serif;
+            font-family: 'Ubuntu', sans-serif;
             font-size:22px;
-            color:#888888;
+            // color:#888888;
+            color:#e0a839;
             width:calc(100% - 60px);
             float:left;
+            font-weight: 900;
         }
 
         .settings-button {
@@ -127,7 +130,7 @@
 
             .route {
                 display:inline-block;
-                font-family:'Raleway', sans-serif;
+                font-family:'Ubuntu', sans-serif;
                 font-size:18px;
                 color:#a5a5a5;
                 vertical-align: top;
@@ -140,8 +143,11 @@
 
             .logo {
                 font-size:64px;
-                color:#656565;
-                width:100%;
+                color: #e0a839;
+                width: 100%;
+                background-color: #545454;
+                // color:#656565;
+                // width:100%;
                 text-align:center;
             }
         }
@@ -152,7 +158,8 @@
 
             .logo {
                 font-size:64px;
-                color:#656565;
+                // color:#656565;
+                color: #e0a839;
                 width:100%;
                 text-align:center;
             }

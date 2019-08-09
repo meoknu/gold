@@ -6,33 +6,33 @@ import NotificationService from '../services/NotificationService'
 export default class IdentityService {
 
     //TODO Mock
-    static register(name, scatter){
+    static register(name, gold){
         return new Promise((resolve, reject) => {
             resolve(true)
         })
     }
 
     //TODO Mock
-    static nameExists(name, scatter){
+    static nameExists(name, gold){
         return new Promise((resolve, reject) => {
-            // Check if exists within another scatter
+            // Check if exists within another gold
             resolve(false);
         })
     }
 
-    static identityPermission(domain, scatter){
-        return scatter.keychain.permissions.find(perm => perm.isIdentityFor(domain));
+    static identityPermission(domain, gold){
+        return gold.keychain.permissions.find(perm => perm.isIdentityFor(domain));
     }
 
-    static identityFromPermissionsOrNull(domain, scatter){
-        const identityFromPermission = IdentityService.identityPermission(domain, scatter);
-        return identityFromPermission ? identityFromPermission.getIdentity(scatter.keychain) : null;
+    static identityFromPermissionsOrNull(domain, gold){
+        const identityFromPermission = IdentityService.identityPermission(domain, gold);
+        return identityFromPermission ? identityFromPermission.getIdentity(gold.keychain) : null;
     }
 
-    static getOrRequestIdentity(domain, fields, scatter, callback){
+    static getOrRequestIdentity(domain, fields, gold, callback){
 
         // Possibly getting an Identity that has been synced with this application.
-        const identityFromPermission = IdentityService.identityFromPermissionsOrNull(domain, scatter);
+        const identityFromPermission = IdentityService.identityFromPermissionsOrNull(domain, gold);
         let identity = identityFromPermission;
 
         const sendBackIdentity = id => {

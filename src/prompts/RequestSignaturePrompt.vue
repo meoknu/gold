@@ -138,7 +138,7 @@
         }},
         computed: {
             ...mapState([
-                'scatter',
+                'gold',
                 'prompt'
             ]),
             ...mapGetters([
@@ -208,7 +208,7 @@
                     }, {})
             },
             identity(){
-                return this.scatter.keychain.findIdentityFromDomain(this.prompt.data.domain);
+                return this.gold.keychain.findIdentityFromDomain(this.prompt.data.domain);
             },
             accepted(){
                 const returnedFields = Identity.asReturnedFields(this.requiredFields, this.returnedFields, this.selectedLocation);
@@ -239,7 +239,7 @@
                     : this.mutableFields.push(selectedField);
             },
             ...mapActions([
-                Actions.UPDATE_STORED_SCATTER,
+                Actions.UPDATE_STORED_GOLD,
                 Actions.PUSH_ALERT
             ])
         }
@@ -257,7 +257,7 @@
             text-align:right;
 
             .identity-name {
-                font-family: 'Raleway', sans-serif;
+                font-family: 'Ubuntu', sans-serif;
                 font-size:14px;
                 font-weight:bold;
                 color:#4f4f4f;

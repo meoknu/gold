@@ -32,7 +32,7 @@
         computed: {
             ...mapState([
                 'mnemonic',
-                'scatter'
+                'gold'
             ])
         },
         methods: {
@@ -41,7 +41,7 @@
             },
             goToFirstIdentity(){
                 this[Actions.SET_MNEMONIC]('');
-                if(!this.scatter.meta.hasOwnProperty('acceptedTerms') || !this.scatter.meta.acceptedTerms)
+                if(!this.gold.meta.hasOwnProperty('acceptedTerms') || !this.gold.meta.acceptedTerms)
                     this.$router.push({name:RouteNames.ONBOARDING})
                 else this.$router.push({name:RouteNames.MAIN_MENU});
             },
@@ -61,7 +61,7 @@
         border-radius: 4px;
         border: 1px solid #eaeaea;
         padding: 15px;
-        font-family: 'Raleway', sans-serif;
+        font-family: 'Ubuntu', sans-serif;
         font-size: 13px;
         font-weight: 300;
         display: flex;
@@ -71,6 +71,7 @@
 
         .word {
             flex-basis: 33%;
+            // color: #fff;
         }
     }
 </style>

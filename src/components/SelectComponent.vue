@@ -57,7 +57,7 @@
         height:50px;
         position: relative;
         width:100%;
-        font-family:'Raleway',sans-serif;
+        font-family:'Ubuntu',sans-serif;
         font-size:14px;
         border:1px solid #eaeaea;
         border-radius:4px;

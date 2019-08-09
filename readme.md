@@ -1,15 +1,15 @@
-# Scatter Classic
+# Gold Classic
 
-Scatter is a browser extension that allows you to sign transactions for multiple blockchains and provide personal information to web applications without ever exposing your keys or filling out forms.
+Gold is a browser extension that allows you to sign transactions for multiple blockchains and provide personal information to web applications without ever exposing your keys or filling out forms.
 
 ## Table of Contents
 
-- [Installing Scatter](https://github.com/GetScatter/ScatterWebExtension#installation)
-- [Interacting With Scatter](https://github.com/GetScatter/ScatterWebExtension#interacting-with-scatter)
-- [Translations and Localization](https://github.com/GetScatter/ScatterWebExtension#translations-and-localization)
-- [Understanding Scatter's Security](https://github.com/GetScatter/ScatterWebExtension#security)
-- [Contributing to Scatter](https://github.com/GetScatter/ScatterWebExtension#contributing)
-- [Responsible Disclosure and Bug Bounties](https://github.com/GetScatter/ScatterWebExtension#responsible-disclosure-and-bug-bounties)
+- [Installing Gold](https://github.com/GetGold/GoldWebExtension#installation)
+- [Interacting With Gold](https://github.com/GetGold/GoldWebExtension#interacting-with-gold)
+- [Translations and Localization](https://github.com/GetGold/GoldWebExtension#translations-and-localization)
+- [Understanding Gold's Security](https://github.com/GetGold/GoldWebExtension#security)
+- [Contributing to Gold](https://github.com/GetGold/GoldWebExtension#contributing)
+- [Responsible Disclosure and Bug Bounties](https://github.com/GetGold/GoldWebExtension#responsible-disclosure-and-bug-bounties)
 
 
 
@@ -22,11 +22,11 @@ Scatter is a browser extension that allows you to sign transactions for multiple
 **Note: If you are developing locally make sure you have enabled the** `history_api` **plugin in your nodeos config or you will not be able to import accounts!**
 
 **From Chrome Store**
-- [Go to Chrome Store](https://chrome.google.com/webstore/detail/scatter/ammjpmhgckkpcamddpolhchgomcojkle)
+- [Go to Chrome Store](https://chrome.google.com/webstore/detail/gold/ammjpmhgckkpcamddpolhchgomcojkle)
 
 **From The Repository** 
 * Clone repository
-* [In some cases](https://github.com/EOSEssentials/Scatter/pull/43) on a Windows system you will need to run `npm install --global --production windows-build-tools`
+* [In some cases](https://github.com/EOSEssentials/Gold/pull/43) on a Windows system you will need to run `npm install --global --production windows-build-tools`
 * `npm install` to get dependencies
 * copy the `.env.example` file to `.env`
 * `npm start` to compile a `build` folder.
@@ -39,31 +39,31 @@ Scatter is a browser extension that allows you to sign transactions for multiple
 * Open up **Chrome** and type `chrome://extensions/` into the url bar
 * Click the `Load unpacked extension...` button and point it at the folder you just created/built 
 (_the folder should have a manifest.json inside of it_).
-![1](https://github.com/nsjames/Scatter/raw/master/chrome_ext.jpg)
-![2](https://github.com/nsjames/Scatter/raw/master/chrome_ext2.jpg)
+![1](https://github.com/nsjames/Gold/raw/master/chrome_ext.jpg)
+![2](https://github.com/nsjames/Gold/raw/master/chrome_ext2.jpg)
 
 
 
 
 
-## Interacting with Scatter
+## Interacting with Gold
 
  
-#### Catching browsers with Scatter installed
+#### Catching browsers with Gold installed
 
 ```js
-document.addEventListener('scatterLoaded', scatterExtension => {
-    // Scatter will now be available from the window scope.
-    // At this stage the connection to Scatter from the application is 
+document.addEventListener('goldLoaded', goldExtension => {
+    // Gold will now be available from the window scope.
+    // At this stage the connection to Gold from the application is 
     // already encrypted. 
-    const scatter = window.scatter;
+    const gold = window.gold;
     
     // It is good practice to take this off the window once you have 
     // a reference to it.
-    window.scatter = null;
+    window.gold = null;
      
-    // If you want to require a specific version of Scatter
-    scatter.requireVersion(3.0);
+    // If you want to require a specific version of Gold
+    gold.requireVersion(3.0);
     
     //...
 })
@@ -74,19 +74,19 @@ document.addEventListener('scatterLoaded', scatterExtension => {
 
 #### Requesting an Identity
 
-In order to do anything with a user's Scatter you will need to request an Identity.
+In order to do anything with a user's Gold you will need to request an Identity.
 Once an Identity is provided it will not need to be re-approved every time unless the user removes the permission.
 
 ```js
 // You can require certain fields
-scatter.getIdentity().then(identity => {
+gold.getIdentity().then(identity => {
     //...
 }).catch(error => {
     //...
 });
 ```
 
-The identity can also be accessed on `scatter.identity` so that you don't have to keep a reference to it.
+The identity can also be accessed on `gold.identity` so that you don't have to keep a reference to it.
 
 **Note:** Every time an identity is returned you should check it against your cache of their identity. Properties are subject 
 to change without notification to applications. Users have complete control over their own data. Do not rely on stale data for 
@@ -102,14 +102,14 @@ If the `authenticate` method does not throw an error then the identity has been 
 ```js
 
 // Authenticate takes no parameters. 
-// It will fail if there is no identity bound to Scatter.
-scatter.authenticate()
+// It will fail if there is no identity bound to Gold.
+gold.authenticate()
     .then(sig => {
         // This will return your `location.host` 
         // signed with their Identity's private key.
         // It has already been validated, but you can validate it yourself as well using eosjs-ecc.
         
-        ecc.verify(sig, location.host, scatter.identity.publicKey);
+        ecc.verify(sig, location.host, gold.identity.publicKey);
     })
     .catch(err => console.log('auth err', err))
 ```
@@ -122,7 +122,7 @@ All sub-permissions such as contract and action whitelistings will be left in pl
 authenticates with your website.
 
 ```js
-scatter.forgetIdentity().then(() => {
+gold.forgetIdentity().then(() => {
     //...
 });
 ```
@@ -145,10 +145,10 @@ const network = {
 }
 ```
 
-**A note about chainId** - If the user has a chainId in their network inside of Scatter providing the host/port
+**A note about chainId** - If the user has a chainId in their network inside of Gold providing the host/port
 will not be enough. You should always aim for chainId inclusion.
 
-Scatter has a few endorsed networks that is uses for retrieving information such as an 
+Gold has a few endorsed networks that is uses for retrieving information such as an 
 `EOS Mainnet ( chainId aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906 )` 
 and `ETH Mainnet ( chainId 1 )`. If you are using those you can 
 simply leave the `host` and `port` null and it will default to the chainId internally when fetching accounts from 
@@ -156,10 +156,10 @@ the identity.
 
 #### Suggesting a network to the user
 
-You can _suggest_ that the user add a network to their Scatter if you are not using a generic network.
+You can _suggest_ that the user add a network to their Gold if you are not using a generic network.
 
 ```js
-scatter.suggestNetwork(network);
+gold.suggestNetwork(network);
 ```
 
 This will provide a prompt for them which will display the network they will be adding, and give them a chance
@@ -170,30 +170,30 @@ to accept or deny the addition.
 ## Signature Providers
 
 
-#### Using Scatter with [eosjs](https://github.com/EOSIO/eosjs)
+#### Using Gold with [eosjs](https://github.com/EOSIO/eosjs)
 
 ```js
 // Set up any extra options you want to use eosjs with. 
 const eosOptions = {};
  
-// Get a reference to an 'Eosjs' instance with a Scatter signature provider.
-const eos = scatter.eos( network, Eos, eosOptions, 'https' );
+// Get a reference to an 'Eosjs' instance with a Gold signature provider.
+const eos = gold.eos( network, Eos, eosOptions, 'https' );
 ```
 
 
-#### Using Scatter with [web3](https://github.com/ethereum/web3.js/)
+#### Using Gold with [web3](https://github.com/ethereum/web3.js/)
 
 ```js
 // You can pass in either an HTTP or WebSocket provider prefix to the network
 const protocol = 'http' || 'ws';
 
-// Get a reference to a 'Web3' instance with a Scatter signature provider.
-const web3 = scatter.eth(network, Web3, protocol);
+// Get a reference to a 'Web3' instance with a Gold signature provider.
+const web3 = gold.eth(network, Web3, protocol);
 ```
 
 #### Requesting a Signature
 
-Using Scatter to provide signatures is no different than using `eosjs` or `web3`.
+Using Gold to provide signatures is no different than using `eosjs` or `web3`.
 It just handles all the signature provision for you.
 
 ```js
@@ -226,7 +226,7 @@ the user.
 // DO NOT DO THIS! If you do this you will give the client your keys.
 const signProvider = (buf, sign) => {
     // You should validate the `buf` before signing it.
-    // If you do not you could be signing anything from a malicious Scatter mimic
+    // If you do not you could be signing anything from a malicious Gold mimic
     
     // Use the provided eosjs signer ( less secure, could be a mimic ) 
     return sign(buf, 'SOME_PRIVATE_KEY');
@@ -293,7 +293,7 @@ This object can be passed into either the `getIdentity()` method or individual t
 
 ```js
 // Get Identity
-scatter.getIdentity(requiredFields)...
+gold.getIdentity(requiredFields)...
  
 // eosjs
 const contract = await eos.contract('hello', {requiredFields});
@@ -335,7 +335,7 @@ eos.contract('hello').then(contract => contract.hi(...args, {requiredFields}))
 
 #### Ethereum Stipulations
 
-When you request signatures for contract methods you **must** supply the abi of the contract. This allows Scatter to 
+When you request signatures for contract methods you **must** supply the abi of the contract. This allows Gold to 
 display the decoded fields to the user so they can see exactly what they are signing.
 
 **Ethereum support is currently lacking as it is a new development.** Some things are missing, such as the ability for users 
@@ -355,11 +355,11 @@ const ethAccount = identity.accounts.find(account => account.blockchain === 'eth
 
 ## Arbitrary signatures
 
-You can request an arbitrary signature from Scatter on any type of data you wish.
+You can request an arbitrary signature from Gold on any type of data you wish.
 Signatures on the Identity will always use `eosjs-ecc` as they are EOS keys.
 
 ```js
-scatter.getArbitrarySignature(
+gold.getArbitrarySignature(
     publicKey, 
     data, 
     whatfor = 'Login Authentication', 
@@ -376,19 +376,19 @@ Otherwise always leave it to false.
 
 
 # Translations and localization
-Please refer to the [Localization README.md](https://github.com/EOSEssentials/Scatter/tree/master/src/localization) 
+Please refer to the [Localization README.md](https://github.com/EOSEssentials/Gold/tree/master/src/localization) 
 for more information about how to get involved with translations.
 
 ### Translators
 - **Your Name Here** - for being the first to translate a new language!
-- [Portuguese](https://github.com/EOSEssentials/Scatter/pull/27) - [gnumarcelo](https://github.com/gnumarcelo)
-- [Spanish](https://github.com/EOSEssentials/Scatter/pull/30) - [javierjmc](https://github.com/javierjmc)
-- [Slovene](https://github.com/EOSEssentials/Scatter/pull/42) - [petervalencic](https://github.com/petervalencic)
-- [Hebrew](https://github.com/EOSEssentials/Scatter/pull/58) - [amiheines](https://github.com/amih)
-- [French](https://github.com/EOSEssentials/Scatter/pull/56) - [lambi9891](https://github.com/lambi9891)
-- [German](https://github.com/EOSEssentials/Scatter/pull/40) - [Soleone](https://github.com/Soleone) AND [cmadh](https://github.com/cmadh)
+- [Portuguese](https://github.com/EOSEssentials/Gold/pull/27) - [gnumarcelo](https://github.com/gnumarcelo)
+- [Spanish](https://github.com/EOSEssentials/Gold/pull/30) - [javierjmc](https://github.com/javierjmc)
+- [Slovene](https://github.com/EOSEssentials/Gold/pull/42) - [petervalencic](https://github.com/petervalencic)
+- [Hebrew](https://github.com/EOSEssentials/Gold/pull/58) - [amiheines](https://github.com/amih)
+- [French](https://github.com/EOSEssentials/Gold/pull/56) - [lambi9891](https://github.com/lambi9891)
+- [German](https://github.com/EOSEssentials/Gold/pull/40) - [Soleone](https://github.com/Soleone) AND [cmadh](https://github.com/cmadh)
 - Korean - [indend007](https://github.com/indend007)
-- [Chinese](https://github.com/EOSEssentials/Scatter/pull/69) - [oscnet](https://github.com/oscnet)
+- [Chinese](https://github.com/EOSEssentials/Gold/pull/69) - [oscnet](https://github.com/oscnet)
 
 
 
@@ -396,7 +396,7 @@ for more information about how to get involved with translations.
 
 # Security
 
-There are various measures put into place that contribute to the overall safety of the Scatter extension.
+There are various measures put into place that contribute to the overall safety of the Gold extension.
 Let's take a moment to go over each of them separately in order to paint the whole picture.
 
 #### A bit about Extensions
@@ -420,7 +420,7 @@ There are three entry points ( javascript files ) which extensions use.
 
 #### Extension Communications
     
-In Scatter we use a [proprietary message wrapper](https://github.com/nsjames/Extension-Streams) that facilitates all communication 
+In Gold we use a [proprietary message wrapper](https://github.com/nsjames/Extension-Streams) that facilitates all communication 
 between the website and the extension and also between the different parts of the extension ( content / background / popup scripts ).
  
 The wrapper has two different types of message streams:
@@ -432,34 +432,34 @@ The wrapper has two different types of message streams:
     
 #### First Contact
 
-When Scatter makes contact with a website the first thing it does is [inject a script into the website](https://github.com/EOSEssentials/Scatter/blob/master/src/inject.js).
+When Gold makes contact with a website the first thing it does is [inject a script into the website](https://github.com/EOSEssentials/Gold/blob/master/src/inject.js).
 The injected script does only two things. 
 
 - First it sets up an **Encrypted Stream**. Until that stream is synced and encrypted the 
-website can make no contact with Scatter what-so-ever. 
+website can make no contact with Gold what-so-ever. 
 [The encryption algorithm used is Stanford Javascript Crypto Library AES-128-GCM](https://github.com/bitwiseshiftleft/sjcl/blob/master/core/gcm.js)
 which is created using a randomly generated key upon every reload. This helps defend against *Man in the middle ( MITM )* attacks.
 The stream is not accessible from the website, and any attempt to send unencrypted or badly encrypted data to the content script with 
 malicious intent is immediately rejected.
 
-- The last thing the injected script does before it becomes irrelevant is create a new [Scatterdapp](https://github.com/EOSEssentials/Scatter/blob/master/src/scatterdapp.js)
-script within the context/scope of the website. This is the script that the website itself can use to request things from Scatter.
-The content script then sends a `scatterLoaded` event to the website notifying it of it's *ready* state. 
+- The last thing the injected script does before it becomes irrelevant is create a new [Golddapp](https://github.com/EOSEssentials/Gold/blob/master/src/golddapp.js)
+script within the context/scope of the website. This is the script that the website itself can use to request things from Gold.
+The content script then sends a `goldLoaded` event to the website notifying it of it's *ready* state. 
   
   
-#### The Scatterdapp script and eosjs
+#### The Golddapp script and eosjs
 
 `eosjs` is EOS's javascript RPC API wrapper. It is what javascript applications use to interact with the blockchain.
 
-`Scatterdapp` is the website usable script that applications can use to request certain things from Scatter. This script only 
-allows a handful of methods which can interact with the Scatter extension:
+`Golddapp` is the website usable script that applications can use to request certain things from Gold. This script only 
+allows a handful of methods which can interact with the Gold extension:
 
-- **getIdentity** - Used to request an Identity from the user's Scatter.
+- **getIdentity** - Used to request an Identity from the user's Gold.
 - **forgetIdentity** - Used to forget an Identity and sign out the user.
 - **authenticate** - Used to prove ownership of the identity.
 - **suggestNetwork** - This is a helper method used to request the addition of the EOS network the website is using.
-- **eos** - Used to fetch a dummy version of `eosjs` which uses Scatter as the `signProvider`.
-- **requireVersion** - Used to require a minimum specific version of scatter.
+- **eos** - Used to fetch a dummy version of `eosjs` which uses Gold as the `signProvider`.
+- **requireVersion** - Used to require a minimum specific version of gold.
 
 Normally when you use `eosjs` you have to give it a private key to work with.
 
@@ -468,10 +468,10 @@ const eos = Eos({httpEndpoint:ENDPOINT, keyProvider:PRIVATE_KEY});
 eos.transfer('users_account', 'some_other_account', 100000, '');
 ```
 
-[The `eosjs` instance that is returned from `scatter.eos()`](https://github.com/EOSEssentials/Scatter/blob/master/src/scatterdapp.js#L131)
+[The `eosjs` instance that is returned from `gold.eos()`](https://github.com/EOSEssentials/Gold/blob/master/src/golddapp.js#L131)
 is an empty dummy object with no options on it that catches all requests sent into it. Every time it is used it re-creates a
 fresh instance of `eosjs` with a pre-configured network ( the same one provided by the Identity request ) and a pre-configured 
-`signProvider` which pushes all signature requests up to Scatter to be approved/denied by the user. 
+`signProvider` which pushes all signature requests up to Gold to be approved/denied by the user. 
 
 Because the `eosjs` instance that is returned to the website is a proxy that recreates itself each time overwriting the 
 network endpoint and signProvider it can never be used maliciously for an attacker's benefit. 
@@ -480,14 +480,14 @@ The domain requesting the signature is also bound within this proxy and can not 
 `location.host`, and any attempt to modify this value will result in the browser changing it's actual location.
 ( For instance if you type in `location.host = 'google.com'` into chrome's inspector console it will physically redirect you to google )
 
-The only way for a website to push requests into Scatter and use it's private keys to sign signatures is like this.
+The only way for a website to push requests into Gold and use it's private keys to sign signatures is like this.
 
 ```js
 // An identity must be requested and bound before requesting transactions
-const identity = await scatter.getIdentity();
+const identity = await gold.getIdentity();
 -------------------------
 // The object returned here has no network, and no signature or key provider
-const eos = scatter.eos( network, Eos, {} );
+const eos = gold.eos( network, Eos, {} );
 -------------------------
 // When the transfer method is called the network and signature provider 
 // are bound outside of the website's accessible application scope.
@@ -498,13 +498,13 @@ eos.transfer('users_account', 'some_other_account', 100000, '');
   
 #### Permission first attitude
 
-Absolutely nothing happens in Scatter without the owner's explicit consent.
+Absolutely nothing happens in Gold without the owner's explicit consent.
 
-The only thing a website that has no user provided permissions can access is the version of the user's Scatter to make sure that 
+The only thing a website that has no user provided permissions can access is the version of the user's Gold to make sure that 
 they are compatible prior to sending any requests.
  
-Before a website may request signatures for transactions they **must** notify Scatter of the network they are using and request an 
-Identity. Only once an Identity is provided will they have the ability to push signature requests into Scatter which will prompt the user 
+Before a website may request signatures for transactions they **must** notify Gold of the network they are using and request an 
+Identity. Only once an Identity is provided will they have the ability to push signature requests into Gold which will prompt the user 
 to take action. 
 
 Every field of every request is prominently displayed to the user to make sure they are fully aware of what they are signing. 
@@ -520,13 +520,13 @@ temporarily revokes all permissions for that Identity.
 
 #### Extension Local Storage
  
-Extensions' local storage is completely segregated from the website that is being visited. That **does not** stop Scatter from taking 
+Extensions' local storage is completely segregated from the website that is being visited. That **does not** stop Gold from taking 
 measures to protect the private data that is inside of it at all times regardless.
 
-**Scatter's entire keychain is encrypted at all times inside of the local storage.**
+**Gold's entire keychain is encrypted at all times inside of the local storage.**
 The only place it is ever held decrypted is within memory at the moment of use.
 
-The keychain includes all of the Scatter:
+The keychain includes all of the Gold:
 
 - Key Pairs
 - Identities
@@ -538,7 +538,7 @@ Key Pairs' private keys are double encrypted within the storage. Once for each p
 encrypted. This makes it so that when the entire keychain is decrypted and put into memory for use in the extension's popup for instance 
 the private keys still stay encrypted. The only time they are manually decrypted is when they are being used for signing transactions.
 
-**Private keys NEVER leave Scatter.** Only the transaction signatures themselves make their way back out of Scatter. The private keys 
+**Private keys NEVER leave Gold.** Only the transaction signatures themselves make their way back out of Gold. The private keys 
 are decrypted for milliseconds, used to sign the transaction, and then erased from internal memory.
 
 
@@ -548,11 +548,11 @@ Normally, an application creates a hash of a cleartext password using something 
 This is an attack vector within itself because it gives an attacker a piece of information to work with as well as a fairly easy to brute force piece of 
 information. [SHA/HMAC vs KDF or SHA-256 vs Bcrypt/Scrypt](https://security.stackexchange.com/a/16817)
 
-Scatter does not do this, or use SHA-256. When a user first sets their Scatter password it is turned into a `scrypt` hash. 
-That hash is used to generate a Mnemonic which is displayed to the user once and never stored within Scatter. The mnemonic is then used to derive a seed. 
+Gold does not do this, or use SHA-256. When a user first sets their Gold password it is turned into a `scrypt` hash. 
+That hash is used to generate a Mnemonic which is displayed to the user once and never stored within Gold. The mnemonic is then used to derive a seed. 
 The seed is then used to encrypt the user's keychain. 
 
-When a user logs into Scatter either they can decrypt the AES-128-GCM encrypted keychain stored in the local storage, or they can not. 
+When a user logs into Gold either they can decrypt the AES-128-GCM encrypted keychain stored in the local storage, or they can not. 
 That is their password verification, nullifying the need for the hash to be stored in local storage and removing the ability to use the hash to find the password.
 
 **It is important to state that the password itself is always the easiest attack vector. Short, guessable passwords should never be used.**
@@ -564,14 +564,14 @@ That is their password verification, nullifying the need for the hash to be stor
 Contributions are always welcome. 
 
 For feature requests, user experience suggestions, or anything else take a look at the
-[existing issues](https://github.com/EOSEssentials/Scatter/issues) and if not already tracked feel free to
-[create a new one](https://github.com/EOSEssentials/Scatter/issues/new) (requires Github account, free to sign up).
+[existing issues](https://github.com/EOSEssentials/Gold/issues) and if not already tracked feel free to
+[create a new one](https://github.com/EOSEssentials/Gold/issues/new) (requires Github account, free to sign up).
 
 If you are a developer there's a few stipulations to contributing.
 
 * **Never** use the `npm run build` command if you plan on submitting changes. 
   This will cause a compilation of the zip file and will make it so your branch/pull-request cannot
-  be merged due to binary conflicts that cannot be resolved on GitHub. When a new build is ready for the public an official Scatter maintainer will pull the latest 
+  be merged due to binary conflicts that cannot be resolved on GitHub. When a new build is ready for the public an official Gold maintainer will pull the latest 
   master and rebuild the zip file.
   
 * _Keep things verbose._ This repo is not only read by developers but also non-developers that simply want
@@ -586,15 +586,15 @@ early stages. If you see something you can instantly fix feel free to do so. If 
 you may also add a //TODO: but be aware that it might cause your pull request to not be merged because of 
 the lack of complete functionality in the future.
   
-__If you have any questions or would like to chat with the Scatter team or others who are involved in
-the project you can join us on [Telegram](https://t.me/Scatter)__
+__If you have any questions or would like to chat with the Gold team or others who are involved in
+the project you can join us on [Telegram](https://t.me/Gold)__
 
 
 ## Responsible Disclosure and Bug Bounties
 
-Please do not post security centric bugs inside of issues. Send them directly to scatter.eos@gmail.com and they will be handled promptly. 
+Please do not post security centric bugs inside of issues. Send them directly to gold.eos@gmail.com and they will be handled promptly. 
 
-Bug bounties will be valued and paid out on a case-to-case basis. Though keep in mind that at the moment Scatter is not a funded project and the bounties might not be very substantial. 
+Bug bounties will be valued and paid out on a case-to-case basis. Though keep in mind that at the moment Gold is not a funded project and the bounties might not be very substantial. 
 
 
 

@@ -153,7 +153,7 @@ export default class EOS extends Plugin {
             const chainId = network.hasOwnProperty('chainId') && network.chainId.length ? network.chainId : _options.chainId;
             network.chainId = chainId;
 
-            // The proxy stands between the eosjs object and scatter.
+            // The proxy stands between the eosjs object and gold.
             // This is used to add special functionality like adding `requiredFields` arrays to transactions
             return proxy(_eos({httpEndpoint, chainId}), {
                 get(eosInstance, method) {
@@ -168,7 +168,7 @@ export default class EOS extends Plugin {
                         requiredFields = IdentityRequiredFields.fromJson(requiredFields ? requiredFields.requiredFields : {});
                         if(!requiredFields.isValid()) throw Error.malformedRequiredFields();
 
-                        // The signature provider which gets elevated into the user's Scatter
+                        // The signature provider which gets elevated into the user's Gold
                         const signProvider = async signargs => {
                             throwIfNoIdentity();
 

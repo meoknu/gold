@@ -9,8 +9,10 @@
             <cin :placeholder="locale(langKeys.PLACEHOLDER_PublicKey)" :disabled="true" :text="keypair.publicKey" v-on:changed="changed => bind(changed, 'publicKey')"></cin>
             <cin type="password" :placeholder="locale(langKeys.PLACEHOLDER_PrivateKey)" @changed="makePublicKey" :text="keypair.privateKey" v-on:changed="changed => bind(changed, 'privateKey')"></cin>
             <btn :text="locale(langKeys.BUTTON_GenerateKeyPair)" @click.native="generateKeyPair()" margined="true"></btn>
-            <btn :text="locale(langKeys.GENERIC_Save)" :is-blue="true" half="true" @click.native="saveKeyPair()" margined="true"></btn>
-            <btn :text="locale(langKeys.BUTTON_Copy)" half="true" @click.native="copyKeyPair()" margined="true"></btn>
+            <div style="display: flex;justify-content: space-between;">
+                <btn :text="locale(langKeys.GENERIC_Save)" :is-blue="true" half="true" @click.native="saveKeyPair()" margined="true"></btn>
+                <btn :text="locale(langKeys.BUTTON_Copy)" half="true" @click.native="copyKeyPair()" margined="true"></btn>
+            </div>
         </section>
 
         <!-- INPUT FIELD USED FOR COPYING -->
@@ -24,7 +26,7 @@
     import * as Actions from '../store/constants';
     import {RouteNames} from '../vue/Routing'
     import Network from '../models/Network'
-    import Scatter from '../models/Scatter'
+    import Gold from '../models/Gold'
     import AlertMsg from '../models/alerts/AlertMsg'
     import * as AlertTypes from '../models/alerts/AlertTypes'
     import IdentityService from '../services/IdentityService'
@@ -42,7 +44,7 @@
         }},
         computed: {
             ...mapState([
-                'scatter'
+                'gold'
             ]),
             ...mapGetters([
                 'networks'
@@ -103,7 +105,7 @@
                 })
             },
             ...mapActions([
-                Actions.UPDATE_STORED_SCATTER,
+                Actions.UPDATE_STORED_GOLD,
                 Actions.PUSH_ALERT
             ])
         }
@@ -112,7 +114,7 @@
 
 <style lang="scss">
     .network {
-        font-family:'Open Sans', sans-serif;
+        font-family:'Ubuntu', sans-serif;
 
 
 
@@ -124,8 +126,11 @@
             }
 
             .header {
-                color:#cecece;
-                font-size:11px;
+                // color:#cecece;
+                // font-size:11px;
+                color: #505050;
+                font-size: 15px;
+                text-transform: uppercase;
                 padding-bottom:5px;
                 margin-top:-5px;
                 margin-bottom:10px;
@@ -133,8 +138,9 @@
             }
 
             .sub-header {
-                color:#aeaeae;
-                font-size:9px;
+                // color:#aeaeae;
+                color:#757575;
+                font-size:13px;
                 margin-bottom:20px;
 
                 &.blue {

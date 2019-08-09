@@ -37,7 +37,7 @@
         },
         computed: {
             ...mapState([
-                'scatter'
+                'gold'
             ]),
             ...mapGetters([
                 'permissions'
@@ -54,7 +54,7 @@
                     }, {})
             },
             ...mapActions([
-                Actions.UPDATE_STORED_SCATTER
+                Actions.UPDATE_STORED_GOLD
             ])
         }
     }
@@ -105,7 +105,7 @@
                 display:inline-block;
                 font-size:16px;
                 color:#656565;
-                font-family:'Raleway',sans-serif;
+                font-family:'Ubuntu',sans-serif;
                 font-weight:300;
             }
         }

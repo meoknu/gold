@@ -110,7 +110,7 @@
         }},
         computed: {
             ...mapState([
-                'scatter',
+                'gold',
                 'prompt'
             ]),
             ...mapGetters([
@@ -154,7 +154,7 @@
                 NotificationService.close();
             },
             ...mapActions([
-                Actions.UPDATE_STORED_SCATTER,
+                Actions.UPDATE_STORED_GOLD,
                 Actions.PUSH_ALERT,
                 Actions.PUSH_PROMPT
             ])

@@ -51,11 +51,11 @@ export default {
     [KEYS.BUTTON_SetAsDefaultLocation]:'기본 지역으로 설정',
     [KEYS.BUTTON_RemoveLocation]:'지역 삭제',
     [KEYS.BUTTON_ChangePassword]:'패스워드 변경',
-    [KEYS.BUTTON_DestroyScatter]:'스캐터 삭제',
-    [KEYS.BUTTON_CreateNewScatter]:'새 스캐터 생성',
+    [KEYS.BUTTON_DestroyGold]:'스캐터 삭제',
+    [KEYS.BUTTON_CreateNewGold]:'새 스캐터 생성',
     [KEYS.BUTTON_LoadFromBackup]:'백업정보 불러오기',
     [KEYS.BUTTON_Unlock]:'잠금 해제',
-    [KEYS.BUTTON_ExportScatter]:'스캐터 내보내기',
+    [KEYS.BUTTON_ExportGold]:'스캐터 내보내기',
     [KEYS.BUTTON_GenerateKeyPair]:'키 쌍 생성',
     [KEYS.BUTTON_Validate]:'유효성 검사',
     [KEYS.BUTTON_Copy]:'복사',
@@ -317,7 +317,7 @@ export default {
         `신원을 공개하고 싶지 않으면 거부 버튼을 누르십시오. 그렇지 않으면 이 요청을 승인하기 위해 신원을 선택해야합니다.`
     ],
     //2
-    [KEYS.PROMPT_DestroyingScatter]:[
+    [KEYS.PROMPT_DestroyingGold]:[
         '스캐터 제거',
 
         '백업을 다시 확인할 수 있는 마지막 기회입니다.'
@@ -428,7 +428,7 @@ export default {
         `여러분이 여러개의 지역을 가지고 있다면, 트랜잭션은 여러분이 항상 표시해야 할 지역을 요구합니다.`
     ],
     //4
-    [KEYS.REQUEST_ScatterIsLocked]:[
+    [KEYS.REQUEST_GoldIsLocked]:[
         `여러분의 스캐터는 잠금상태입니다!`,
 
         `스캐터를 사용하기 전 잠금을 해제해야 합니다.`,

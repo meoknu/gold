@@ -58,14 +58,14 @@ export default class KeyPairService {
     static saveKeyPair(keypair, context, callback){
         if(!keypair.name.length) return context[Actions.PUSH_ALERT](AlertMsg.BadKeyPairName());
 
-        const scatter = context.scatter.clone();
-        if(scatter.keychain.getKeyPair(keypair))
+        const gold = context.gold.clone();
+        if(gold.keychain.getKeyPair(keypair))
             return context[Actions.PUSH_ALERT](AlertMsg.KeyPairExists());
-        if(scatter.keychain.getKeyPairByName(keypair.name))
+        if(gold.keychain.getKeyPairByName(keypair.name))
             return context[Actions.PUSH_ALERT](AlertMsg.KeyPairExists());
 
-        scatter.keychain.keypairs.push(keypair);
-        context[Actions.UPDATE_STORED_SCATTER](scatter).then(() => callback());
+        gold.keychain.keypairs.push(keypair);
+        context[Actions.UPDATE_STORED_GOLD](gold).then(() => callback());
     }
     
 }

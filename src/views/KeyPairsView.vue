@@ -7,18 +7,31 @@
 
         <search v-on:changed="changed => bind(changed, 'searchText')"></search>
 
-        <section class="p20 scroller with-search" v-if="keypairs.length">
+        <section class="scroller with-search" v-if="keypairs.length">
             <section v-for="keypair in filterBySearch()" class="panel-box">
 
                 <!-- Header -->
                 <section class="panel">
-                    <figure class="header big"><i class="fa fa-globe"></i>{{keypair.name}}</figure>
-                    <figure class="header small margin"><i class="fa fa-globe"></i>{{keypair.publicKey.substr(0,12)}}...</figure>
-                    <figure class="header small margin"><i class="fa fa-plug"></i>{{keypair.blockchain.toUpperCase()}}</figure>
+                    <figure class="header big">
+                        <!-- <i class="fa fa-globe"></i> -->
+                        {{keypair.name}}
+                    </figure>
+                    <!-- <figure class="header small margin"> -->
+                        <!-- <i class="fa fa-globe"></i> -->
+                        <!-- {{keypair.publicKey}} -->
+                        <!-- {{keypair.publicKey.substr(0,12)}}... -->
+                    <!-- </figure> -->
+                    <!-- <figure class="header big margin"> -->
+                    <figure class="header big">
+                        <i class="fa fa-plug"></i>
+                        {{keypair.blockchain.toUpperCase()}}
+                    </figure>
                 </section>
 
                 <!-- Actions -->
                 <section class="panel">
+                    <!-- <input type="text" v-model="keypair.publicKey"> -->
+                    <!-- <cin type="text" :text="keypair.publicKey" style="width: calc(100% - 80px);"></cin> -->
                     <section class="actions">
                         <figure class="action blue" v-on:click="copyKeypair(keypair)"><i class="fa fa-copy"></i></figure>
                         <figure class="action red right" v-on:click="deleteKeypair(keypair)"><i class="fa fa-ban"></i></figure>
@@ -42,7 +55,7 @@
     import { mapActions, mapGetters, mapState } from 'vuex'
     import * as Actions from '../store/constants';
     import {RouteNames} from '../vue/Routing'
-    import Scatter from '../models/Scatter'
+    import Gold from '../models/Gold'
     import AlertMsg from '../models/alerts/AlertMsg'
 
     export default {
@@ -51,7 +64,7 @@
         }},
         computed: {
             ...mapState([
-                'scatter'
+                'gold'
             ]),
             ...mapGetters([
                 'keypairs',
@@ -77,10 +90,10 @@
                 this[Actions.PUSH_ALERT](AlertMsg.DeletingKeyPair(usedInIdentities.map(id => id.name))).then(accepted => {
                     if(!accepted || !accepted.hasOwnProperty('accepted')) return false;
 
-                    const scatter = this.scatter.clone();
+                    const gold = this.gold.clone();
                     if(usedInIdentities.length){
                         usedInIdentities.map(_id => {
-                            const id = scatter.keychain.identities.find(x => x.publicKey === _id.publicKey)
+                            const id = gold.keychain.identities.find(x => x.publicKey === _id.publicKey)
                             // Remove account from identities
                             Object.keys(id.accounts).map(network => {
                                 if(id.accounts[network].publicKey === keypair.publicKey)
@@ -88,15 +101,15 @@
                             });
 
                             // Remove permissions
-                            scatter.keychain.removePermissionsByKeypair(keypair);
+                            gold.keychain.removePermissionsByKeypair(keypair);
                         });
                     }
-                    scatter.keychain.removeKeyPair(keypair);
-                    this[Actions.UPDATE_STORED_SCATTER](scatter).then(() => {});
+                    gold.keychain.removeKeyPair(keypair);
+                    this[Actions.UPDATE_STORED_GOLD](gold).then(() => {});
                 });
             },
             ...mapActions([
-                Actions.UPDATE_STORED_SCATTER,
+                Actions.UPDATE_STORED_GOLD,
                 Actions.PUSH_ALERT,
             ])
         }

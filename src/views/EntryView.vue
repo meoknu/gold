@@ -1,14 +1,14 @@
 <template>
     <section>
-        <section v-if="!scatter.settings.hasEncryptionKey">
+        <section v-if="!gold.settings.hasEncryptionKey">
             <section class="p20">
                 <form v-on:submit.prevent="create">
                   <cin icon="fa-lock" :placeholder="locale(langKeys.PLACEHOLDER_NewPassword)" type="password" v-on:changed="changed => bind(changed, 'password')"></cin>
                   <cin icon="fa-lock" :placeholder="locale(langKeys.PLACEHOLDER_ConfirmPassword)" type="password" v-on:changed="changed => bind(changed, 'passwordConfirmation')"></cin>
-                  <btn :text="locale(langKeys.BUTTON_CreateNewScatter)" type="submit" margined="true"></btn>
+                  <btn :text="locale(langKeys.BUTTON_CreateNewGold)" type="submit" margined="true"></btn>
                 </form>
             </section>
-            <figure class="line"></figure>
+            <figure class="line" style="background: #efefef"></figure>
             <section class="p20">
                 <btn :text="locale(langKeys.BUTTON_LoadFromBackup)" v-on:clicked="importKeychain"></btn>
             </section>
@@ -35,14 +35,14 @@
 
     export default {
         data(){ return {
-            password:'',
-            passwordConfirmation:'',
-            scat:this.scatter,
+            password:'123456789',
+            passwordConfirmation:'123456789',
+            scat:this.gold,
             hiding:true,
         }},
         computed: {
             ...mapState([
-                'scatter',
+                'gold',
                 'mnemonic'
             ])
         },
@@ -55,13 +55,13 @@
             bind(changed, original) { this[original] = changed },
             create(){
                 if(AuthenticationService.validPassword(this.password, this.passwordConfirmation, this))
-                    this[Actions.CREATE_NEW_SCATTER](this.password).then(() => this.next());
+                    this[Actions.CREATE_NEW_GOLD](this.password).then(() => this.next());
             },
             unlock(){
                 this.hiding = true;
                 setTimeout(() => {
                     AuthenticationService.verifyPassword(this.password, this).then(() => {
-                        this[Actions.LOAD_SCATTER]().then(() => setTimeout(() => this.next(), 100));
+                        this[Actions.LOAD_GOLD]().then(() => setTimeout(() => this.next(), 100));
                     }).catch(() => this.hiding = false);
                 }, 200)
             },
@@ -73,10 +73,10 @@
                 else this.$router.push({name:RouteNames.MAIN_MENU});
             },
             ...mapActions([
-                Actions.CREATE_NEW_SCATTER,
+                Actions.CREATE_NEW_GOLD,
                 Actions.SET_SEED,
                 Actions.IS_UNLOCKED,
-                Actions.LOAD_SCATTER,
+                Actions.LOAD_GOLD,
                 Actions.PUSH_ALERT
             ])
         },

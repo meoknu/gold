@@ -13,7 +13,7 @@
         <section class="panel" v-else>
             <figure class="header">{{locale(langKeys.DESTROY_Header)}}</figure>
             <figure class="sub-header">{{locale(langKeys.DESTROY_Description)}}</figure>
-            <btn v-on:clicked="destroy" :text="locale(langKeys.BUTTON_DestroyScatter)" is-red="true" :margined="true"></btn>
+            <btn v-on:clicked="destroy" :text="locale(langKeys.BUTTON_DestroyGold)" is-red="true" :margined="true"></btn>
         </section>
 
     </section>
@@ -39,7 +39,7 @@
         }},
         computed: {
             ...mapState([
-                'scatter'
+                'gold'
             ]),
             ...mapGetters([
 
@@ -53,7 +53,7 @@
                 });
             },
             destroy(){
-                this[Actions.PUSH_ALERT](AlertMsg.DestroyingScatter()).then(res => {
+                this[Actions.PUSH_ALERT](AlertMsg.DestroyingGold()).then(res => {
                     if(!res || !res.hasOwnProperty('accepted')) return false;
 //                    this[Actions.DESTROY]().then(() => this.$router.push({name:RouteNames.ENTRY}));
                     this[Actions.DESTROY]().then(() => window.close());
@@ -76,7 +76,7 @@
         margin-right:15px;
     }
     .backup {
-        font-family:'Open Sans', sans-serif;
+        font-family:'Ubuntu', sans-serif;
 
         .panel {
             padding:20px;
@@ -86,8 +86,9 @@
             }
 
             .header {
-                color:#cecece;
-                font-size:11px;
+                color: #505050;
+                font-size: 15px;
+                text-transform: uppercase;
                 padding-bottom:5px;
                 margin-top:-5px;
                 margin-bottom:10px;
@@ -95,8 +96,8 @@
             }
 
             .sub-header {
-                color:#aeaeae;
-                font-size:9px;
+                color:#757575;
+                font-size:13px;
                 margin-bottom:20px;
             }
         }

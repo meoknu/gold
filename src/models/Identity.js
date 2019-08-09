@@ -43,7 +43,7 @@ export const IdentityBaseFields = {
 
 /*
 //EXAMPLE
-scatter.getIdentity({
+gold.getIdentity({
     personal:['email'],
     accounts:[
         {blockchain:Blockchains.EOS,network:{chainId:1}},

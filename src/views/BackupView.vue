@@ -15,7 +15,7 @@
             <figure class="sub-header">{{locale(langKeys.BACKUP_Description)}}</figure>
 
             <a id="KEYCHAIN_DOWNLOAD">
-                <btn v-on:clicked="exportBackup" :text="locale(langKeys.BUTTON_ExportScatter)" is-red="true" :margined="true"></btn>
+                <btn v-on:clicked="exportBackup" :text="locale(langKeys.BUTTON_ExportGold)" is-red="true" :margined="true"></btn>
             </a>
         </section>
 
@@ -41,7 +41,7 @@
         }},
         computed: {
             ...mapState([
-                'scatter'
+                'gold'
             ]),
             ...mapGetters([
 
@@ -58,10 +58,10 @@
                 const [mnemonic, seed] = await Mnemonic.generateMnemonic(this.password);
                 if(!seed) return false;
 
-                const scatter = this.scatter.clone();
-                let filetext = AES.encrypt(scatter, seed);
+                const gold = this.gold.clone();
+                let filetext = AES.encrypt(gold, seed);
                 filetext += `|SSLT|${await StorageService.getSalt()}`;
-                const filename = `scatter_${+new Date()}.scatter_backup.txt`;
+                const filename = `gold_${+new Date()}.gold_backup.txt`;
                 this.save(filename, filetext);
             },
             save(filename, data) {
@@ -89,7 +89,7 @@
         margin-right:15px;
     }
     .backup {
-        font-family:'Open Sans', sans-serif;
+        font-family:'Ubuntu', sans-serif;
 
         .panel {
             padding:20px;
@@ -99,8 +99,11 @@
             }
 
             .header {
-                color:#cecece;
-                font-size:11px;
+                // color:#cecece;
+                // font-size:11px;
+                color: #505050;
+                font-size: 15px;
+                text-transform: uppercase;
                 padding-bottom:5px;
                 margin-top:-5px;
                 margin-bottom:10px;
@@ -108,8 +111,10 @@
             }
 
             .sub-header {
-                color:#aeaeae;
-                font-size:9px;
+                // color:#aeaeae;
+                // font-size:9px;
+                color:#757575;
+                font-size:13px;
                 margin-bottom:20px;
             }
         }

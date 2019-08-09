@@ -76,7 +76,7 @@
 
             .type {
                 color:#4f4f4f;
-                font-family: 'Raleway', sans-serif;
+                font-family: 'Ubuntu', sans-serif;
                 font-size:14px;
                 font-weight:bold;
             }

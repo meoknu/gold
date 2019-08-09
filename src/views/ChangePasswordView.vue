@@ -41,7 +41,7 @@
         }},
         computed: {
             ...mapState([
-                'scatter'
+                'gold'
             ]),
             ...mapGetters([
 
@@ -59,7 +59,7 @@
                     AuthenticationService.changePassword(this.currentPassword, this.newPassword, this)
             },
             ...mapActions([
-                Actions.UPDATE_STORED_SCATTER,
+                Actions.UPDATE_STORED_GOLD,
                 Actions.PUSH_ALERT,
                 Actions.SET_SEED,
                 Actions.SET_MNEMONIC,
@@ -76,7 +76,7 @@
         margin-right:15px;
     }
     .backup {
-        font-family:'Open Sans', sans-serif;
+        font-family:'Ubuntu', sans-serif;
 
         .panel {
             padding:20px;
@@ -86,8 +86,9 @@
             }
 
             .header {
-                color:#cecece;
-                font-size:11px;
+                color: #505050;
+                font-size: 15px;
+                text-transform: uppercase;
                 padding-bottom:5px;
                 margin-top:-5px;
                 margin-bottom:10px;
@@ -95,8 +96,8 @@
             }
 
             .sub-header {
-                color:#aeaeae;
-                font-size:9px;
+                color:#757575;
+                font-size:13px;
                 margin-bottom:20px;
             }
         }

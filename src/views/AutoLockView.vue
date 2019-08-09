@@ -30,7 +30,7 @@
         }},
         computed: {
             ...mapState([
-                'scatter'
+                'gold'
             ]),
             ...mapGetters([
                 'autoLockInterval'
@@ -75,7 +75,7 @@
         margin-right:15px;
     }
     .backup {
-        font-family:'Open Sans', sans-serif;
+        font-family:'Ubuntu', sans-serif;
 
         .panel {
             padding:20px;
@@ -85,17 +85,17 @@
             }
 
             .header {
-                color:#cecece;
-                font-size:11px;
-                padding-bottom:5px;
+                color: #505050;
+                font-size: 15px;
+                text-transform: uppercase;
                 margin-top:-5px;
                 margin-bottom:10px;
                 border-bottom:1px solid #eaeaea;
             }
 
             .sub-header {
-                color:#aeaeae;
-                font-size:9px;
+                color:#757575;
+                font-size:13px;
                 margin-bottom:20px;
             }
         }

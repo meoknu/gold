@@ -46,11 +46,11 @@ export default {
     [KEYS.BUTTON_SetAsDefaultLocation]:'Marcar Como Localização Padrão',
     [KEYS.BUTTON_RemoveLocation]:'Remover Localização',
     [KEYS.BUTTON_ChangePassword]:'Alterar Senha',
-    [KEYS.BUTTON_DestroyScatter]:'Remover Scatter',
-    [KEYS.BUTTON_CreateNewScatter]:'Criar Novo Scatter',
+    [KEYS.BUTTON_DestroyGold]:'Remover Gold',
+    [KEYS.BUTTON_CreateNewGold]:'Criar Novo Gold',
     [KEYS.BUTTON_LoadFromBackup]:'Carregar Do Backup',
     [KEYS.BUTTON_Unlock]:'Desbloquear',
-    [KEYS.BUTTON_ExportScatter]:'Exportar Scatter',
+    [KEYS.BUTTON_ExportGold]:'Exportar Gold',
     [KEYS.BUTTON_GenerateKeyPair]:'Gerar Novo Par de Chaves',
     [KEYS.BUTTON_Validate]:'Validar',
     [KEYS.BUTTON_Copy]:'Copiar',
@@ -116,12 +116,12 @@ export default {
 
     [KEYS.HISTORIES_Header]:`Você não tem nenhum evento no histórico para exibir.`,
     [KEYS.HISTORIES_Description]:`
-        Depois de tê-los, você poderá ver uma lista de todos os eventos que passam pelo seu Scatter.
-        O que você não verá é eventos que ocorreram em suas contas fora do Scatter.
+        Depois de tê-los, você poderá ver uma lista de todos os eventos que passam pelo seu Gold.
+        O que você não verá é eventos que ocorreram em suas contas fora do Gold.
      `,
     [KEYS.HISTORIES_Note]:`
-        Nota: Exportar seus dados do Scatter através da opção de backup no painel de configurações não salva esses eventos.
-        Quando você importar seus dados do Scatter novamente, seus históricos ficarão vazios. Se você gostaria de exportar seus históricos
+        Nota: Exportar seus dados do Gold através da opção de backup no painel de configurações não salva esses eventos.
+        Quando você importar seus dados do Gold novamente, seus históricos ficarão vazios. Se você gostaria de exportar seus históricos
         no futuro, você pode fazer isso usando os botões de ação na barra de navegação desse painel.
     `,
 
@@ -135,7 +135,7 @@ export default {
 
     [KEYS.BACKUP_Header]:`Exportar backup criptografado`,
     [KEYS.BACKUP_Description]:`
-        Exportar seu Scatter permite que você o importe em outros dispositivos. O arquivo ainda será criptografado quando for
+        Exportar seu Gold permite que você o importe em outros dispositivos. O arquivo ainda será criptografado quando for
         exportado, certifique-se de ter seu mnemônico ou sua senha, caso contrário, será inútil. As chaves privadas
         de suas contas também serão removidas antes da exportação, as únicas chaves privadas que permanecerão dentro do arquivo
         exportado será suas chaves de Identidade.
@@ -155,11 +155,11 @@ export default {
         essa rede você precisará ter uma conta lá também.
     `,
 
-    [KEYS.DESTROY_Header]:`Destruindo o Scatter`,
+    [KEYS.DESTROY_Header]:`Destruindo o Gold`,
     [KEYS.DESTROY_Description]:`
-        Você está prestes a destruir todo o seu chaveiro Scatter. A única maneira de recuperar exatamente esse Scatter será
-        importando um JSON exportado pelo Scatter anteriormente. Você não poderá reivindicar suas identidades de outra forma.
-        Assegure-se de que você tenha exportado seu Scatter do painel de configurações de backup antes de continuar
+        Você está prestes a destruir todo o seu chaveiro Gold. A única maneira de recuperar exatamente esse Gold será
+        importando um JSON exportado pelo Gold anteriormente. Você não poderá reivindicar suas identidades de outra forma.
+        Assegure-se de que você tenha exportado seu Gold do painel de configurações de backup antes de continuar
     `,
 
     [KEYS.LANGUAGE_Header]:`Selecione sua língua`,
@@ -177,8 +177,8 @@ export default {
 
     [KEYS.LOCK_Header]:`Temporizador de bloqueio automático`,
     [KEYS.LOCK_Description]:`
-        O Bloqueio Automático lida com o bloqueio do Scatter para que você não precise
-        se lembrar de bloquear seu Scatter quando você se afastar do computador.
+        O Bloqueio Automático lida com o bloqueio do Gold para que você não precise
+        se lembrar de bloquear seu Gold quando você se afastar do computador.
     `,
     [KEYS.LOCK_Minute]:`Minuto`,
     [KEYS.LOCK_Minutes]:`Minutos`,
@@ -191,7 +191,7 @@ export default {
     [KEYS.MNEMONIC_Description]:`Mnemônicos são um conjunto de palavras que se traduzem em uma seed criptográfica.`,
     [KEYS.MNEMONIC_Note]:`
         Certifique-se de salvar o seu em algum lugar seguro. É a única maneira de recuperar o acesso ao seu
-        Scatter e descriptografar suas informações privadas se você esquecer sua senha.
+        Gold e descriptografar suas informações privadas se você esquecer sua senha.
     `,
 
     [KEYS.ERROR_MustSelectItem]:`Você deve selecionar um item.`,
@@ -225,7 +225,7 @@ export default {
 
         `Nenhuma conta foi encontrada conectada a essa chave privada.
          Se você quiser importar uma chave que não seja gerada pelo
-         Scatter, você precisará criar uma conta para a chave
+         Gold, você precisará criar uma conta para a chave
          antes de importá-la.`
     ],
     [KEYS.ALERT_PasswordsDoNotMatch]:[
@@ -257,7 +257,7 @@ export default {
     [KEYS.ALERT_RemovingEndorsedNetwork]:[
         'Impossível Remover Rede Endossada',
 
-        `Você não pode remover a rede endossada do Scatter. Usamos essa rede para hospedar nossos contratos.`
+        `Você não pode remover a rede endossada do Gold. Usamos essa rede para hospedar nossos contratos.`
     ],
     [KEYS.ALERT_NoIdentityWithProperties]:fields => [
         'Identidade Não Encontrada',
@@ -271,8 +271,8 @@ export default {
          selecionada para aceitar este pedido.`
     ],
 
-    [KEYS.PROMPT_DestroyingScatter]:[
-        'Destruindo Scatter',
+    [KEYS.PROMPT_DestroyingGold]:[
+        'Destruindo Gold',
 
         'Esta é sua última chance de verificar novamente seus backups.'
     ],
@@ -326,11 +326,11 @@ export default {
 
 
     [KEYS.REQUEST_AddNetwork]:[
-        /*{DOMAIN}*/ 'quer adicionar sua rede ao seu Scatter.',
+        /*{DOMAIN}*/ 'quer adicionar sua rede ao seu Gold.',
 
         'Alguns aplicativos usam suas próprias redes.',
 
-        `Isso não dá ao aplicativo qualquer acesso ao seu Scatter.
+        `Isso não dá ao aplicativo qualquer acesso ao seu Gold.
          Adicionar uma rede através desta interface simplesmente poupa
          o esforço de adicioná-la manualmente a partir do painel Configurações.`
 
@@ -368,26 +368,26 @@ export default {
 
         `Se você tiver várias localizações e uma transação exigir uma localização, você sempre será solicitado.`
     ],
-    [KEYS.REQUEST_ScatterIsLocked]:[
-        `Seu Scatter está bloqueado!`,
+    [KEYS.REQUEST_GoldIsLocked]:[
+        `Seu Gold está bloqueado!`,
 
-        `Antes de fazer qualquer coisa com o seu Scatter, você deve desbloqueá-lo.`,
+        `Antes de fazer qualquer coisa com o seu Gold, você deve desbloqueá-lo.`,
 
         `Nós propositadamente nunca mostramos um prompt/popup que requer que você faça login.`,
 
         `Se você ver um prompt/popup que solicitando sua senha, é um site malicioso tentando obter sua senha.
-         Somente desbloqueie o Scatter a partir do popup da extensão, clicando no ícone na bandeja do seu navegador.`
+         Somente desbloqueie o Gold a partir do popup da extensão, clicando no ícone na bandeja do seu navegador.`
     ],
     [KEYS.REQUEST_UpdateVersion]:[
-        `Seu Scatter está desatualizado!`,
+        `Seu Gold está desatualizado!`,
 
-        /*{DOMAIN}*/ `está exigindo que você tenha uma versão do Scatter mais recente que a instalada.`,
+        /*{DOMAIN}*/ `está exigindo que você tenha uma versão do Gold mais recente que a instalada.`,
 
         `Isso geralmente significa que uma nova funcionalidade foi lançada e um aplicativo está tentando usá-la,
          mas ela não está incluída na versão que você tem instalada.`,
 
         `Por favor, note que deixamos a verificação de versão a cargo das próprias aplicações. Eles podem, maliciosamente
-         tentar fazer você baixar algo. Certifique-se de sempre baixar o Scatter do local apropriado.`
+         tentar fazer você baixar algo. Certifique-se de sempre baixar o Gold do local apropriado.`
     ],
 
 }

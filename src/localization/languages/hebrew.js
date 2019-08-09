@@ -51,11 +51,11 @@ export default {
     [KEYS.BUTTON_SetAsDefaultLocation]:'קבע כמיקום ברירת מחדל',
     [KEYS.BUTTON_RemoveLocation]:'הסר מיקום',
     [KEYS.BUTTON_ChangePassword]:'שנה סיסמה',
-    [KEYS.BUTTON_DestroyScatter]:'חסל את סְקַטֵר',
-    [KEYS.BUTTON_CreateNewScatter]:'צור סְקַטֵר חדש',
+    [KEYS.BUTTON_DestroyGold]:'חסל את סְקַטֵר',
+    [KEYS.BUTTON_CreateNewGold]:'צור סְקַטֵר חדש',
     [KEYS.BUTTON_LoadFromBackup]:'טען מגיבוי',
     [KEYS.BUTTON_Unlock]:'פתח נעילה',
-    [KEYS.BUTTON_ExportScatter]:'יצא סְקַטֵר',
+    [KEYS.BUTTON_ExportGold]:'יצא סְקַטֵר',
     [KEYS.BUTTON_GenerateKeyPair]:'צור זוג מפתחות',
     [KEYS.BUTTON_Validate]:'וודא',
     [KEYS.BUTTON_Copy]:'העתק',
@@ -316,7 +316,7 @@ export default {
          לאשר את הבקשה הזו.`
     ],
     //2
-    [KEYS.PROMPT_DestroyingScatter]:[
+    [KEYS.PROMPT_DestroyingGold]:[
         'משמיד את סְקַטֵר',
         'זו ההזדמנות האחרונה שלך לוודא שיש לך גיבויים מתאימים.'
     ],
@@ -431,7 +431,7 @@ export default {
     ],
     // סְקַטֵר
     //4
-    [KEYS.REQUEST_ScatterIsLocked]:[
+    [KEYS.REQUEST_GoldIsLocked]:[
         `הסְקַטֵר שלך נעול!`,
 
         `לפני שתוכל להשתמש בסְקַטֵר שלך תצטרך לשחרר את הנעילה.`,

@@ -4,6 +4,7 @@
             <section class="head">
                 <figure class="header">{{alerts[0].header}}</figure>
                 <figure class="sub-header">
+                    <i v-if="alerts[0].type == 'error'" class="fa" :class="'fa-close'"></i>
                     {{locale(langKeys.ALERT_Type)(alerts[0].type)}}
                 </figure>
             </section>
@@ -126,7 +127,7 @@
         background:rgba(73, 73, 73, 0);
         opacity:0;
         visibility: hidden;
-        font-family:'Open Sans', sans-serif;
+        font-family:'Ubuntu', sans-serif;
         padding:20px;
         transition:all 0.2s ease;
         transition-property: background, opacity, visibility;
@@ -155,7 +156,7 @@
                 flex-direction: column;
                 justify-content: center;
                 text-align:center;
-                height:160px;
+                height:120px;
                 padding:50px;
 
                 .header {
@@ -165,8 +166,10 @@
                 }
 
                 .sub-header {
-                    font-size:9px;
-                    color:#a0a0a0;
+                    // font-size:9px;
+                    // color:#a0a0a0;
+                    font-size: 20px;
+                    color: #e05151;
                 }
             }
 
@@ -176,8 +179,14 @@
                 padding:15px;
 
                 .description {
-                    font-size:12px;
-                    color:#a0a0a0;
+                    // font-size:12px;
+                    // color:#a0a0a0;
+                    // font-size: 12px;
+                    // color: #a0a0a0;
+                    font-size: 12px;
+                    color: #e05151;
+                    font-weight: 600;
+                    text-shadow: none;
                 }
             }
 
