@@ -183,7 +183,7 @@
                     // color:#a0a0a0;
                     // font-size: 12px;
                     // color: #a0a0a0;
-                    font-size: 12px;
+                    font-size: 15px;
                     color: #e05151;
                     font-weight: 600;
                     text-shadow: none;

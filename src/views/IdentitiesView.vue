@@ -19,17 +19,28 @@
             </figure>
 
         </section>
-        <section v-if="identities.length" class="p20 scroller with-search">
+        <section v-if="identities.length" class="scroller with-search">
+            <!-- <section v-for="identity in filterBySearch()" class="panel-box">
+                <section class="items" v-for="network in Object.keys(identity.accounts)">
+                    <section style="display: flex;justify-content: space-between;font-size: 15px;align-items: center;background-color: #dedede;">
+                        <figure style="min-width: 90px;height: 30px;line-height: 30px;text-align: center;background-color: rgb(230, 230, 230);color: rgb(107, 107, 107);font-size: 11px;font-weight: 700;white-space: nowrap;">{{networkToName(network)}}</figure>
+                        <figure style="width: -webkit-fill-available; font-size: 15px; margin-left: 10px;">{{identity.accounts[network].formatted()}}</figure>
+                        <figure class="action blue" style="height: 30px;width: 44px;line-height: 30px;text-align: center;color: rgb(255, 255, 255);background-color: rgb(148, 148, 148);"><i class="fa fa-copy"></i></figure>
+                        <figure class="action blue" style="height: 30px;width: 44px;line-height: 30px;text-align: center;color: rgb(255, 255, 255);background-color: rgb(252, 142, 142);"><i class="fa fa-close"></i></figure>
+                    </section>
+                    <section>
+                        <section>
+                            <cin type="text" ></cin>
+                        </section>
+                    </section>
+                </section>
+            </section> -->
             <section v-for="identity in filterBySearch()" class="panel-box">
-
-                <!-- Header -->
                 <section class="panel">
                     <figure class="header big">{{identity.name}}</figure>
                 </section>
-
-                <!-- Account information -->
                 <section class="panel" v-if="Object.keys(identity.accounts).length">
-                    <figure class="header small reverse-margin">accounts</figure>
+                    <!-- <figure class="header small reverse-margin">accounts</figure> -->
                     <section class="items" v-for="network in Object.keys(identity.accounts)">
                         <section class="item">
                             <span>{{networkToName(network)}}</span>
@@ -52,7 +63,7 @@
                 </section>
 
                 <!-- Personal Information -->
-                <section class="panel" v-if="fullKeysOf(identity.personal).length">
+                <!-- <section class="panel" v-if="fullKeysOf(identity.personal).length">
                     <figure class="header small reverse-margin">personal information</figure>
                     <section class="items">
                         <section class="item" v-for="key in fullKeysOf(identity.personal)">
@@ -60,10 +71,10 @@
                             <span>{{identity.personal[key]}}</span>
                         </section>
                     </section>
-                </section>
+                </section> -->
 
                 <!-- Location Information -->
-                <section class="panel" v-for="location in identity.locations">
+                <!-- <section class="panel" v-for="location in identity.locations">
                     <section v-if="fullKeysOf(location).length">
                         <figure class="header small reverse-margin">location information</figure>
                         <section class="items">
@@ -74,7 +85,7 @@
                             </section>
                         </section>
                     </section>
-                </section>
+                </section> -->
 
                 <!-- Actions -->
                 <section class="panel">
@@ -84,7 +95,7 @@
                             <figure class="action" @click="showingTokens = identity" v-if="!showingTokensFor(identity)"><i class="fa fa-circle-thin"></i></figure>
                             <figure class="action" @click="showingTokens = null" v-else><i class="fa fa-times-circle"></i></figure>
                         </section>
-                        <figure class="action red right" v-on:click="removeIdentity(identity)"><i class="fa fa-minus-square"></i></figure>
+                        <figure class="action red right" v-on:click="removeIdentity(identity)"><i class="fa fa-close"></i></figure>
                     </section>
                 </section>
 

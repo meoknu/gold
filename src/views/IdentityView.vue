@@ -6,10 +6,10 @@
         ]" v-if="!saving" v-on:submit="saveIdentity"></nav-actions>
 
         <!-- Disabling -->
-        <section class="panel" style="background:#fff;" v-if="!isNew">
+        <!-- <section class="panel" style="background:#fff;" v-if="!isNew">
             <figure class="header">{{locale(langKeys.IDENTITY_DisablingHeader)}}</figure>
             <figure class="sub-header" style="margin-bottom:0;">{{locale(langKeys.IDENTITY_DisablingDescription)}}</figure>
-        </section>
+        </section> -->
 
         <!-- Identity Name -->
         <section class="panel">
@@ -64,7 +64,7 @@
         </section>
 
         <!-- Personal Information -->
-        <section class="panel">
+        <!-- <section class="panel">
             <figure class="header">{{locale(langKeys.IDENTITY_PersonalHeader)}}</figure>
             <figure class="sub-header" style="margin-bottom:0;">{{locale(langKeys.IDENTITY_PersonalDescription)}}</figure>
 
@@ -72,19 +72,19 @@
             <cin :placeholder="locale(langKeys.PLACEHOLDER_LastName)" :text="identity.personal.lastname" v-on:changed="changed => bind(changed, 'identity.personal.lastname')"></cin>
             <cin :placeholder="locale(langKeys.PLACEHOLDER_Email)" :text="identity.personal.email" v-on:changed="changed => bind(changed, 'identity.personal.email')"></cin>
             <cin :placeholder="locale(langKeys.PLACEHOLDER_BirthDate)" type="date" :text="identity.personal.birthdate" v-on:changed="changed => bind(changed, 'identity.personal.birthdate')"></cin>
-        </section>
+        </section> -->
 
         <!-- Location Information -->
-        <section class="panel">
+        <!-- <section class="panel">
             <figure class="header">{{locale(langKeys.IDENTITY_LocationHeader)}}</figure>
             <figure class="sub-header">{{locale(langKeys.IDENTITY_LocationDescription)}}</figure>
 
             <btn :text="locale(langKeys.BUTTON_AddNewLocation)" v-on:clicked="addNewLocation"></btn>
             <sel :selected="selectedLocation" :options="identity.locations" :parser="(location) => location.name.length ? location.name : langKeys.PLACEHOLDER_DefaultLocationName"
                  v-on:changed="changed => bind(changed, 'selectedLocation')"></sel>
-        </section>
+        </section> -->
 
-        <section class="panel" v-if="selectedLocation">
+        <!-- <section class="panel" v-if="selectedLocation">
             <btn v-if="!selectedLocation.isDefault" is-blue="true" :text="locale(langKeys.BUTTON_SetAsDefaultLocation)"
                  v-on:clicked="setAsDefaultLocation" :key="locationKey(1)"></btn>
             <cin :placeholder="locale(langKeys.PLACEHOLDER_LocationName)" :text="selectedLocation.name"
@@ -106,7 +106,7 @@
 
             <btn v-if="identity.locations.length > 1" margined="true" is-red="true"
                  :text="locale(langKeys.BUTTON_RemoveLocation)" v-on:clicked="removeSelectedLocation"></btn>
-        </section>
+        </section> -->
 
     </section>
 </template>

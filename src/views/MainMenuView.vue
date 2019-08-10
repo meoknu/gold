@@ -16,7 +16,7 @@
 </template>
 
 <script>
-    import { mapActions, mapGetters, mapState } from 'vuex'
+    import { mapActions, mapGetters, mapState } from 'vuex';
     import * as Actions from '../store/constants';
     import {RouteNames} from '../vue/Routing'
     import * as LANG_KEYS from '../localization/keys';
@@ -31,9 +31,12 @@
             links:[
                 {route:RouteNames.IDENTITIES, name:this.locale(LANG_KEYS.MAINMENU_Identities), icon:'address-book'},
                 {route:RouteNames.KEYS, name:this.locale(LANG_KEYS.MAINMENU_Keys), icon:'key'},
-                {route:RouteNames.PERMISSIONS, name:this.locale(LANG_KEYS.MAINMENU_Permissions), icon:'shield'},
-//                {route:RouteNames.HISTORY, name:this.locale(LANG_KEYS.MAINMENU_History), icon:'history'},
-                {name:this.locale(LANG_KEYS.MAINMENU_Lock), icon:'lock'},
+                // {route:RouteNames.PERMISSIONS, name:this.locale(LANG_KEYS.MAINMENU_Permissions), icon:'shield'},
+                // {route:RouteNames.HISTORY, name:this.locale(LANG_KEYS.MAINMENU_History), icon:'history'},
+                {route:RouteNames.CHANGE_PASSWORD, name:this.locale(LANG_KEYS.SETTINGSMENU_Password), icon:'asterisk'},
+                {route:RouteNames.BACKUP, name:this.locale(LANG_KEYS.SETTINGSMENU_Backup), icon:'save'},
+                {route:RouteNames.DESTROY, name:this.locale(LANG_KEYS.SETTINGSMENU_Destroy), icon:'trash-o'},
+                // {name:this.locale(LANG_KEYS.MAINMENU_Lock), icon:'lock'},
             ]
         }},
         computed: {

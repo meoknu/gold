@@ -25,7 +25,6 @@ export default class Gold {
             port: 443,
             protocol: "https"
         });
-        console.log('hello', json);
         let p = Object.assign(this.placeholder(), json);
         if(json.hasOwnProperty('meta')) p.meta = Meta.fromJson(json.meta);
         if(json.hasOwnProperty('settings')) p.settings = Settings.fromJson(json.settings);

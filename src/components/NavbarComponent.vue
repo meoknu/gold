@@ -7,14 +7,18 @@
             </figure>
             <figure class="route">{{breadcrumb()}}</figure>
         </section>
-        <figure class="settings-button" v-on:click="toggleSettings">
+        <!-- <figure class="settings-button" v-on:click="toggleSettings">
             <i class="fa fa-gear"></i>
+        </figure> -->
+        <figure class="settings-button" v-on:click="lockGold">
+            <i class="fa fa-lock"></i>
         </figure>
     </nav>
 </template>
 
 <script>
-    import { mapActions, mapGetters, mapState } from 'vuex'
+    import { mapActions, mapGetters, mapState } from 'vuex';
+    import * as Actions from '../store/constants';
     import {RouteNames} from '../vue/Routing'
 
     export default {
@@ -34,6 +38,11 @@
                     case RouteNames.SHOW_MNEMONIC: return true;
                     default: return false;
                 }
+            },
+            lockGold(){
+                this[Actions.LOCK]().then(() => {
+                    this.$router.push({name:RouteNames.ENTRY});
+                })
             },
             navState(){
                 switch(this.$route.name){
@@ -70,7 +79,11 @@
             toggleSettings(){
                 if(this.$route.name === RouteNames.SETTINGS) this.back();
                 else this.$router.push({name:RouteNames.SETTINGS})
-            }
+            },
+            ...mapActions([
+                Actions.LOCK,
+                Actions.UPDATE_STORED_GOLD
+            ])
         },
     }
 </script>
