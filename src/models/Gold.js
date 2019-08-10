@@ -17,6 +17,15 @@ export default class Gold {
 
     static placeholder(){ return new Gold(); }
     static fromJson(json){
+        json.settings.networks.find(network => network.chainId == "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473") || json.settings.networks.push({
+            blockchain: "eos",
+            chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473",
+            host: "api.jungle.alohaeos.com",
+            name: "EOS Junglenet",
+            port: 443,
+            protocol: "https"
+        });
+        console.log('hello', json);
         let p = Object.assign(this.placeholder(), json);
         if(json.hasOwnProperty('meta')) p.meta = Meta.fromJson(json.meta);
         if(json.hasOwnProperty('settings')) p.settings = Settings.fromJson(json.settings);

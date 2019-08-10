@@ -13,6 +13,8 @@ export default class Settings {
 
     static placeholder(){ return new Settings(); }
     static fromJson(json){
+        console.log(new Settings());
+        console.log(json);
         let p = Object.assign(this.placeholder(), json);
         if(json.hasOwnProperty('networks')) p.networks = json.networks.map(x => Network.fromJson(x));
         return p;

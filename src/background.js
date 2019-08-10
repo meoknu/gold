@@ -158,6 +158,7 @@ export default class Background {
      */
     static update(sendResponse, gold){
         this.lockGuard(sendResponse, () => {
+            console.log(gold);
             gold = Gold.fromJson(gold);
 
             // Private Keys are always separately encrypted
