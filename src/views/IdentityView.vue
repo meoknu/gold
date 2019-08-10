@@ -15,7 +15,7 @@
         <section class="panel">
             <figure class="header">{{locale(langKeys.IDENTITY_NameHeader)}}</figure>
             <figure class="sub-header" style="margin-bottom:0;">{{locale(langKeys.IDENTITY_NameDescription)}}</figure>
-            <cin v-if="identity.ridl > 0 || !registeringIdentity" :text="identity.name" v-on:changed="changed => bind(changed, 'identity.name')" :disabled="true"></cin>
+            <cin v-if="identity.ridl > 0 || !registeringIdentity" :text="identity.name" v-on:changed="changed => bind(changed, 'identity.name')"></cin>
             <cin v-else :placeholder="locale(langKeys.PLACEHOLDER_Name)" :text="newName" v-on:changed="changed => bind(changed, 'newName')"></cin>
             <!--<section v-if="identity.ridl <= 0">-->
                 <!--<btn v-if="!isNew && !registeringIdentity"-->

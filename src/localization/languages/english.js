@@ -5,7 +5,7 @@ export default {
     [KEYS.GENERIC_New]:`New`,
     [KEYS.GENERIC_Save]:`Save`,
     [KEYS.GENERIC_Ignored]:`Ignored`,
-    [KEYS.GENERIC_Identity]:`Identity`,
+    [KEYS.GENERIC_Identity]:`Wallet`,
     [KEYS.GENERIC_Contract]:`Contract`,
     [KEYS.GENERIC_Action]:`Action`,
     [KEYS.GENERIC_Removed]:`Removed`,
@@ -45,7 +45,7 @@ export default {
     [KEYS.PLACEHOLDER_DomainOrIP]:'Domain or IP',
     [KEYS.PLACEHOLDER_PasteYourBackup]:'Paste your Backup',
 
-    [KEYS.BUTTON_CreateIdentity]:'Create Identity',
+    [KEYS.BUTTON_CreateIdentity]:'Create Wallet',
     [KEYS.BUTTON_ImportAccount]:'Import Account',
     [KEYS.BUTTON_ImportKeychain]:'Import Keychain',
     [KEYS.BUTTON_SelectFile]:'Select File',
@@ -68,44 +68,44 @@ export default {
     [KEYS.BUTTON_Yes]:'Yes',
     [KEYS.BUTTON_No]:'No',
     [KEYS.BUTTON_UseSelectedAccount]:'Use Selected Account',
-    [KEYS.BUTTON_SelectIdentity]:'Select Identity',
+    [KEYS.BUTTON_SelectIdentity]:'Select Wallet',
     [KEYS.BUTTON_ChangeName]:'Change Name',
-    [KEYS.BUTTON_ClaimIdentity]:'Claim Identity',
-    [KEYS.BUTTON_RegisterIdentity]:'Register Identity',
+    [KEYS.BUTTON_ClaimIdentity]:'Claim Wallet',
+    [KEYS.BUTTON_RegisterIdentity]:'Register Wallet',
 
-    [KEYS.MAINMENU_Identities]:'Identities',
+    [KEYS.MAINMENU_Identities]:'Wallets',
     [KEYS.MAINMENU_Keys]:'Key Pairs',
     [KEYS.MAINMENU_Permissions]:'Permissions',
     [KEYS.MAINMENU_History]:'History',
     [KEYS.MAINMENU_Lock]:'Lock',
 
-    [KEYS.IDENTITIES_Header]:`You don't have any Identities yet.`,
+    [KEYS.IDENTITIES_Header]:`You don't have any Wallets yet.`,
     [KEYS.IDENTITIES_Description]:`
-        Identities are containers for personal information such as first and last names, addresses and
-        various blockchain accounts/keypairs. Identities also have keypairs and their ownership 
+        Wallets are containers for personal information such as first and last names, addresses and
+        various blockchain accounts/keypairs. Wallets also have keypairs and their ownership 
         can be proven which makes them a way to authenticate with applications without passwords.
     `,
 
     [KEYS.IDENTITY_DisablingHeader]:`What does Disabling do?`,
     [KEYS.IDENTITY_DisablingDescription]:`
-        Disabling this Identity will stop it from being used in applications that have a reference to it.
-        This can be used instead of permanently deleting this Identity or it's Permissions on an application,
+        Disabling this Wallet will stop it from being used in applications that have a reference to it.
+        This can be used instead of permanently deleting this Wallet or it's Permissions on an application,
         which would be harder to recover.
     `,
 
-    [KEYS.IDENTITY_NameHeader]:`Identity Name`,
+    [KEYS.IDENTITY_NameHeader]:`Wallet Name`,
     [KEYS.IDENTITY_NameDescription]:`
         Applications may choose to use this name as your username as it is unique across all networks.
         If you are not registered with RIDL you will be assigned a random name.
     `,
     [KEYS.IDENTITY_NoKeyPairsHeader]:`No Key Pairs!`,
     [KEYS.IDENTITY_NoKeyPairsDescription]:`
-        Before you can add blockchain accounts to this Identity you need to add some key pairs. Go to the main menu and select: 
+        Before you can add blockchain accounts to this Wallet you need to add some key pairs. Go to the main menu and select: 
     `,
     [KEYS.IDENTITY_AccountHeader]:`Account`,
     [KEYS.IDENTITY_AccountDescription]:`
         Accounts are what hold your funds and allow you to interact with contracts on the Blockchain. 
-        In relation to Identities think of them like the bank accounts connected to your passport, they can 
+        In relation to Wallets think of them like the bank accounts connected to your passport, they can 
         be changed at any time.
     `,
     [KEYS.IDENTITY_PersonalHeader]:`Personal Information`,
@@ -122,10 +122,10 @@ export default {
 
     [KEYS.PERMISSIONS_Header]:`You don't have any permissions to display.`,
     [KEYS.PERMISSIONS_Description]:`
-        Permissions are set when you either provide an Identity for an application to use, or when you whitelist 
+        Permissions are set when you either provide an Wallet for an application to use, or when you whitelist 
         a contract action to be signed without authorization prompts.
     `,
-    [KEYS.PERMISSION_RevokeIdentity]:`Revoke Identity`,
+    [KEYS.PERMISSION_RevokeIdentity]:`Revoke Wallet`,
     [KEYS.PERMISSION_RevokeContract]:`Revoke Contract`,
     [KEYS.PERMISSION_RevokeAction]:`Revoke Action`,
 
@@ -177,7 +177,7 @@ export default {
     [KEYS.DESTROY_Header]:`Destroying Gold`,
     [KEYS.DESTROY_Description]:`
         You are about to destroy your entire Gold keychain. The only way to get this exact Gold back is by 
-        importing an exported Gold JSON. You will not be able to claim your identities otherwise. Make sure you 
+        importing an exported Gold JSON. You will not be able to claim your wallets otherwise. Make sure you 
         have exported your Gold from the backup settings panel before hand.
     `,
 
@@ -230,22 +230,22 @@ export default {
 
     //2
     [KEYS.ALERT_BadIdentityName]:[
-        'Bad Identity Name',
+        'Bad Wallet Name',
 
-        `Identity names must be between 3 and 20 characters long.
+        `Wallet names must be between 3 and 20 characters long.
          They must also be alphanumeric but may also contain spaces, dashes, and underscores.`
     ],
     //2
     [KEYS.ALERT_IdentityNameExists]:[
-        'Identity Name Exists',
+        'Wallet Name Exists',
 
-        'This Identity name is registered to another Identity.'
+        'This Wallet name is registered to another Wallet.'
     ],
     //2
     [KEYS.ALERT_NoSuchIdentityName]:[
-        'No such Identity name',
+        'No such Wallet name',
 
-        'This Identity name is not reserved in RIDL.'
+        'This Wallet name is not reserved in RIDL.'
     ],
     //2
     [KEYS.ALERT_KeyPairExists]:[
@@ -310,15 +310,15 @@ export default {
     ],
     //2
     [KEYS.ALERT_NoIdentityWithProperties]:fields => [
-        'No Identities Found',
+        'No Wallets Found',
 
-        `This application is requesting an Identity with properties you do not have. The properties they want are '${fields.join(', ')}'`
+        `This application is requesting an Wallet with properties you do not have. The properties they want are '${fields.join(', ')}'`
     ],
     //2
     [KEYS.ALERT_YouMustSelectAnIdentity]:[
-        'You Must Select An Identity',
+        'You Must Select An Wallet',
 
-        `If you do not wish to expose an Identity you can press the Deny button, otherwise an Identity must be
+        `If you do not wish to expose an Wallet you can press the Deny button, otherwise an Wallet must be
          selected in order to accept this request.`
     ],
     //2
@@ -329,10 +329,10 @@ export default {
     ],
     //2
     [KEYS.PROMPT_RevokingIdentity]:domain => [
-        'Revoking Identity',
+        'Revoking Wallet',
 
-        `You are about to revoke an entire Identity from ${domain}. This will remove 
-         permissions on the Identity itself and all contracts within it.`
+        `You are about to revoke an entire Wallet from ${domain}. This will remove 
+         permissions on the Wallet itself and all contracts within it.`
     ],
     //2
     [KEYS.PROMPT_RevokingContract]:domain => [
@@ -348,22 +348,22 @@ export default {
     ],
     //2
     [KEYS.PROMPT_RemovingIdentity]:name => [
-        'Removing Identity',
+        'Removing Wallet',
 
-        `You are about to remove an Identity with the name '${name}'. Removing Identities is not reversible and
-         all permissions will be deleted. If the Identity is being used on applications perhaps you should just disable it instead.`
+        `You are about to remove an Wallet with the name '${name}'. Removing Wallets is not reversible and
+         all permissions will be deleted. If the Wallet is being used on applications perhaps you should just disable it instead.`
     ],
     //2
     [KEYS.PROMPT_DeletingKeyPair]:identities => [
         'Deleting Key Pair',
 
-        identities.length ? `This Key Pair is used in: '${identities.join(', ')}'` : `This keypair is not used in any Identities.`
+        identities.length ? `This Key Pair is used in: '${identities.join(', ')}'` : `This keypair is not used in any Wallets.`
     ],
     //2
     [KEYS.PROMPT_RemovingAccount]:formattedAccountName => [
         'Removing Account',
 
-        `You are about to remove the ${formattedAccountName} account from this Identity.`
+        `You are about to remove the ${formattedAccountName} account from this Wallet.`
     ],
     //2
     [KEYS.PROMPT_RemovingNetwork]:[
@@ -386,13 +386,13 @@ export default {
     [KEYS.PROMPT_SelectAccount]:[
         'Select Account',
 
-        'Select the account and authorization you wish to use for this Identity. You can only select one at a time. In almost all cases you should select your @active account'
+        'Select the account and authorization you wish to use for this Wallet. You can only select one at a time. In almost all cases you should select your @active account'
     ],
     //2
     [KEYS.PROMPT_ClaimIdentity]:[
-        'Claim Identity',
+        'Claim Wallet',
 
-        'Put in the private key that matches the public key on file for your identity name.'
+        'Put in the private key that matches the public key on file for your wallet name.'
     ],
 
     //3
@@ -410,22 +410,22 @@ export default {
         /*{DOMAIN}*/ 'is requesting additional information.',
 
         `Sometimes applications ask for some more information such as
-         your email or date of birth. The Identities on the right are ones you own
+         your email or date of birth. The Wallets on the right are ones you own
          on the network with those specific properties available.`,
 
-        `Even if you provide an Identity with properties that the
+        `Even if you provide an Wallet with properties that the
          application is not requesting permissions for, they will never
-         be able to see them, or even know they exist for that Identity.`,
+         be able to see them, or even know they exist for that Wallet.`,
 
-        `The only properties which are always given is the Identity's public key and it's name.`,
+        `The only properties which are always given is the Wallet's public key and it's name.`,
 
-        /*{DOMAIN}*/ `is not requesting any additional information. The only thing that they are requiring is an Identity hash and name.`
+        /*{DOMAIN}*/ `is not requesting any additional information. The only thing that they are requiring is an Wallet hash and name.`
     ],
     //2
     [KEYS.REQUEST_IdentityNoIdentities]:[
-        `You don't have any Identities that match the properties that this application is requiring.`,
+        `You don't have any Wallets that match the properties that this application is requiring.`,
 
-        `If you would like to use an Identity with this domain, you will need to update that Identity and fulfill the requirements.
+        `If you would like to use an Wallet with this domain, you will need to update that Wallet and fulfill the requirements.
          You can see what this domain is requiring on the left panel.`
     ],
     //4
@@ -437,7 +437,7 @@ export default {
          certain properties of this transaction to change and only if the other properties are changed will
          it fail to be whitelisted.`,
 
-        `This includes required personal information, and changes to your Identity do not remove permissions.`,
+        `This includes required personal information, and changes to your Wallet do not remove permissions.`,
 
         `If you have multiple locations and a transaction requires a location you will always be prompted.`
     ],

@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Gold",
-  "description": "Decentralized signature, identity and authentication system.",
+  "description": "Decentralized signature, wallet and authentication system.",
   "version": "6.1.10",
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "browser_action": {

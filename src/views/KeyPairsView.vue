@@ -9,35 +9,17 @@
 
         <section class="scroller with-search" v-if="keypairs.length">
             <section v-for="keypair in filterBySearch()" class="panel-box">
-
-                <!-- Header -->
-                <section class="panel">
-                    <figure class="header big">
-                        <!-- <i class="fa fa-globe"></i> -->
-                        {{keypair.name}}
-                    </figure>
-                    <!-- <figure class="header small margin"> -->
-                        <!-- <i class="fa fa-globe"></i> -->
-                        <!-- {{keypair.publicKey}} -->
-                        <!-- {{keypair.publicKey.substr(0,12)}}... -->
-                    <!-- </figure> -->
-                    <!-- <figure class="header big margin"> -->
-                    <figure class="header big">
-                        <i class="fa fa-plug"></i>
-                        {{keypair.blockchain.toUpperCase()}}
-                    </figure>
+                <section style="display: flex;justify-content: space-between;font-size: 15px;align-items: center;background-color: #dedede;">
+                    <figure style="width: 90px;height: 30px;line-height: 30px;text-align: center;background-color: rgb(230, 230, 230);color: rgb(107, 107, 107);font-size: 17px;font-weight: 700;">EOS</figure>
+                    <figure style="width: -webkit-fill-available; font-size: 15px; margin-left: 10px;">My First Key Pair</figure>
+                    <figure class="action blue" style="height: 30px;width: 44px;line-height: 30px;text-align: center;color: rgb(255, 255, 255);background-color: rgb(148, 148, 148);" v-on:click="copyKeypair(keypair)"><i class="fa fa-copy"></i></figure>
+                    <figure class="action blue" style="height: 30px;width: 44px;line-height: 30px;text-align: center;color: rgb(255, 255, 255);background-color: rgb(252, 142, 142);" v-on:click="deleteKeypair(keypair)"><i class="fa fa-close"></i></figure>
                 </section>
-
-                <!-- Actions -->
-                <section class="panel">
-                    <!-- <input type="text" v-model="keypair.publicKey"> -->
-                    <!-- <cin type="text" :text="keypair.publicKey" style="width: calc(100% - 80px);"></cin> -->
-                    <section class="actions">
-                        <figure class="action blue" v-on:click="copyKeypair(keypair)"><i class="fa fa-copy"></i></figure>
-                        <figure class="action red right" v-on:click="deleteKeypair(keypair)"><i class="fa fa-ban"></i></figure>
+                <section>
+                    <section>
+                        <cin :text="keypair.publicKey" type="text" :disabled="keypair.publicKey"></cin>
                     </section>
                 </section>
-
             </section>
         </section>
 
@@ -121,6 +103,11 @@
         &.small {
             display:inline-block;
             margin-right:8px;
+        }
+    }
+    .input {
+        input {
+            font-size: 11px;
         }
     }
 </style>

@@ -199,14 +199,14 @@
 
             .list {
                 border-bottom:1px solid #f6f6f6;
-                font-size:9px;
+                font-size:15px;
                 padding:15px 0;
-                max-height:70px;
+                // max-height:70px;
                 overflow-y:auto;
 
                 .item {
                     cursor: pointer;
-                    padding:3px 15px;
+                    padding:5px 15px;
                     color:#a1a1a1;
 
                     &:hover, &.selected {
