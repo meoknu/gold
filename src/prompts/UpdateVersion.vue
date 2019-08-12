@@ -1,10 +1,6 @@
 <template>
     <section class="prompt-body">
 
-        <section class="prompt-actions">
-            <btn text="Okay" v-on:clicked="accepted"></btn>
-        </section>
-
         <section class="nothing-here">
             <figure class="header">
                 <b>{{locale(langKeys.REQUEST_UpdateVersion)[0]}}</b>
@@ -16,6 +12,10 @@
                 <br><br>
                 {{locale(langKeys.REQUEST_UpdateVersion)[3]}}
             </figure>
+        </section>
+
+        <section class="prompt-actions">
+            <btn text="Okay" v-on:clicked="accepted"></btn>
         </section>
 
     </section>

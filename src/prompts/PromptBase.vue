@@ -69,6 +69,8 @@
             right:20px;
             top:20px;
             width:200px;
+            // padding: 10px;
+            float: right;
         }
 
         .head {
@@ -86,6 +88,7 @@
                 margin-top:5px;
                 font-size:9px;
                 line-height:8px;
+                text-align: center;
 
                 .tag {
                     padding:3px 5px;

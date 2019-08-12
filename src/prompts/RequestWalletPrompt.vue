@@ -1,15 +1,6 @@
 <template>
     <section class="prompt-body">
 
-        <section class="prompt-actions" v-if="filteredWallets().length">
-            <btn :text="locale(langKeys.BUTTON_Deny)" half="true" v-on:clicked="denied"></btn>
-            <btn :text="locale(langKeys.BUTTON_Accept)" half="true" is-blue="true" v-on:clicked="accepted"></btn>
-        </section>
-
-        <section class="prompt-actions" v-else>
-            <btn :text="locale(langKeys.BUTTON_Cancel)" v-on:clicked="denied"></btn>
-        </section>
-
         <section class="partitioned">
 
             <section class="partition">
@@ -87,6 +78,15 @@
                 </section>
             </section>
 
+        </section>
+
+        <section class="prompt-actions" v-if="filteredWallets().length">
+            <btn :text="locale(langKeys.BUTTON_Deny)" half="true" v-on:clicked="denied"></btn>
+            <btn :text="locale(langKeys.BUTTON_Accept)" half="true" is-blue="true" v-on:clicked="accepted"></btn>
+        </section>
+
+        <section class="prompt-actions" v-else>
+            <btn :text="locale(langKeys.BUTTON_Cancel)" v-on:clicked="denied"></btn>
         </section>
 
     </section>
@@ -170,6 +170,7 @@
         }
     }
     .prompt-body {
+        padding: 0 20px;
         font-family: 'Open Sans', sans-serif;
 
         .wallet-header {
@@ -208,24 +209,26 @@
 
         .partitioned {
             overflow:hidden;
-            height:436px;
+            height:365px;
             width:100%;
+            margin-bottom: 10px;
 
             .partition {
-                width:50%;
-                float:left;
-                height:436px;
+                // width:50%;
+                // float:left;
+                // height:385px;
                 overflow-y:auto;
                 position: relative;
                 display:block;
 
                 &.scroller {
-                    height:405px;
+                    // height:405px;
+                    height:auto;
                 }
 
                 &:first-child {
-                    /*padding:20px;*/
-                    padding:40px 50px;
+                    padding:20px;
+                    // padding:40px 50px;
 
                     .key-value {
                         padding:20px;
