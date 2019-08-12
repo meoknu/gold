@@ -2,16 +2,6 @@
 
 Gold is a browser extension that allows you to sign transactions for multiple blockchains and provide personal information to web applications without ever exposing your keys or filling out forms.
 
-## Table of Contents
-
-- [Installing Gold](https://github.com/GetGold/GoldWebExtension#installation)
-- [Interacting With Gold](https://github.com/GetGold/GoldWebExtension#interacting-with-gold)
-- [Translations and Localization](https://github.com/GetGold/GoldWebExtension#translations-and-localization)
-- [Understanding Gold's Security](https://github.com/GetGold/GoldWebExtension#security)
-- [Contributing to Gold](https://github.com/GetGold/GoldWebExtension#contributing)
-- [Responsible Disclosure and Bug Bounties](https://github.com/GetGold/GoldWebExtension#responsible-disclosure-and-bug-bounties)
-
-
 
 
 ## Installation
@@ -21,12 +11,8 @@ Gold is a browser extension that allows you to sign transactions for multiple bl
 
 **Note: If you are developing locally make sure you have enabled the** `history_api` **plugin in your nodeos config or you will not be able to import accounts!**
 
-**From Chrome Store**
-- [Go to Chrome Store](https://chrome.google.com/webstore/detail/gold/ammjpmhgckkpcamddpolhchgomcojkle)
-
 **From The Repository** 
 * Clone repository
-* [In some cases](https://github.com/EOSEssentials/Gold/pull/43) on a Windows system you will need to run `npm install --global --production windows-build-tools`
 * `npm install` to get dependencies
 * copy the `.env.example` file to `.env`
 * `npm start` to compile a `build` folder.
