@@ -25,6 +25,14 @@ export default class Gold {
             port: 443,
             protocol: "https"
         });
+        json.settings.networks.find(network => network.chainId == "3") || json.settings.networks.push({
+            blockchain: "eth",
+            chainId: "3",
+            host: "ropsten-rpc.linkpool.io",
+            name: "ETH Ropsten",
+            port: 443,
+            protocol: "https"
+        });
         let p = Object.assign(this.placeholder(), json);
         if(json.hasOwnProperty('meta')) p.meta = Meta.fromJson(json.meta);
         if(json.hasOwnProperty('settings')) p.settings = Settings.fromJson(json.settings);
