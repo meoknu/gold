@@ -70,59 +70,59 @@ document.addEventListener('goldLoaded', goldExtension => {
 ```
 
 
-## Identities
+## Wallets
 
-#### Requesting an Identity
+#### Requesting an Wallet
 
-In order to do anything with a user's Gold you will need to request an Identity.
-Once an Identity is provided it will not need to be re-approved every time unless the user removes the permission.
+In order to do anything with a user's Gold you will need to request an Wallet.
+Once an Wallet is provided it will not need to be re-approved every time unless the user removes the permission.
 
 ```js
 // You can require certain fields
-gold.getIdentity().then(identity => {
+gold.getWallet().then(wallet => {
     //...
 }).catch(error => {
     //...
 });
 ```
 
-The identity can also be accessed on `gold.identity` so that you don't have to keep a reference to it.
+The wallet can also be accessed on `gold.wallet` so that you don't have to keep a reference to it.
 
-**Note:** Every time an identity is returned you should check it against your cache of their identity. Properties are subject 
+**Note:** Every time an wallet is returned you should check it against your cache of their wallet. Properties are subject 
 to change without notification to applications. Users have complete control over their own data. Do not rely on stale data for 
 sensitive things like shipping physical items.
 
-The `getIdentity()` method can also take required fields. See the section about required fields below to 
+The `getWallet()` method can also take required fields. See the section about required fields below to 
 find out how to build the object.
 
-#### Authenticating an Identity
+#### Authenticating an Wallet
 
-Identities can be authenticated using asymmetric encryption.
-If the `authenticate` method does not throw an error then the identity has been authenticated.
+Wallets can be authenticated using asymmetric encryption.
+If the `authenticate` method does not throw an error then the wallet has been authenticated.
 ```js
 
 // Authenticate takes no parameters. 
-// It will fail if there is no identity bound to Gold.
+// It will fail if there is no wallet bound to Gold.
 gold.authenticate()
     .then(sig => {
         // This will return your `location.host` 
-        // signed with their Identity's private key.
+        // signed with their Wallet's private key.
         // It has already been validated, but you can validate it yourself as well using eosjs-ecc.
         
-        ecc.verify(sig, location.host, gold.identity.publicKey);
+        ecc.verify(sig, location.host, gold.wallet.publicKey);
     })
     .catch(err => console.log('auth err', err))
 ```
 
 
-#### Forgetting an Identity ( Sign out )
+#### Forgetting an Wallet ( Sign out )
 
-To sign out a user you will be removing the permission in place for your domain to use an identity.
+To sign out a user you will be removing the permission in place for your domain to use an wallet.
 All sub-permissions such as contract and action whitelistings will be left in place and be available the next time the user 
 authenticates with your website.
 
 ```js
-gold.forgetIdentity().then(() => {
+gold.forgetWallet().then(() => {
     //...
 });
 ```
@@ -152,7 +152,7 @@ Gold has a few endorsed networks that is uses for retrieving information such as
 `EOS Mainnet ( chainId aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906 )` 
 and `ETH Mainnet ( chainId 1 )`. If you are using those you can 
 simply leave the `host` and `port` null and it will default to the chainId internally when fetching accounts from 
-the identity. 
+the wallet. 
 
 #### Suggesting a network to the user
 
@@ -215,7 +215,7 @@ const abi = require('some_abi.json');
 contract.methods.hello(...args).send({from:account.publicKey, abi})
 ```
 
-#### Multi-part signatures involving the application AND an Identity
+#### Multi-part signatures involving the application AND an Wallet
 
 _Note: Ethereum does not support multiple signatures within one request_
 
@@ -246,16 +246,16 @@ const signProvider = async (buf, sign) => await YourApiService.sign(buf);
 
 
 
-##  Requiring Identity Fields
+##  Requiring Wallet Fields
 
-You can optionally pass a `RequiredFields` object into either the `getIdentity()` method or 
+You can optionally pass a `RequiredFields` object into either the `getWallet()` method or 
 to individual transactions as options. 
 
-**Do not rely on previously acquired Identity 
+**Do not rely on previously acquired Wallet 
 properties, since users might have multiple locations such as Work and Home, and they might have changed other properties 
 since the last time you cached them.**
 
-##### Requireable Identity Fields
+##### Requireable Wallet Fields
 - **accounts** `[]` 
     - accepts an array of networks
 - personal `[]`
@@ -271,10 +271,10 @@ since the last time you cached them.**
     - country
     - zipcode
 
-##### Fields that always return from `getIdentity()`
+##### Fields that always return from `getWallet()`
 - **name** - The user's unique name.
-- **publicKey** - The public key associated with the Identity.
-- **hash** - A hash of the Identity's public key.
+- **publicKey** - The public key associated with the Wallet.
+- **hash** - A hash of the Wallet's public key.
 
 #### The Required Fields Object
 
@@ -289,11 +289,11 @@ const requiredFields = {
 };
 ```
 
-This object can be passed into either the `getIdentity()` method or individual transactions.
+This object can be passed into either the `getWallet()` method or individual transactions.
 
 ```js
-// Get Identity
-gold.getIdentity(requiredFields)...
+// Get Wallet
+gold.getWallet(requiredFields)...
  
 // eosjs
 const contract = await eos.contract('hello', {requiredFields});
@@ -314,7 +314,7 @@ contract.methods.hello(...args).send(options)
 ```
 
 It's best practice to not request location fields until they are needed, as user's can have multiple 
-locations inside of an Identity ( work/home ), and can select which one to user per signature request.
+locations inside of an Wallet ( work/home ), and can select which one to user per signature request.
 
 This allows you to request all information needed for a physical sale with one click.
 
@@ -344,8 +344,8 @@ to change gas price and limit.
 #### Finding Accounts by Blockchain
 
 ```js
-const eosAccount = identity.accounts.find(account => account.blockchain === 'eos');
-const ethAccount = identity.accounts.find(account => account.blockchain === 'eth');
+const eosAccount = wallet.accounts.find(account => account.blockchain === 'eos');
+const ethAccount = wallet.accounts.find(account => account.blockchain === 'eth');
 ```
 
 
@@ -356,7 +356,7 @@ const ethAccount = identity.accounts.find(account => account.blockchain === 'eth
 ## Arbitrary signatures
 
 You can request an arbitrary signature from Gold on any type of data you wish.
-Signatures on the Identity will always use `eosjs-ecc` as they are EOS keys.
+Signatures on the Wallet will always use `eosjs-ecc` as they are EOS keys.
 
 ```js
 gold.getArbitrarySignature(
@@ -454,9 +454,9 @@ The content script then sends a `goldLoaded` event to the website notifying it o
 `Golddapp` is the website usable script that applications can use to request certain things from Gold. This script only 
 allows a handful of methods which can interact with the Gold extension:
 
-- **getIdentity** - Used to request an Identity from the user's Gold.
-- **forgetIdentity** - Used to forget an Identity and sign out the user.
-- **authenticate** - Used to prove ownership of the identity.
+- **getWallet** - Used to request an Wallet from the user's Gold.
+- **forgetWallet** - Used to forget an Wallet and sign out the user.
+- **authenticate** - Used to prove ownership of the wallet.
 - **suggestNetwork** - This is a helper method used to request the addition of the EOS network the website is using.
 - **eos** - Used to fetch a dummy version of `eosjs` which uses Gold as the `signProvider`.
 - **requireVersion** - Used to require a minimum specific version of gold.
@@ -470,7 +470,7 @@ eos.transfer('users_account', 'some_other_account', 100000, '');
 
 [The `eosjs` instance that is returned from `gold.eos()`](https://github.com/EOSEssentials/Gold/blob/master/src/golddapp.js#L131)
 is an empty dummy object with no options on it that catches all requests sent into it. Every time it is used it re-creates a
-fresh instance of `eosjs` with a pre-configured network ( the same one provided by the Identity request ) and a pre-configured 
+fresh instance of `eosjs` with a pre-configured network ( the same one provided by the Wallet request ) and a pre-configured 
 `signProvider` which pushes all signature requests up to Gold to be approved/denied by the user. 
 
 Because the `eosjs` instance that is returned to the website is a proxy that recreates itself each time overwriting the 
@@ -483,8 +483,8 @@ The domain requesting the signature is also bound within this proxy and can not 
 The only way for a website to push requests into Gold and use it's private keys to sign signatures is like this.
 
 ```js
-// An identity must be requested and bound before requesting transactions
-const identity = await gold.getIdentity();
+// An wallet must be requested and bound before requesting transactions
+const wallet = await gold.getWallet();
 -------------------------
 // The object returned here has no network, and no signature or key provider
 const eos = gold.eos( network, Eos, {} );
@@ -504,7 +504,7 @@ The only thing a website that has no user provided permissions can access is the
 they are compatible prior to sending any requests.
  
 Before a website may request signatures for transactions they **must** notify Gold of the network they are using and request an 
-Identity. Only once an Identity is provided will they have the ability to push signature requests into Gold which will prompt the user 
+Wallet. Only once an Wallet is provided will they have the ability to push signature requests into Gold which will prompt the user 
 to take action. 
 
 Every field of every request is prominently displayed to the user to make sure they are fully aware of what they are signing. 
@@ -512,11 +512,11 @@ This includes:
 
 - [Every Request] The domain the request came from
 - [Every Request] The blockchain network the request pertains to
-- [Every Request] Any required Identity fields such as `address, email`
+- [Every Request] Any required Wallet fields such as `address, email`
 - [Signature Request] The complete properties of the transaction messages in both human readable format and the original JSON.
 
-Permissions can be revoked at any time from within the extension, and entire Identities can be temporarily disabled which also 
-temporarily revokes all permissions for that Identity.
+Permissions can be revoked at any time from within the extension, and entire Walletsyyy can be temporarily disabled which also 
+temporarily revokes all permissions for that Wallet.
 
 #### Extension Local Storage
  
@@ -529,7 +529,7 @@ The only place it is ever held decrypted is within memory at the moment of use.
 The keychain includes all of the Gold:
 
 - Key Pairs
-- Identities
+- Wallets
 - Permissions
 
 #### Signatures and Private Keys
