@@ -4,7 +4,7 @@
         <section class="head">
             <figure class="type">{{flipWords(camelToTitle(prompt.type))}}</figure>
             <section class="split-tag">
-                <figure class="tag">{{prompt.domain}}</figure>
+                <figure class="tag" v-if="prompt.domain">{{prompt.domain}}</figure>
                 <figure class="tag" v-if="prompt.network && prompt.network.host">{{prompt.network.host}}</figure>
             </section>
 
@@ -65,20 +65,21 @@
         }
 
         .prompt-actions {
-            position:absolute;
+            // position:absolute;
             right:20px;
             top:20px;
             width:200px;
         }
 
         .head {
-            padding:50px;
+            padding:20px;
 
             .type {
                 color:#4f4f4f;
                 font-family: 'Ubuntu', sans-serif;
                 font-size:14px;
                 font-weight:bold;
+                text-align: center;
             }
 
             .split-tag {

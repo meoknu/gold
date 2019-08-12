@@ -1,10 +1,6 @@
 <template>
     <section class="prompt-body">
 
-        <section class="prompt-actions">
-            <btn :text="locale(langKeys.BUTTON_Cancel)" v-on:clicked="accepted"></btn>
-        </section>
-
         <section class="nothing-here">
             <figure class="header">
                 <b>{{locale(langKeys.REQUEST_GoldIsLocked)[0]}}</b>
@@ -15,6 +11,10 @@
                 <b>{{locale(langKeys.REQUEST_GoldIsLocked)[2]}}</b><br>
                 {{locale(langKeys.REQUEST_GoldIsLocked)[3]}}
             </figure>
+        </section>
+
+        <section class="prompt-actions">
+            <btn :text="locale(langKeys.BUTTON_Cancel)" v-on:clicked="accepted"></btn>
         </section>
 
     </section>

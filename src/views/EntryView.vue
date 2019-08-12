@@ -35,8 +35,8 @@
 
     export default {
         data(){ return {
-            password:'',
-            passwordConfirmation:'',
+            password:'123456789',
+            passwordConfirmation:'123456789',
             scat:this.gold,
             hiding:true,
         }},
