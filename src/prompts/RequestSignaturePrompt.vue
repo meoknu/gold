@@ -2,7 +2,7 @@
     <section class="request-signature">
 
         <section class="floating-header">
-            <figure class="identity-name">{{identity().name}}</figure>
+            <figure class="wallet-name">{{wallet().name}}</figure>
             <figure class="account-authority">{{formattedAccount()}}</figure>
             <figure class="switches">
                 <figure class="switch"
@@ -111,10 +111,10 @@
     import {RouteNames} from '../vue/Routing'
     import AlertMsg from '../models/alerts/AlertMsg'
     import Network from '../models/Network'
-    import IdentityService from '../services/IdentityService'
+    import WalletService from '../services/WalletService'
     import NotificationService from '../services/NotificationService'
-    import Identity from '../models/Identity'
-    import {LocationFields, PersonalFields} from '../models/Identity'
+    import Wallet from '../models/Wallet'
+    import {LocationFields, PersonalFields} from '../models/Wallet'
     import ObjectHelpers from '../util/ObjectHelpers'
     import PluginRepository from '../plugins/PluginRepository'
 
@@ -143,27 +143,27 @@
             ]),
             ...mapGetters([
                 'messages',
-                'identities',
+                'wallets',
                 'requiredFields'
             ])
         },
         mounted(){
             console.log('prompt', this.prompt);
-            const hasAllRequiredFields = this.identity().hasRequiredFields(this.requiredFields);
+            const hasAllRequiredFields = this.wallet().hasRequiredFields(this.requiredFields);
 
             if(!hasAllRequiredFields){
-                this[Actions.PUSH_ALERT](AlertMsg.NoIdentityWithProperties(this.requiredFields)).then(closed => {
+                this[Actions.PUSH_ALERT](AlertMsg.NoWalletWithProperties(this.requiredFields)).then(closed => {
                     this.prompt.responder(null);
                     NotificationService.close();
                 });
             }
 
 
-            this.returnedFields = this.identity().clone();
+            this.returnedFields = this.wallet().clone();
 
             if(this.requiresLocationDetails()){
                 const requiredLocationFields = Object.keys(LocationFields).filter(field => this.requiredFields.location.includes(field));
-                this.viableLocations = this.identity().locations.filter(location => location.findFields(requiredLocationFields).length === requiredLocationFields.length);
+                this.viableLocations = this.wallet().locations.filter(location => location.findFields(requiredLocationFields).length === requiredLocationFields.length);
                 this.selectedLocation = this.viableLocations.find(location => location.isDefault) || this.viableLocations[0];
                 this.returnedFields.location = this.selectedLocation;
             }
@@ -173,7 +173,7 @@
             setDisplayType(type){ this.selectedDisplayType = type; },
             formattedAccount(){
                 const network = Network.fromJson(this.prompt.data.network);
-                const account = this.identity().networkedAccount(network);
+                const account = this.wallet().networkedAccount(network);
                 return PluginRepository.plugin(network.blockchain).accountFormatter(account)
             },
 
@@ -207,11 +207,11 @@
                         return acc;
                     }, {})
             },
-            identity(){
-                return this.gold.keychain.findIdentityFromDomain(this.prompt.data.domain);
+            wallet(){
+                return this.gold.keychain.findWalletFromDomain(this.prompt.data.domain);
             },
             accepted(){
-                const returnedFields = Identity.asReturnedFields(this.requiredFields, this.returnedFields, this.selectedLocation);
+                const returnedFields = Wallet.asReturnedFields(this.requiredFields, this.returnedFields, this.selectedLocation);
                 this.prompt.responder({accepted:true, whitelisted:this.whitelisted, returnedFields, mutableFields:this.mutableFields});
                 NotificationService.close();
             },
@@ -256,7 +256,7 @@
             right:50px;
             text-align:right;
 
-            .identity-name {
+            .wallet-name {
                 font-family: 'Ubuntu', sans-serif;
                 font-size:14px;
                 font-weight:bold;

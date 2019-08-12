@@ -8,17 +8,17 @@
 
                 <!-- Account Information -->
                 <section class="panel">
-                    <figure class="header big identity-header">{{domainPermissions.find(perm => perm.isIdentityOnly()).getIdentity(gold.keychain).name}}</figure>
-                    <figure class="revoke-identity" v-on:click="revoke({type:'identity', perm:domainPermissions.find(perm => perm.isIdentityOnly())})">
-                        {{locale(langKeys.PERMISSION_RevokeIdentity)}}
+                    <figure class="header big wallet-header">{{domainPermissions.find(perm => perm.isWalletOnly()).getWallet(gold.keychain).name}}</figure>
+                    <figure class="revoke-wallet" v-on:click="revoke({type:'wallet', perm:domainPermissions.find(perm => perm.isWalletOnly())})">
+                        {{locale(langKeys.PERMISSION_RevokeWallet)}}
                     </figure>
                     <figure class="header small margin" style="overflow:hidden;">
                         <figure style="float:left;">
                             <i class="fa fa-globe"></i>
-                            {{domainPermissions.find(perm => perm.isIdentityOnly()).network.host}}
+                            {{domainPermissions.find(perm => perm.isWalletOnly()).network.host}}
                         </figure>
                         <figure style="float:right">
-                            {{domainPermissions.find(perm => perm.isIdentityOnly()).timestamp/1000 | moment('from', 'now')}}
+                            {{domainPermissions.find(perm => perm.isWalletOnly()).timestamp/1000 | moment('from', 'now')}}
                         </figure>
                     </figure>
                 </section>
@@ -73,48 +73,48 @@
         },
         methods: {
             bind(changed, original) { this[original] = changed },
-            groupByIdentity(permissions){ return ObjectHelpers.groupBy(permissions.filter(x => x.domain.toLowerCase() === this.domain), 'publicKey'); },
+            groupByWallet(permissions){ return ObjectHelpers.groupBy(permissions.filter(x => x.domain.toLowerCase() === this.domain), 'publicKey'); },
             groupByContract(permissions){ return ObjectHelpers.groupBy(permissions.filter(perm => perm.isContractAction()), 'contract'); },
 
             filterBySearch(){
-                return Object.keys(this.groupByIdentity(this.permissions))
+                return Object.keys(this.groupByWallet(this.permissions))
                     .filter(x => JSON.stringify(x).indexOf(this.searchText) > -1)
                     .reduce((acc,key) => {
-                        acc[key] = this.groupByIdentity(this.permissions)[key];
+                        acc[key] = this.groupByWallet(this.permissions)[key];
                         return acc;
                     }, {})
             },
 
             /***
-             * Revokes an Identity, contract or action
+             * Revokes an Wallet, contract or action
              * @param revokeObject
              */
             revoke(revokeObject){
                 switch(revokeObject.type){
-                    case 'identity':this.removeIdentityPermissions(revokeObject.perm); break;
+                    case 'wallet':this.removeWalletPermissions(revokeObject.perm); break;
                     case 'contract': this.removeContractPermissions(revokeObject.contract, revokeObject.network); break;
                     case 'action': this.removeActionPermissions(revokeObject.perm); break;
                 }
             },
 
             /***
-             * Removes an Identity's permissions from a Domain and Network
+             * Removes an Wallet's permissions from a Domain and Network
              * @param permission
              */
-            removeIdentityPermissions(permission){
+            removeWalletPermissions(permission){
                 const gold = this.gold.clone();
-                this[Actions.PUSH_ALERT](AlertMsg.RevokingIdentity(this.domain)).then(res => {
+                this[Actions.PUSH_ALERT](AlertMsg.RevokingWallet(this.domain)).then(res => {
                     if(!res || !res.hasOwnProperty('accepted')) return false;
                     gold.keychain.permissions = gold.keychain.permissions.filter(perm =>
                         perm.network.unique() !== permission.network.unique() ||
                         perm.domain !== permission.domain ||
-                        perm.identity !== permission.identity);
+                        perm.wallet !== permission.wallet);
                     this[Actions.UPDATE_STORED_GOLD](gold).then(() => this.goBackIfEmpty());
                 });
             },
 
             /***
-             * Removes a contract's permissions by removing all actions associated with it under an Identity and Network
+             * Removes a contract's permissions by removing all actions associated with it under an Wallet and Network
              * @param contract
              * @param network
              */
@@ -131,7 +131,7 @@
             },
 
             /***
-             * Removes only a single action from a contract under an Identity and Network
+             * Removes only a single action from a contract under an Wallet and Network
              * @param permission
              */
             removeActionPermissions(permission){
@@ -145,7 +145,7 @@
             },
 
             goBackIfEmpty(){
-                if(!Object.keys(this.groupByIdentity(this.permissions)).length) this.$router.back();
+                if(!Object.keys(this.groupByWallet(this.permissions)).length) this.$router.back();
             },
 
             ...mapActions([
@@ -160,12 +160,12 @@
 
     .domain-permissions {
 
-        .identity-header {
+        .wallet-header {
             width:calc(100% - 104px);
             display:inline-block;
         }
 
-        .revoke-identity {
+        .revoke-wallet {
             cursor: pointer;
             padding:0 10px;
             height:24px;

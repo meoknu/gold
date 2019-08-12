@@ -11,7 +11,7 @@ import HookedWalletSubprovider from "web3-provider-engine/subproviders/hooked-wa
 const EthTx = require('ethereumjs-tx')
 const ethUtil = require('ethereumjs-util')
 import Network from '../../models/Network'
-import {IdentityRequiredFields} from '../../models/Identity';
+import {WalletRequiredFields} from '../../models/Wallet';
 import ObjectHelpers from '../../util/ObjectHelpers'
 import {strippedHost} from '../../util/GenericTools'
 import IdGenerator from '../../util/IdGenerator';
@@ -19,7 +19,7 @@ import IdGenerator from '../../util/IdGenerator';
 
 
 let messageSender = new WeakMap();
-let throwIfNoIdentity = new WeakMap();
+let throwIfNoWallet = new WeakMap();
 let network = new WeakMap();
 let web3;
 
@@ -32,7 +32,7 @@ class GoldEthereumWallet {
     }
 
     async getAccounts(callback) {
-        const result = await messageSender(NetworkMessageTypes.IDENTITY_FROM_PERMISSIONS);
+        const result = await messageSender(NetworkMessageTypes.WALLET_FROM_PERMISSIONS);
         const accounts = !result ? [] : result.accounts
             .filter(account => account.blockchain === Blockchains.ETH)
             .map(account => account.publicKey);
@@ -50,7 +50,7 @@ class GoldEthereumWallet {
         if(transaction.hasOwnProperty('data')) transaction.data = ethUtil.addHexPrefix(transaction.data);
 
         // Required Fields
-        const requiredFields = IdentityRequiredFields.fromJson(transaction.hasOwnProperty('requiredFields') ? transaction.requiredFields : {});
+        const requiredFields = WalletRequiredFields.fromJson(transaction.hasOwnProperty('requiredFields') ? transaction.requiredFields : {});
         if(!requiredFields.isValid()) throw Error.malformedRequiredFields();
 
         // Contract ABI
@@ -175,7 +175,7 @@ export default class ETH extends Plugin {
     signatureProvider(...args){
 
         messageSender = args[0];
-        throwIfNoIdentity = args[1];
+        throwIfNoWallet = args[1];
 
         return (_network, _web3, _prefix) => {
             network = Network.fromJson(_network);

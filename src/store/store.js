@@ -5,7 +5,7 @@ import {mutations} from './mutations';
 import {actions} from './actions';
 import * as LANG_KEYS from '../localization/keys';
 
-import {IdentityRequiredFields} from '../models/Identity'
+import {WalletRequiredFields} from '../models/Wallet'
 
 Vue.use(Vuex);
 
@@ -21,7 +21,7 @@ const state = {
 
 const getters = {
     meta:state => state.gold.meta,
-    identities:state => state.gold.keychain.identities,
+    wallets:state => state.gold.keychain.wallets,
     permissions:state => state.gold.keychain.permissions,
     keypairs:state => state.gold.keychain.keypairs,
     networks:state => state.gold.settings.networks,
@@ -30,8 +30,8 @@ const getters = {
     language:state => state.gold.settings.language,
 
     // FOR PROMPTS ONLY
-    identityFields:state => IdentityRequiredFields.fromJson(state.prompt.data),
-    requiredFields:state => IdentityRequiredFields.fromJson(state.prompt.data.requiredFields || {}),
+    walletFields:state => WalletRequiredFields.fromJson(state.prompt.data),
+    requiredFields:state => WalletRequiredFields.fromJson(state.prompt.data.requiredFields || {}),
     messages:state => state.prompt.data.messages || [],
 };
 

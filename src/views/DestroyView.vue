@@ -24,7 +24,7 @@
     import * as Actions from '../store/constants';
     import {RouteNames} from '../vue/Routing'
     import AlertMsg from '../models/alerts/AlertMsg'
-    import IdentityService from '../services/IdentityService';
+    import WalletService from '../services/WalletService';
     import Mnemonic from '../util/Mnemonic'
     import EOSKeygen from '../util/EOSKeygen'
     import StorageService from '../services/StorageService'

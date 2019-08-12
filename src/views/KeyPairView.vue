@@ -29,7 +29,7 @@
     import Gold from '../models/Gold'
     import AlertMsg from '../models/alerts/AlertMsg'
     import * as AlertTypes from '../models/alerts/AlertTypes'
-    import IdentityService from '../services/IdentityService'
+    import WalletService from '../services/WalletService'
     import {BlockchainsArray, Blockchains} from '../models/Blockchains';
     import KeyPair from '../models/KeyPair';
     import ecc from 'eosjs-ecc';

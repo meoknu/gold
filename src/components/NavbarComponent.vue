@@ -58,8 +58,8 @@
                     case RouteNames.LOAD_FROM_BACKUP: return 'Import Keychain';
                     case RouteNames.SETTINGS: return 'Settings';
                     case RouteNames.TRANSFER: return 'Transfer';
-                    case RouteNames.IDENTITIES: return 'Wallets';
-                    case RouteNames.IDENTITY: return 'Wallet';
+                    case RouteNames.WALLETS: return 'Wallets';
+                    case RouteNames.WALLET: return 'Wallet';
                     case RouteNames.PERMISSIONS:
                     case RouteNames.DOMAIN_PERMISSIONS: return 'Permissions';
                     case RouteNames.HISTORY: return 'History';

@@ -1,10 +1,10 @@
 import Prompt from '../models/prompts/Prompt';
 import * as PromptTypes from '../models/prompts/PromptTypes'
-import Identity from '../models/Identity';
+import Wallet from '../models/Wallet';
 import KeyPair from '../models/KeyPair';
 import Network from '../models/Network';
 import Error from '../models/errors/Error';
-import {LocationFields} from '../models/Identity';
+import {LocationFields} from '../models/Wallet';
 import * as HistoricEventTypes from '../models/histories/HistoricEventTypes'
 import ObjectHelpers from '../util/ObjectHelpers'
 import ContractHelpers from '../util/ContractHelpers'
@@ -18,14 +18,14 @@ export default class SignatureService {
     static requestArbitrarySignature(payload, gold, context, sendResponse){
         const {publicKey, domain, data} = payload;
 
-        const identitySigner = gold.keychain.identities.find(id => id.publicKey === publicKey);
+        const walletSigner = gold.keychain.wallets.find(id => id.publicKey === publicKey);
         const accountSigners = gold.keychain.findAccountsWithPublicKey(publicKey);
-        if(!identitySigner && !accountSigners.length) {
+        if(!walletSigner && !accountSigners.length) {
             sendResponse(Error.signatureError("signature_rejected", "User rejected the signature request"));
             return false;
         }
 
-        NotificationService.open(new Prompt(PromptTypes.REQUEST_ARBITRARY_SIGNATURE, domain, null, Object.assign(payload, {identitySigner, accountSigners}), approval => {
+        NotificationService.open(new Prompt(PromptTypes.REQUEST_ARBITRARY_SIGNATURE, domain, null, Object.assign(payload, {walletSigner, accountSigners}), approval => {
             if(!approval || !approval.hasOwnProperty('accepted')){
                 sendResponse(Error.signatureError("signature_rejected", "User rejected the signature request"));
                 return false;
@@ -49,15 +49,15 @@ export default class SignatureService {
     static requestSignature(payload, gold, context, sendResponse){
         const {domain, network, requiredFields} = payload;
 
-        // Checking if identity still exists
-        const identity = gold.keychain.findIdentityFromDomain(payload.domain);
-        if(!identity || identity.isDisabled){
-            sendResponse(Error.identityMissing());
+        // Checking if wallet still exists
+        const wallet = gold.keychain.findWalletFromDomain(payload.domain);
+        if(!wallet || wallet.isDisabled){
+            sendResponse(Error.walletMissing());
             return false;
         }
 
-        // Getting the account from the identity based on the network
-        const account = identity.networkedAccount(Network.fromJson(network));
+        // Getting the account from the wallet based on the network
+        const account = wallet.networkedAccount(Network.fromJson(network));
         if(!account) {
             sendResponse(Error.signatureAccountMissing());
             return false;
@@ -65,7 +65,7 @@ export default class SignatureService {
 
         const blockchain = account.blockchain();
 
-        // Checking if Identity still has all the necessary accounts
+        // Checking if Wallet still has all the necessary accounts
         const requiredAccounts = PluginRepository.plugin(blockchain).actionParticipants(payload);
         const formattedName = PluginRepository.plugin(blockchain).accountFormatter(account);
         if(!requiredAccounts.includes(formattedName) && !requiredAccounts.includes(account.publicKey)){
@@ -84,8 +84,8 @@ export default class SignatureService {
                 context.addHistory(HistoricEventTypes.SIGNED_TRANSACTION, {
                     domain,
                     network,
-                    identityName:identity.name,
-                    publicKey:identity.publicKey,
+                    walletName:wallet.name,
+                    publicKey:wallet.publicKey,
                     account:account,
                     transaction:payload.transaction,
                     hash:'' // <-- hmmm, what to do with this? There is no hash here to track yet. :(
@@ -107,11 +107,11 @@ export default class SignatureService {
             return gold.keychain.hasPermission(checksum, fields);
         });
 
-        const needsLocationAndIdentityHasMultiple = (identity.locations.length > 1 && requiredFields.location.length);
+        const needsLocationAndWalletHasMultiple = (wallet.locations.length > 1 && requiredFields.location.length);
 
-        if(!needsLocationAndIdentityHasMultiple && hasTransactionPermissions) {
-            const identityClone = identity.clone();
-            const returnedFields = Identity.asReturnedFields(requiredFields, identityClone, identityClone.locations[0]);
+        if(!needsLocationAndWalletHasMultiple && hasTransactionPermissions) {
+            const walletClone = wallet.clone();
+            const returnedFields = Wallet.asReturnedFields(requiredFields, walletClone, walletClone.locations[0]);
             sign(returnedFields);
         }
 
@@ -131,7 +131,7 @@ export default class SignatureService {
                         network,
                         contract,
                         action,
-                        identity:identity.publicKey,
+                        wallet:wallet.publicKey,
                         keypair:account.keypairUnique,
                         checksum,
                         timestamp:+ new Date(),

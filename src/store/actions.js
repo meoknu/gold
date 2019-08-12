@@ -2,7 +2,7 @@ import * as Actions from './constants'
 import Hasher from '../util/Hasher'
 import Mnemonic from '../util/Mnemonic'
 import Gold from '../models/Gold'
-import Identity from '../models/Identity'
+import Wallet from '../models/Wallet'
 import Meta from '../models/Meta'
 import Network from '../models/Network'
 import InternalMessage from '../messages/InternalMessage'
@@ -100,12 +100,12 @@ export const actions = {
             }));
 
 
-            const firstIdentity = Identity.placeholder();
-            await firstIdentity.initialize(gold.hash);
-            const identified = await RIDLService.identify(firstIdentity.publicKey);
+            const firstWallet = Wallet.placeholder();
+            await firstWallet.initialize(gold.hash);
+            const identified = await RIDLService.identify(firstWallet.publicKey);
             if(identified) {
-                firstIdentity.name = identified;
-                gold.keychain.updateOrPushIdentity(firstIdentity);
+                firstWallet.name = identified;
+                gold.keychain.updateOrPushWallet(firstWallet);
             }
 
             await StorageService.setSalt(Hasher.insecureHash(IdGenerator.text(32)));

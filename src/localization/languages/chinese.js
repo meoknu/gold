@@ -5,7 +5,7 @@ export default {
     [KEYS.GENERIC_New]:`新建`,
     [KEYS.GENERIC_Save]:`保存`,
     [KEYS.GENERIC_Ignored]:`已取消`,
-    [KEYS.GENERIC_Identity]:`身份`,
+    [KEYS.GENERIC_Wallet]:`身份`,
     [KEYS.GENERIC_Contract]:`合约`,
     [KEYS.GENERIC_Action]:`操作`,
     [KEYS.GENERIC_Removed]:`已删除`,
@@ -43,7 +43,7 @@ export default {
     [KEYS.PLACEHOLDER_ConfirmNewPassword]:'再次输入新密码',
     [KEYS.PLACEHOLDER_DomainOrIP]:'域名或 IP 地址',
 
-    [KEYS.BUTTON_CreateIdentity]:'创建身份',
+    [KEYS.BUTTON_CreateWallet]:'创建身份',
     [KEYS.BUTTON_ImportAccount]:'导入帐号',
     [KEYS.BUTTON_ImportKeychain]:'导入密钥',
     [KEYS.BUTTON_SelectFile]:'选择文件',
@@ -66,53 +66,53 @@ export default {
     [KEYS.BUTTON_Yes]:'Yes',
     [KEYS.BUTTON_No]:'No',
     [KEYS.BUTTON_UseSelectedAccount]:'使用选择的帐户',
-    [KEYS.BUTTON_SelectIdentity]:'选择身份',
+    [KEYS.BUTTON_SelectWallet]:'选择身份',
     [KEYS.BUTTON_ChangeName]:'更改名称',
-    [KEYS.BUTTON_ClaimIdentity]:'身份认领',
-    [KEYS.BUTTON_RegisterIdentity]:'身份注册',
+    [KEYS.BUTTON_ClaimWallet]:'身份认领',
+    [KEYS.BUTTON_RegisterWallet]:'身份注册',
 
 
-    [KEYS.MAINMENU_Identities]:'身份',
+    [KEYS.MAINMENU_Wallets]:'身份',
     [KEYS.MAINMENU_Keys]:'密钥对',
     [KEYS.MAINMENU_Permissions]:'权限',
     [KEYS.MAINMENU_History]:'事件',
     [KEYS.MAINMENU_Lock]:'锁定',
 
-    [KEYS.IDENTITIES_Header]:`你目前尚未建立身份。`,
-    [KEYS.IDENTITIES_Description]:`
+    [KEYS.WALLETS_Header]:`你目前尚未建立身份。`,
+    [KEYS.WALLETS_Description]:`
         身份是包含个人信息的统称，它包括姓名，地址和多个区块链帐号/密钥对。
         身份包括了能证明其所有权的密钥对，使得应用无需密也能进行验证.
     `,
 
-    [KEYS.IDENTITY_DisablingHeader]:`禁用身份意味着什么?`,
-    [KEYS.IDENTITY_DisablingDescription]:`
+    [KEYS.WALLET_DisablingHeader]:`禁用身份意味着什么?`,
+    [KEYS.WALLET_DisablingDescription]:`
         禁用身份，将会阻止引用它的应用使用此身份。
         可以用来代替难以恢复的永久删除身份
         或删除它在应用程序上的权限.
     `,
 
-    [KEYS.IDENTITY_NameHeader]:`身份名称`,
-    [KEYS.IDENTITY_NameDescription]:`
+    [KEYS.WALLET_NameHeader]:`身份名称`,
+    [KEYS.WALLET_NameDescription]:`
         应用程序可能选择使用此名称作为你的用户名，因为它在所有网络中都是唯一的。
         如果您未在 RIDL 注册，将会分配一个随机的名称给你。
     `,
-    [KEYS.IDENTITY_NoKeyPairsHeader]:`没有密钥对!`,
-    [KEYS.IDENTITY_NoKeyPairsDescription]:`
+    [KEYS.WALLET_NoKeyPairsHeader]:`没有密钥对!`,
+    [KEYS.WALLET_NoKeyPairsDescription]:`
         在将区块链账户添加到此身份之前，您需要添加一些密钥对。 请转到主菜单选择：
     `,
-    [KEYS.IDENTITY_AccountHeader]:`帐户`,
-    [KEYS.IDENTITY_AccountDescription]:`
+    [KEYS.WALLET_AccountHeader]:`帐户`,
+    [KEYS.WALLET_AccountDescription]:`
         账户保存有您的资金，并且让您与区块链上的合约进行交互。
         身份可以视为与你的护照相关联的银行帐号，
         可以随时更改。
     `,
-    [KEYS.IDENTITY_PersonalHeader]:`个人信息`,
-    [KEYS.IDENTITY_PersonalDescription]:`
+    [KEYS.WALLET_PersonalHeader]:`个人信息`,
+    [KEYS.WALLET_PersonalDescription]:`
         个人信息可以添加到需要它的应用程序的帐户中。 例如购物网站
         可能需要您的姓名，作为您所购买商品的收件人。
     `,
-    [KEYS.IDENTITY_LocationHeader]:`地址信息`,
-    [KEYS.IDENTITY_LocationDescription]:`
+    [KEYS.WALLET_LocationHeader]:`地址信息`,
+    [KEYS.WALLET_LocationDescription]:`
         地址信息可以添加到需要它的应用程序的帐户中。
         例如，为了知道您购买的商品的送货地点，购物网站可能
         需要这些信息以便知道送货地点
@@ -123,7 +123,7 @@ export default {
         显示你授权给应用的身份，或把一个合约行为列入白名单，
         使其能无需经过弹出窗口确认就能够签署授权。
     `,
-    [KEYS.PERMISSION_RevokeIdentity]:`删除身份`,
+    [KEYS.PERMISSION_RevokeWallet]:`删除身份`,
     [KEYS.PERMISSION_RevokeContract]:`撤消合约`,
     [KEYS.PERMISSION_RevokeAction]:`取消操作`,
 
@@ -229,20 +229,20 @@ export default {
     },
 
     //2
-    [KEYS.ALERT_BadIdentityName]:[
+    [KEYS.ALERT_BadWalletName]:[
         '错误的身份名',
 
         `身份名的长度必须在3到20个字符之间。
          它们也必须是字母数字，但也可以包含空格，破折号和下划线。`
     ],
     //2
-    [KEYS.ALERT_IdentityNameExists]:[
+    [KEYS.ALERT_WalletNameExists]:[
         '身份名已存在',
 
         '此身份名已经补其它身份注册。'
     ],
     //2
-    [KEYS.ALERT_NoSuchIdentityName]:[
+    [KEYS.ALERT_NoSuchWalletName]:[
         '没在此身份名称',
 
         '此身份的名称在 RIDL 中未保留。'
@@ -312,13 +312,13 @@ export default {
         `您不能删除 Gold 的支撑网络。`
     ],
     //2
-    [KEYS.ALERT_NoIdentityWithProperties]:fields => [
+    [KEYS.ALERT_NoWalletWithProperties]:fields => [
         '末发现身份',
 
         `此应用正在请求您的身份所没有的信息： '${fields.join(', ')}'`
     ],
     //2
-    [KEYS.ALERT_YouMustSelectAnIdentity]:[
+    [KEYS.ALERT_YouMustSelectAnWallet]:[
         '您需要选择一个身份',
 
         `如果你不想公开身份，你可以按拒绝按钮，
@@ -331,7 +331,7 @@ export default {
         '这是您最后一次检查备份的机会。'
     ],
     //2
-    [KEYS.PROMPT_RevokingIdentity]:domain => [
+    [KEYS.PROMPT_RevokingWallet]:domain => [
         '删除身份',
 
         `您即将删除身份： ${domain} 。
@@ -350,17 +350,17 @@ export default {
         `你即将从 ${domain} 中撤销一项合约操作`
     ],
     //2
-    [KEYS.PROMPT_RemovingIdentity]:name => [
+    [KEYS.PROMPT_RemovingWallet]:name => [
         '移除身份',
 
         `您即将删除名称为 '${name}' 的身份。 删除身份不可逆
         并且所有的权限也将删除。 如果在应用中使用身份，也许您应该禁用它。`
     ],
     //2
-    [KEYS.PROMPT_DeletingKeyPair]:identities => [
+    [KEYS.PROMPT_DeletingKeyPair]:wallets => [
         '删除密钥对',
 
-        identities.length ? `密钥对使用在: '${identities.join(', ')}'` : `这个密钥对没有在任何身份上使用。`
+        wallets.length ? `密钥对使用在: '${wallets.join(', ')}'` : `这个密钥对没有在任何身份上使用。`
     ],
     //2
     [KEYS.PROMPT_RemovingAccount]:formattedAccountName => [
@@ -392,10 +392,10 @@ export default {
         '选择您希望用于此身份的帐户和权限。一次只能选择一个。'
     ],
     //2
-    [KEYS.PROMPT_ClaimIdentity]:[
-        'Claim Identity',
+    [KEYS.PROMPT_ClaimWallet]:[
+        'Claim Wallet',
 
-        'Put in the private key that matches the public key on file for your identity name.'
+        'Put in the private key that matches the public key on file for your wallet name.'
     ],
 
     //3
@@ -409,7 +409,7 @@ export default {
          仅是为了比在控制面板中手工添加更方便`
     ],
     //5
-    [KEYS.REQUEST_Identity]:[
+    [KEYS.REQUEST_Wallet]:[
         /*{DOMAIN}*/ '正请求更多的信息。',
 
         `有时，应用会需要更多信息，
@@ -425,7 +425,7 @@ export default {
         /*{DOMAIN}*/ `没有请求任何附加信息。 他们唯一需要的是身份哈希和名称`
     ],
     //2
-    [KEYS.REQUEST_IdentityNoIdentities]:[
+    [KEYS.REQUEST_WalletNoWallets]:[
         `您没有与此应用程序需要的字段匹配的标识信息。`,
 
         `如果您希望将身份用于此域，您将需要更新该标识并满足需求。

@@ -30,7 +30,7 @@
     import Network from '../models/Network'
     import Gold from '../models/Gold'
     import AlertMsg from '../models/alerts/AlertMsg'
-    import IdentityService from '../services/IdentityService'
+    import WalletService from '../services/WalletService'
     import {BlockchainsArray} from '../models/Blockchains';
     import PluginRepository from '../plugins/PluginRepository'
 

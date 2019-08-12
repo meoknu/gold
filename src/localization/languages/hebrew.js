@@ -5,7 +5,7 @@ export default {
     [KEYS.GENERIC_New]:`חדש`,
     [KEYS.GENERIC_Save]:`שמור`,
     [KEYS.GENERIC_Ignored]:`התעלם`,
-    [KEYS.GENERIC_Identity]:`זהות`,
+    [KEYS.GENERIC_Wallet]:`זהות`,
     [KEYS.GENERIC_Contract]:`חוזה`,
     [KEYS.GENERIC_Action]:`פעולה`,
     [KEYS.GENERIC_Removed]:`נמחק`,
@@ -43,7 +43,7 @@ export default {
     [KEYS.PLACEHOLDER_ConfirmNewPassword]:'ווידוא סיסמה חדשה',
     [KEYS.PLACEHOLDER_DomainOrIP]:'אתר או IP',
 
-    [KEYS.BUTTON_CreateIdentity]:'צור זהות',
+    [KEYS.BUTTON_CreateWallet]:'צור זהות',
     [KEYS.BUTTON_ImportAccount]:'יבא חשבון',
     [KEYS.BUTTON_ImportKeychain]:'יבא צרור מפתחות',
     [KEYS.BUTTON_SelectFile]:'בחר קובץ',
@@ -66,51 +66,51 @@ export default {
     [KEYS.BUTTON_Yes]:'כן',
     [KEYS.BUTTON_No]:'לא',
     [KEYS.BUTTON_UseSelectedAccount]:'השתמש בחשבון שנבחר',
-    [KEYS.BUTTON_SelectIdentity]:'בחר זהות',
+    [KEYS.BUTTON_SelectWallet]:'בחר זהות',
     [KEYS.BUTTON_ChangeName]:'שנה שם',
-    [KEYS.BUTTON_ClaimIdentity]:'תבע זהות',
-    [KEYS.BUTTON_RegisterIdentity]:'רשום זהות',
+    [KEYS.BUTTON_ClaimWallet]:'תבע זהות',
+    [KEYS.BUTTON_RegisterWallet]:'רשום זהות',
 
-    [KEYS.MAINMENU_Identities]:'זהויות',
+    [KEYS.MAINMENU_Wallets]:'זהויות',
     [KEYS.MAINMENU_Keys]:'מפתחות',
     [KEYS.MAINMENU_Permissions]:'הרשאות',
     [KEYS.MAINMENU_History]:'היסטוריה',
     [KEYS.MAINMENU_Lock]:'נעל',
 
-    [KEYS.IDENTITIES_Header]:`עדיין אין לך זהויות.`,
-    [KEYS.IDENTITIES_Description]:`
+    [KEYS.WALLETS_Header]:`עדיין אין לך זהויות.`,
+    [KEYS.WALLETS_Description]:`
         זהויות מכילות מידע אישי כמו שם פרטי ושם משפחה, כתובת וחשבונות או זוגות של
         מפתחות לבלוקצ'יין. לזהויות יש גם זוגות של מפתחות והבעלות עליהם יכולה להיות
         מוכחת, מה שיכול להוות תהליך אימות ללא סיסמה.
     `,
 
-    [KEYS.IDENTITY_DisablingHeader]:`מה עושה השבתה?`,
-    [KEYS.IDENTITY_DisablingDescription]:`
+    [KEYS.WALLET_DisablingHeader]:`מה עושה השבתה?`,
+    [KEYS.WALLET_DisablingDescription]:`
         השבתה של זהות זו תחסום אותה מלהיות בשימוש בתכנות שמתייחסות אליה.
         ניתן להתשמש בזה במקום מחיקה סופית של הזהות הזו או ביטול ההרשאות שלה בתכנה,
         מה שיהיה קשה יותר לשחזור.
     `,
 
-    [KEYS.IDENTITY_NameHeader]:`שם הזהות`,
-    [KEYS.IDENTITY_NameDescription]:`
+    [KEYS.WALLET_NameHeader]:`שם הזהות`,
+    [KEYS.WALLET_NameDescription]:`
         תכנות יכולות לבחור להשתמש בשם זה כשם המשתמש שלך מכיוון שהוא ייחודי בכל הרשתות.
         אם לא נרשמת ב-RIDL תקבל שם רנדומלי.
     `,
-    [KEYS.IDENTITY_NoKeyPairsHeader]:`אין זוג מפתוחת!`,
-    [KEYS.IDENTITY_NoKeyPairsDescription]:`
+    [KEYS.WALLET_NoKeyPairsHeader]:`אין זוג מפתוחת!`,
+    [KEYS.WALLET_NoKeyPairsDescription]:`
         בטרם תוכל להוסיף חשבונות בלוקצ'יין לזהות זו עליך להוסיף זוגות של מפתחות. עבוד לתפריט הראשי ובחר:
     `,
-    [KEYS.IDENTITY_AccountHeader]:`חשבון`,
-    [KEYS.IDENTITY_AccountDescription]:`
+    [KEYS.WALLET_AccountHeader]:`חשבון`,
+    [KEYS.WALLET_AccountDescription]:`
         חשבונות מכילים את המטבעות שלך ומאפשרים לך אינטראקציה עם חוזים על הבלוקצ'יין.
         בהקשר של זהויות, חשוב עליהם כעל חשבונות בנק המקושרים לדרכון שלך, ניתן להחליפם בכל שלב.
     `,
-    [KEYS.IDENTITY_PersonalHeader]:`מידע אישי`,
-    [KEYS.IDENTITY_PersonalDescription]:`
+    [KEYS.WALLET_PersonalHeader]:`מידע אישי`,
+    [KEYS.WALLET_PersonalDescription]:`
         ניתן להוסיף מידע אישי עבור תכנות שדורשות זאת. למשל אתר קניות יצטרך שם מלא כדי לדעת למי לשלוח את המוצרים.
     `,
-    [KEYS.IDENTITY_LocationHeader]:`מידע על מיקום`,
-    [KEYS.IDENTITY_LocationDescription]:`
+    [KEYS.WALLET_LocationHeader]:`מידע על מיקום`,
+    [KEYS.WALLET_LocationDescription]:`
         ניתן להוסיף מידע על מיקום לחשבון עבור תכנות שדורשות זאת. למשל אתר קניות יצטרך את הכתובת למשלוח עבור המוצרים.
     `,
 
@@ -118,7 +118,7 @@ export default {
     [KEYS.PERMISSIONS_Description]:`
         הרשאות ניתנות במקרה שאתה נותן זהות לשימוש בתכנה או כשאתה מאפשר חתימה על פעולה חוזית ללא הודעת אישור הרשאה
     `,
-    [KEYS.PERMISSION_RevokeIdentity]:`ביטול זהות`,
+    [KEYS.PERMISSION_RevokeWallet]:`ביטול זהות`,
     [KEYS.PERMISSION_RevokeContract]:`ביטול חוזה`,
     [KEYS.PERMISSION_RevokeAction]:`ביטול פעולה`,
 
@@ -222,20 +222,20 @@ export default {
     },
 
     //2
-    [KEYS.ALERT_BadIdentityName]:[
+    [KEYS.ALERT_BadWalletName]:[
         'שם זהות לא חוקי',
 
         `שם זהות צריך להיות בן 3 עד 20 תווים באורכו.
         עליו להכיל תווים של אותיות או ספרות והוא יכול להכיל גם רווחים, מקפים וקווים תחתונים.`
     ],
     //2
-    [KEYS.ALERT_IdentityNameExists]:[
+    [KEYS.ALERT_WalletNameExists]:[
         'שם זהות קיים',
 
         'שם זהות זה רשום כבר עבור זהות אחרת.'
     ],
     //2
-    [KEYS.ALERT_NoSuchIdentityName]:[
+    [KEYS.ALERT_NoSuchWalletName]:[
         'שם זהות לא קיים',
 
         'שם זהות זה לא שמור ב-RIDL.'
@@ -303,13 +303,13 @@ export default {
         `לא ניתן להסיר רשתות מאושרות של סְקַטֵר.`
     ],
     //2
-    [KEYS.ALERT_NoIdentityWithProperties]:fields => [
+    [KEYS.ALERT_NoWalletWithProperties]:fields => [
         'לא נמצאו זהויות',
 
         `תכנה זו מבקשת זהות עם שדות שאין לך. השדות שהם מבקשים הם '${fields.join(', ')}'`
     ],
     //2
-    [KEYS.ALERT_YouMustSelectAnIdentity]:[
+    [KEYS.ALERT_YouMustSelectAnWallet]:[
         'חובה לבחור זהות',
 
         `אם אתה לא רוצה לחשוף זהות אתה יכול ללחוץ על כפתור הדחיה, אחרת חובה עליך לבחור זהות כדי
@@ -321,7 +321,7 @@ export default {
         'זו ההזדמנות האחרונה שלך לוודא שיש לך גיבויים מתאימים.'
     ],
     //2
-    [KEYS.PROMPT_RevokingIdentity]:domain => [
+    [KEYS.PROMPT_RevokingWallet]:domain => [
         'מבטל זהות',
 
         `אתה עומד לבטל זהות שלמה מ ${domain}. זה יסיר הרשאות מהזהות עצמה
@@ -340,17 +340,17 @@ export default {
         `אתה עומד לבטל פעולה מ ${domain}`
     ],
     //2
-    [KEYS.PROMPT_RemovingIdentity]:name => [
+    [KEYS.PROMPT_RemovingWallet]:name => [
         'הסרת זהות',
 
         `אתה עומד להסיר זהות בשם '${name}'. הסרת זהות היא פעולה בלתי הפיכה כולל ההרשאות שלה.
          אם הזהות בשימוש בתכנות אולי כדאי להשבית אותה במקום זה.`
     ],
     //2
-    [KEYS.PROMPT_DeletingKeyPair]:identities => [
+    [KEYS.PROMPT_DeletingKeyPair]:wallets => [
         'מוחק זוג מפתחות',
 
-        identities.length ? `זוג מפתחות זה נמצא בשימוש ב: '${identities.join(', ')}'` : `זוג מפתחות זה לא נמצא בשימוש.`
+        wallets.length ? `זוג מפתחות זה נמצא בשימוש ב: '${wallets.join(', ')}'` : `זוג מפתחות זה לא נמצא בשימוש.`
     ],
     //2
     [KEYS.PROMPT_RemovingAccount]:formattedAccountName => [
@@ -381,7 +381,7 @@ export default {
         'בחר את החשבון ואת הסמכות שברצונך להשתמש עבור זהות זאת. ניתן לבחור אחד בכל פעם.'
     ],
     //2
-    [KEYS.PROMPT_ClaimIdentity]:[
+    [KEYS.PROMPT_ClaimWallet]:[
         'תביעת זהות',
 
         'הכנס את המפתח הפרטי המתאים למפתח הציבורי הרשום עבור שם הזהות שלך.'
@@ -397,7 +397,7 @@ export default {
         פשוט חוסכת ממך את הצורך בהוספה של רשת זו במסך ההגדרות.`
     ],
     //5
-    [KEYS.REQUEST_Identity]:[
+    [KEYS.REQUEST_Wallet]:[
         /*{DOMAIN}*/ 'מבקש מידע נוסף.',
 
         `לפעמים תכנות מבקשות מידע נוסף כגון כתובת הדוא"ל שלך או תאריך לידה.
@@ -411,7 +411,7 @@ export default {
         /*{DOMAIN}*/ `לא מבקשים מידע נוסף. הדבר היחיד שהם צריכים הוא שם הזהות וhash של הזהות.`
     ],
     //2
-    [KEYS.REQUEST_IdentityNoIdentities]:[
+    [KEYS.REQUEST_WalletNoWallets]:[
         `אין לך זהות שמתאימה לנתונים שהתכנה הזו מבקשת.`,
 
         `אם ברצונך להשתמש בזהות עם אתר זה, תצטרך לעדכן זהות זו ולמלא את דרישותיה.

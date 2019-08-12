@@ -29,7 +29,7 @@
                 <br>
                 <section v-for="signer in signers()" class="panel-box">
                     <section class="panel">
-                        <figure class="header big identity-header">{{signer.name}}</figure>
+                        <figure class="header big wallet-header">{{signer.name}}</figure>
                     </section>
                 </section>
             </section>
@@ -44,9 +44,9 @@
     import * as Actions from '../store/constants';
     import {RouteNames} from '../vue/Routing'
     import AlertMsg from '../models/alerts/AlertMsg'
-    import IdentityService from '../services/IdentityService'
+    import WalletService from '../services/WalletService'
     import NotificationService from '../services/NotificationService'
-    import Identity from '../models/Identity'
+    import Wallet from '../models/Wallet'
 
     export default {
         data(){ return {
@@ -68,7 +68,7 @@
                 return keypair ? keypair.name : publicKey;
             },
             signers(){
-                if(this.prompt.data.identitySigner) return [this.prompt.data.identitySigner];
+                if(this.prompt.data.walletSigner) return [this.prompt.data.walletSigner];
                 else return this.prompt.data.accountSigners;
             },
             accepted(){
@@ -97,7 +97,7 @@
     .prompt-body {
         font-family: 'Open Sans', sans-serif;
 
-        .identity-header {
+        .wallet-header {
             width:calc(100% - 98px);
             display:inline-block;
         }

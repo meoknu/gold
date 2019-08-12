@@ -80,7 +80,7 @@
                     const gold = this.gold.clone();
                     gold.settings.networks = gold.settings.networks.filter(x => x.unique() !== network.unique());
 
-                    gold.keychain.identities.map(id => {
+                    gold.keychain.wallets.map(id => {
                         id.removeAccount(network);
                     });
 

@@ -19,24 +19,24 @@ export default class AlertMsg {
     /*            Error Messages           */
     /***************************************/
 
-    static BadIdentityName(){
+    static BadWalletName(){
         return new AlertMsg(
             AlertTypes.Error,
-            ...locale(LANG_KEYS.ALERT_BadIdentityName)
+            ...locale(LANG_KEYS.ALERT_BadWalletName)
         );
     }
 
-    static NoSuchIdentityName(){
+    static NoSuchWalletName(){
         return new AlertMsg(
             AlertTypes.Error,
-            ...locale(LANG_KEYS.ALERT_NoSuchIdentityName)
+            ...locale(LANG_KEYS.ALERT_NoSuchWalletName)
         );
     }
 
-    static IdentityNameExists(){
+    static WalletNameExists(){
         return new AlertMsg(
             AlertTypes.Error,
-            ...locale(LANG_KEYS.ALERT_IdentityNameExists)
+            ...locale(LANG_KEYS.ALERT_WalletNameExists)
         );
     }
 
@@ -110,19 +110,19 @@ export default class AlertMsg {
         );
     }
 
-    static NoIdentityWithProperties(fields){
+    static NoWalletWithProperties(fields){
 
 
         return new AlertMsg(
             AlertTypes.Error,
-            ...locale(LANG_KEYS.ALERT_NoIdentityWithProperties)(fields.toFieldsArray())
+            ...locale(LANG_KEYS.ALERT_NoWalletWithProperties)(fields.toFieldsArray())
         );
     }
 
-    static YouMustSelectAnIdentity(){
+    static YouMustSelectAnWallet(){
         return new AlertMsg(
             AlertTypes.Error,
-            ...locale(LANG_KEYS.ALERT_YouMustSelectAnIdentity)
+            ...locale(LANG_KEYS.ALERT_YouMustSelectAnWallet)
         );
     }
 
@@ -141,9 +141,9 @@ export default class AlertMsg {
         );
     }
 
-    static RevokingIdentity(domain){
+    static RevokingWallet(domain){
         return new AlertMsg(AlertTypes.Prompt,
-            ...locale(LANG_KEYS.PROMPT_RevokingIdentity)(domain)
+            ...locale(LANG_KEYS.PROMPT_RevokingWallet)(domain)
         );
     }
 
@@ -159,21 +159,21 @@ export default class AlertMsg {
         );
     }
 
-    static RemovingIdentity(name){
+    static RemovingWallet(name){
         return new AlertMsg(AlertTypes.Prompt,
-            ...locale(LANG_KEYS.PROMPT_RevokingIdentity)(name)
+            ...locale(LANG_KEYS.PROMPT_RevokingWallet)(name)
         );
     }
 
-    static RemovingAccount(formattedIdentity){
+    static RemovingAccount(formattedWallet){
         return new AlertMsg(AlertTypes.Prompt,
-            ...locale(LANG_KEYS.PROMPT_RemovingAccount)(formattedIdentity)
+            ...locale(LANG_KEYS.PROMPT_RemovingAccount)(formattedWallet)
         );
     }
 
-    static DeletingKeyPair(identities){
+    static DeletingKeyPair(wallets){
         return new AlertMsg(AlertTypes.Prompt,
-            ...locale(LANG_KEYS.PROMPT_DeletingKeyPair)(identities)
+            ...locale(LANG_KEYS.PROMPT_DeletingKeyPair)(wallets)
         );
     }
 
@@ -204,10 +204,10 @@ export default class AlertMsg {
         );
     }
 
-    static ClaimIdentity(name){
+    static ClaimWallet(name){
         return new AlertMsg(
-            AlertTypes.ClaimIdentity,
-            ...locale(LANG_KEYS.PROMPT_ClaimIdentity),
+            AlertTypes.ClaimWallet,
+            ...locale(LANG_KEYS.PROMPT_ClaimWallet),
 
         );
     }

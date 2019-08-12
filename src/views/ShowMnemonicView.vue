@@ -16,7 +16,7 @@
                 <section class="mnemonic">
                     <figure class="word" v-for="word in mnemonicAsArray()">{{word}}</figure>
                 </section>
-                <btn text="I wrote it down" v-on:clicked="goToFirstIdentity" margined="true"></btn>
+                <btn text="I wrote it down" v-on:clicked="goToFirstWallet" margined="true"></btn>
             </section>
         </section>
 
@@ -39,7 +39,7 @@
             mnemonicAsArray(){
                 return this.mnemonic ? this.mnemonic.split(" ") : [];
             },
-            goToFirstIdentity(){
+            goToFirstWallet(){
                 this[Actions.SET_MNEMONIC]('');
                 if(!this.gold.meta.hasOwnProperty('acceptedTerms') || !this.gold.meta.acceptedTerms)
                     this.$router.push({name:RouteNames.ONBOARDING})
@@ -50,7 +50,7 @@
             ])
         },
         mounted(){
-            if(!this.mnemonic || !this.mnemonic.length) this.goToFirstIdentity();
+            if(!this.mnemonic || !this.mnemonic.length) this.goToFirstWallet();
         }
     }
 </script>

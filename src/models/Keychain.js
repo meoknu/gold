@@ -1,4 +1,4 @@
-import Identity from './Identity';
+import Wallet from './Wallet';
 import Permission from './Permission';
 import KeyPair from './KeyPair';
 import IdGenerator from '../util/IdGenerator';
@@ -9,7 +9,7 @@ export default class Keychain {
 
     constructor(){
         this.keypairs = [];
-        this.identities = [];
+        this.wallets = [];
         this.permissions = [];
     }
 
@@ -17,7 +17,7 @@ export default class Keychain {
     static fromJson(json){
         let p = Object.assign(this.placeholder(), json);
         if(json.hasOwnProperty('keypairs')) p.keypairs = json.keypairs.map(x => KeyPair.fromJson(x));
-        if(json.hasOwnProperty('identities')) p.identities = json.identities.map(x => Identity.fromJson(x));
+        if(json.hasOwnProperty('wallets')) p.wallets = json.wallets.map(x => Wallet.fromJson(x));
         if(json.hasOwnProperty('permissions')) p.permissions = json.permissions.map(x => Permission.fromJson(x));
         return p;
     }
@@ -48,20 +48,20 @@ export default class Keychain {
 
     }
 
-    findIdentity(publicKey){ return this.identities.find(id => id.publicKey === publicKey); }
-    findIdentityFromDomain(domain){
-        const idFromPermissions =  this.permissions.find(permission => permission.isIdentityOnly() && permission.domain === domain);
-        if(idFromPermissions) return this.findIdentity(idFromPermissions.identity);
+    findWallet(publicKey){ return this.wallets.find(id => id.publicKey === publicKey); }
+    findWalletFromDomain(domain){
+        const idFromPermissions =  this.permissions.find(permission => permission.isWalletOnly() && permission.domain === domain);
+        if(idFromPermissions) return this.findWallet(idFromPermissions.wallet);
         else return null;
     }
-    updateOrPushIdentity(identity){
-        this.identities.find(id => id.publicKey === identity.publicKey)
-            ? this.identities = this.identities.map(id => id.publicKey === identity.publicKey ? identity : id)
-            : this.identities.unshift(identity);
+    updateOrPushWallet(wallet){
+        this.wallets.find(id => id.publicKey === wallet.publicKey)
+            ? this.wallets = this.wallets.map(id => id.publicKey === wallet.publicKey ? wallet : id)
+            : this.wallets.unshift(wallet);
     }
 
     findAccountsWithPublicKey(publicKey){
-        return this.identities.map(id => id.getAccountFromPublicKey(publicKey)).filter(acc => !!acc);
+        return this.wallets.map(id => id.getAccountFromPublicKey(publicKey)).filter(acc => !!acc);
     }
 
     forBackup(){

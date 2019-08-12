@@ -23,13 +23,13 @@
 
 
     import Network from '../models/Network'
-    import Identity from '../models/Identity'
+    import Wallet from '../models/Wallet'
     import Permission from '../models/Permission'
 
     export default {
         data(){ return {
             links:[
-                {route:RouteNames.IDENTITIES, name:this.locale(LANG_KEYS.MAINMENU_Identities), icon:'address-book'},
+                {route:RouteNames.WALLETS, name:this.locale(LANG_KEYS.MAINMENU_Wallets), icon:'address-book'},
                 {route:RouteNames.KEYS, name:this.locale(LANG_KEYS.MAINMENU_Keys), icon:'key'},
                 // {route:RouteNames.PERMISSIONS, name:this.locale(LANG_KEYS.MAINMENU_Permissions), icon:'shield'},
                 // {route:RouteNames.HISTORY, name:this.locale(LANG_KEYS.MAINMENU_History), icon:'history'},

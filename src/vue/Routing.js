@@ -3,8 +3,8 @@ import Onboarding from '../views/Onboarding.vue'
 import ShowMnemonicView from '../views/ShowMnemonicView.vue'
 import MainMenuView from '../views/MainMenuView.vue'
 import SettingsView from '../views/SettingsView.vue'
-import IdentitiesView from '../views/IdentitiesView.vue'
-import IdentityView from '../views/IdentityView.vue'
+import WalletsView from '../views/WalletsView.vue'
+import WalletView from '../views/WalletView.vue'
 import NetworksView from '../views/NetworksView.vue'
 import NetworkView from '../views/NetworkView.vue'
 import PermissionsView from '../views/PermissionsView.vue'
@@ -20,7 +20,7 @@ import LoadFromBackup from '../views/LoadFromBackup.vue'
 import KeyPairsView from '../views/KeyPairsView.vue'
 
 import * as PromptTypes from '../models/prompts/PromptTypes'
-import RequestIdentityPrompt from '../prompts/RequestIdentityPrompt.vue'
+import RequestWalletPrompt from '../prompts/RequestWalletPrompt.vue'
 import RequestSignaturePrompt from '../prompts/RequestSignaturePrompt.vue'
 import RequestArbitrarySignaturePrompt from '../prompts/RequestArbitrarySignaturePrompt.vue'
 import RequestAddNetwork from '../prompts/RequestAddNetwork.vue'
@@ -38,8 +38,8 @@ export const RouteNames = {
     SETTINGS:'settings',
 
     TRANSFER:'transfer',
-    IDENTITIES:'identities',
-    IDENTITY:'identity',
+    WALLETS:'wallets',
+    WALLET:'wallet',
     KEYS:'keys',
     PERMISSIONS:'permissions',
     DOMAIN_PERMISSIONS:'domainPermissions',
@@ -54,7 +54,7 @@ export const RouteNames = {
     LANGUAGE:'language',
     KEYPAIRS:'keypairs',
 
-    PROMPT_REQUEST_IDENTITY:`${promptPrefix}${PromptTypes.REQUEST_IDENTITY}`,
+    PROMPT_REQUEST_WALLET:`${promptPrefix}${PromptTypes.REQUEST_WALLET}`,
     PROMPT_REQUEST_SIGNATURE:`${promptPrefix}${PromptTypes.REQUEST_SIGNATURE}`,
     PROMPT_REQUEST_ARBITRARY_SIGNATURE:`${promptPrefix}${PromptTypes.REQUEST_ARBITRARY_SIGNATURE}`,
     PROMPT_REQUEST_ADD_NETWORK:`${promptPrefix}${PromptTypes.REQUEST_ADD_NETWORK}`,
@@ -71,8 +71,8 @@ const RouteViews = {
     [RouteNames.SETTINGS]:SettingsView,
 
     [RouteNames.TRANSFER]:SettingsView,
-    [RouteNames.IDENTITIES]:IdentitiesView,
-    [RouteNames.IDENTITY]:IdentityView,
+    [RouteNames.WALLETS]:WalletsView,
+    [RouteNames.WALLET]:WalletView,
     [RouteNames.KEYS]:KeyPairsView,
     [RouteNames.PERMISSIONS]:PermissionsView,
     [RouteNames.DOMAIN_PERMISSIONS]:DomainPermissionView,
@@ -87,7 +87,7 @@ const RouteViews = {
     [RouteNames.LANGUAGE]:LanguageView,
     [RouteNames.KEYPAIRS]:KeyPairView,
 
-    [RouteNames.PROMPT_REQUEST_IDENTITY]:RequestIdentityPrompt,
+    [RouteNames.PROMPT_REQUEST_WALLET]:RequestWalletPrompt,
     [RouteNames.PROMPT_REQUEST_SIGNATURE]:RequestSignaturePrompt,
     [RouteNames.PROMPT_REQUEST_ARBITRARY_SIGNATURE]:RequestArbitrarySignaturePrompt,
     [RouteNames.PROMPT_REQUEST_ADD_NETWORK]:RequestAddNetwork,
@@ -104,8 +104,8 @@ export const RouteDepth = {
     [RouteNames.SETTINGS]:100,
 
     [RouteNames.TRANSFER]:1,
-    [RouteNames.IDENTITIES]:1,
-    [RouteNames.IDENTITY]:2,
+    [RouteNames.WALLETS]:1,
+    [RouteNames.WALLET]:2,
     [RouteNames.KEYS]:2,
     [RouteNames.KEYPAIRS]:3,
     [RouteNames.PERMISSIONS]:1,

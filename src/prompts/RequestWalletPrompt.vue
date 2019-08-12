@@ -1,7 +1,7 @@
 <template>
     <section class="prompt-body">
 
-        <section class="prompt-actions" v-if="filteredIdentities().length">
+        <section class="prompt-actions" v-if="filteredWallets().length">
             <btn :text="locale(langKeys.BUTTON_Deny)" half="true" v-on:clicked="denied"></btn>
             <btn :text="locale(langKeys.BUTTON_Accept)" half="true" is-blue="true" v-on:clicked="accepted"></btn>
         </section>
@@ -14,61 +14,61 @@
 
             <section class="partition">
 
-                <section v-if="!identityFields.isEmpty()">
+                <section v-if="!walletFields.isEmpty()">
                     <section class="description">
-                        <b>{{prompt.domain}}</b> {{locale(langKeys.REQUEST_Identity)[0]}}
+                        <b>{{prompt.domain}}</b> {{locale(langKeys.REQUEST_Wallet)[0]}}
                     </section>
 
                     <section class="key-value">
                         <figure class="key">{{locale(langKeys.GENERIC_Requires)}}</figure>
-                        <figure class="value" v-for="field in identityFields.personal">
+                        <figure class="value" v-for="field in walletFields.personal">
                             {{field}}
                         </figure>
-                        <figure class="value" v-for="field in identityFields.location">
+                        <figure class="value" v-for="field in walletFields.location">
                             {{field}}
                         </figure>
-                        <figure class="value" v-for="account in identityFields.accounts">
+                        <figure class="value" v-for="account in walletFields.accounts">
                             {{account.blockchain.toUpperCase()}} {{locale(langKeys.GENERIC_Account)}}
                         </figure>
                     </section>
 
-                    <section class="description">{{locale(langKeys.REQUEST_Identity)[1]}}</section>
-                    <section class="description">{{locale(langKeys.REQUEST_Identity)[2]}}</section>
+                    <section class="description">{{locale(langKeys.REQUEST_Wallet)[1]}}</section>
+                    <section class="description">{{locale(langKeys.REQUEST_Wallet)[2]}}</section>
                 </section>
 
                 <section v-else>
-                    <section class="description"><b>{{prompt.domain}}</b> {{locale(langKeys.REQUEST_Identity)[3]}}</section>
+                    <section class="description"><b>{{prompt.domain}}</b> {{locale(langKeys.REQUEST_Wallet)[3]}}</section>
                 </section>
 
             </section>
 
-            <search v-on:changed="changed => bind(changed, 'searchText')" v-if="filteredIdentities().length"></search>
+            <search v-on:changed="changed => bind(changed, 'searchText')" v-if="filteredWallets().length"></search>
 
-            <section class="partition scroller" v-if="filteredIdentities().length">
+            <section class="partition scroller" v-if="filteredWallets().length">
 
 
-                <section v-for="identity in filteredIdentities()" class="panel-box">
+                <section v-for="wallet in filteredWallets()" class="panel-box">
 
                     <!-- Header -->
                     <section class="panel">
-                        <figure class="header big identity-header">{{identity.name}}</figure>
-                        <figure class="select-identity"
-                                v-on:click="selectIdentity(identity)"
-                                :class="{'selected':selectedIdentity && selectedIdentity.publicKey === identity.publicKey}">
-                            {{locale(langKeys.BUTTON_SelectIdentity)}}
+                        <figure class="header big wallet-header">{{wallet.name}}</figure>
+                        <figure class="select-wallet"
+                                v-on:click="selectWallet(wallet)"
+                                :class="{'selected':selectedWallet && selectedWallet.publicKey === wallet.publicKey}">
+                            {{locale(langKeys.BUTTON_SelectWallet)}}
                         </figure>
-                        <!--<figure class="header small margin"><i class="fa fa-globe"></i>{{identity.network.host}}</figure>-->
+                        <!--<figure class="header small margin"><i class="fa fa-globe"></i>{{wallet.network.host}}</figure>-->
                     </section>
 
-                    <section class="panel" v-if="!identityFields.isEmpty()">
+                    <section class="panel" v-if="!walletFields.isEmpty()">
                         <figure class="header small reverse-margin">{{locale(langKeys.GENERIC_RequiredProperties)}}</figure>
-                        <section class="panel inner" v-for="key in Object.keys(identityFields)" v-if="identityFields[key].length">
+                        <section class="panel inner" v-for="key in Object.keys(walletFields)" v-if="walletFields[key].length">
                             <figure class="header small reverse-margin">{{key}}</figure>
                             <section class="items">
-                                <section class="item" v-for="prop in identityFields[key]">
+                                <section class="item" v-for="prop in walletFields[key]">
                                     <figure>
                                         <span>{{formatProp(prop)}}</span>
-                                        <span>{{formatPropValue(identity, prop)}}</span>
+                                        <span>{{formatPropValue(wallet, prop)}}</span>
                                     </figure>
                                 </section>
                             </section>
@@ -82,8 +82,8 @@
 
             <section class="partition" v-else>
                 <section class="nothing-here">
-                    <figure class="header"><b>{{locale(langKeys.REQUEST_IdentityNoIdentities)[0]}}</b></figure>
-                    <figure class="sub-header">{{locale(langKeys.REQUEST_IdentityNoIdentities)[1]}}</figure>
+                    <figure class="header"><b>{{locale(langKeys.REQUEST_WalletNoWallets)[0]}}</b></figure>
+                    <figure class="sub-header">{{locale(langKeys.REQUEST_WalletNoWallets)[1]}}</figure>
                 </section>
             </section>
 
@@ -97,16 +97,16 @@
     import * as Actions from '../store/constants';
     import {RouteNames} from '../vue/Routing'
     import AlertMsg from '../models/alerts/AlertMsg'
-    import IdentityService from '../services/IdentityService'
+    import WalletService from '../services/WalletService'
     import NotificationService from '../services/NotificationService'
-    import Identity from '../models/Identity'
+    import Wallet from '../models/Wallet'
     import Network from '../models/Network'
     import PluginRepository from '../plugins/PluginRepository'
 
     export default {
         data(){ return {
             searchText:'',
-            selectedIdentity:null,
+            selectedWallet:null,
         }},
         computed: {
             ...mapState([
@@ -114,39 +114,39 @@
                 'prompt'
             ]),
             ...mapGetters([
-                'identities',
-                'identityFields'
+                'wallets',
+                'walletFields'
             ])
         },
         mounted(){
         },
         methods: {
             bind(changed, original) { this[original] = changed },
-            filteredIdentities(){
-                return this.identities
-                    .filter(id => id.hasRequiredFields(this.identityFields))
+            filteredWallets(){
+                return this.wallets
+                    .filter(id => id.hasRequiredFields(this.walletFields))
                     .filter(id => JSON.stringify(id).indexOf(this.searchText) !== -1)
             },
             formatProp(prop){
                 if(prop instanceof Network) return `${prop.blockchain.toUpperCase()} Account`;
                 return prop;
             },
-            formatPropValue(identity, prop){
-                const value = identity.getPropertyValueByName(prop);
+            formatPropValue(wallet, prop){
+                const value = wallet.getPropertyValueByName(prop);
                 if(prop instanceof Network) return PluginRepository.plugin(prop.blockchain).accountFormatter(value);
                 else if (prop === 'country') return value.name;
                 return value;
             },
-            selectIdentity(identity){
-                this.selectedIdentity = identity;
+            selectWallet(wallet){
+                this.selectedWallet = wallet;
             },
             accepted(){
-                if(!this.selectedIdentity){
-                    this[Actions.PUSH_ALERT](AlertMsg.YouMustSelectAnIdentity());
+                if(!this.selectedWallet){
+                    this[Actions.PUSH_ALERT](AlertMsg.YouMustSelectAnWallet());
                     return false;
                 }
-                const identity = this.identities.find(id => id.publicKey === this.selectedIdentity.publicKey);
-                this.prompt.responder(identity);
+                const wallet = this.wallets.find(id => id.publicKey === this.selectedWallet.publicKey);
+                this.prompt.responder(wallet);
                 NotificationService.close();
             },
             denied(){
@@ -172,12 +172,12 @@
     .prompt-body {
         font-family: 'Open Sans', sans-serif;
 
-        .identity-header {
+        .wallet-header {
             width:calc(100% - 98px);
             display:inline-block;
         }
 
-        .select-identity {
+        .select-wallet {
             cursor: pointer;
             padding:0 10px;
             height:24px;

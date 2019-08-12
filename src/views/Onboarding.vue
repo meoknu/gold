@@ -26,7 +26,7 @@
                 <figure class="breaker"></figure>
                 <figure class="description">
                     Gold supports multiple blockchains. When you enter your Key Pair we will determine which
-                    one you are using and set up your Identity for you.
+                    one you are using and set up your Wallet for you.
                 </figure>
             </section>
             <section class="p20">
@@ -45,10 +45,10 @@
                 <figure class="title">That's it!</figure>
                 <figure class="breaker"></figure>
                 <figure class="description">
-                    You now have a Gold Identity with an {{keypair.blockchain.toUpperCase()}} account linked to it.
+                    You now have a Gold Wallet with an {{keypair.blockchain.toUpperCase()}} account linked to it.
                     <br><br>
-                    You can go to your Identity and fill out any extra fields applications might want from you, but none of the fields in your
-                    Identity are mandatory.
+                    You can go to your Wallet and fill out any extra fields applications might want from you, but none of the fields in your
+                    Wallet are mandatory.
                     <br><br>
                     Enjoy using Gold.
                 </figure>
@@ -71,7 +71,7 @@
     import Network from '../models/Network'
     import Gold from '../models/Gold'
     import AlertMsg from '../models/alerts/AlertMsg'
-    import IdentityService from '../services/IdentityService'
+    import WalletService from '../services/WalletService'
     import {BlockchainsArray, Blockchains} from '../models/Blockchains';
     import KeyPairService from '../services/KeyPairService'
     import AccountService from '../services/AccountService'
@@ -79,7 +79,7 @@
     export default {
         data(){ return {
             step:0,
-            identity:null,
+            wallet:null,
             keypair:KeyPair.fromJson({name:'My First Key Pair'})
         }},
         computed: {
@@ -91,7 +91,7 @@
             ])
         },
         mounted(){
-            this.identity = this.gold.keychain.identities[0];
+            this.wallet = this.gold.keychain.wallets[0];
         },
         methods: {
             bind(changed, dotNotation) {
@@ -111,7 +111,7 @@
                 if(!this.keypair.publicKey.length) return this[Actions.PUSH_ALERT](AlertMsg.InvalidPrivateKey());
                 if(await this.importAccount()) KeyPairService.saveKeyPair(this.keypair, this, () => {
                     const gold = this.gold.clone();
-                    gold.keychain.updateOrPushIdentity(this.identity);
+                    gold.keychain.updateOrPushWallet(this.wallet);
                     this[Actions.UPDATE_STORED_GOLD](gold).then(() => this.step++);
                 })
             },
@@ -121,7 +121,7 @@
                 if(!selectedKeypair || !selectedKeypair.publicKey.length) return false;
                 return await AccountService.importFromKey(selectedKeypair, selectedNetwork, this).then(imported => {
                     if(!imported.account) return false;
-                    this.identity.setAccount(selectedNetwork, imported.account);
+                    this.wallet.setAccount(selectedNetwork, imported.account);
                     return true;
                 }).catch(() => false);
             },

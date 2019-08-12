@@ -5,7 +5,7 @@ export default {
     [KEYS.GENERIC_New]:`신규 생성`,
     [KEYS.GENERIC_Save]:`저장`,
     [KEYS.GENERIC_Ignored]:`무시`,
-    [KEYS.GENERIC_Identity]:`신원인증 ID`,
+    [KEYS.GENERIC_Wallet]:`신원인증 ID`,
     [KEYS.GENERIC_Contract]:`컨트랙트`,
     [KEYS.GENERIC_Action]:`액션`,
     [KEYS.GENERIC_Removed]:`제거`,
@@ -43,7 +43,7 @@ export default {
     [KEYS.PLACEHOLDER_ConfirmNewPassword]:'새로운 패스워드 확인',
     [KEYS.PLACEHOLDER_DomainOrIP]:'도메인 혹은 IP주소',
 
-    [KEYS.BUTTON_CreateIdentity]:'신원인증 ID 생성',
+    [KEYS.BUTTON_CreateWallet]:'신원인증 ID 생성',
     [KEYS.BUTTON_ImportAccount]:'계정 불러오기',
     [KEYS.BUTTON_ImportKeychain]:'키체인 불러오기',
     [KEYS.BUTTON_SelectFile]:'파일 선택',
@@ -66,55 +66,55 @@ export default {
     [KEYS.BUTTON_Yes]:'네',
     [KEYS.BUTTON_No]:'아니오',
     [KEYS.BUTTON_UseSelectedAccount]:'선택한 계정 사용',
-    [KEYS.BUTTON_SelectIdentity]:'신원인증 ID 선택',
+    [KEYS.BUTTON_SelectWallet]:'신원인증 ID 선택',
     [KEYS.BUTTON_ChangeName]:'이름 변경',
-    [KEYS.BUTTON_ClaimIdentity]:'신원인증 ID 요청',
-    [KEYS.BUTTON_RegisterIdentity]:'신원인증 ID 등록',
+    [KEYS.BUTTON_ClaimWallet]:'신원인증 ID 요청',
+    [KEYS.BUTTON_RegisterWallet]:'신원인증 ID 등록',
 
-    [KEYS.MAINMENU_Identities]:'신원인증 ID',
+    [KEYS.MAINMENU_Wallets]:'신원인증 ID',
     [KEYS.MAINMENU_Keys]:'키 쌍',
     [KEYS.MAINMENU_Permissions]:'권한',
     [KEYS.MAINMENU_History]:'변경내역',
     [KEYS.MAINMENU_Lock]:'잠금',
 
-    [KEYS.IDENTITIES_Header]:`아직 어떠한 신원인증 정보도 존재하지 않습니다.`,
-    [KEYS.IDENTITIES_Description]:`
+    [KEYS.WALLETS_Header]:`아직 어떠한 신원인증 정보도 존재하지 않습니다.`,
+    [KEYS.WALLETS_Description]:`
         신원인증 ID는 성과 이름, 주소 및 다양한 블록체인 계정/키 쌍과 같은 개인정보 꾸러미입니다. 
 		신원인증 ID는 키 쌍을 포함하고 있으며 소유권이 입증 될 수 있으므로 패스워드 없이 
 		응용프로그램을 인증 할 수 있습니다.
 
     `,
 
-    [KEYS.IDENTITY_DisablingHeader]:`비활성화란?`,
-    [KEYS.IDENTITY_DisablingDescription]:`
+    [KEYS.WALLET_DisablingHeader]:`비활성화란?`,
+    [KEYS.WALLET_DisablingDescription]:`
 		신원인증 ID 비활성화는 이를 참고하는 응용프로그램으로부터 사용을 중지시킵니다.
 		이 ID를 영구적으로 삭제하는 대신에 비활성화를 사용할 수 있습니다.
         응용프로그램에 대한 사용 권한이므로 복구하기가 더 어려울 수 있습니다.
     `,
 
-    [KEYS.IDENTITY_NameHeader]:`신원인증 ID 이름`,
-    [KEYS.IDENTITY_NameDescription]:`
+    [KEYS.WALLET_NameHeader]:`신원인증 ID 이름`,
+    [KEYS.WALLET_NameDescription]:`
         응용 프로그램은 이 이름을 모든 네트워크에서 고유한 사용자 이름으로 사용하도록 선택할 수 있습니다.
         RIDL에 등록되지 않은 경우 임의의 이름이 지정됩니다.
 
     `,
-    [KEYS.IDENTITY_NoKeyPairsHeader]:`키 쌍이 존재하지 않습니다!`,
-    [KEYS.IDENTITY_NoKeyPairsDescription]:`
+    [KEYS.WALLET_NoKeyPairsHeader]:`키 쌍이 존재하지 않습니다!`,
+    [KEYS.WALLET_NoKeyPairsDescription]:`
         이 신원인증 ID에 블록체인 계정을 추가하기 전에 일부 키 쌍을 추가해야합니다. 주메뉴로 이동하여 다음을 선택하십시오.
 	`,
-    [KEYS.IDENTITY_AccountHeader]:`계정`,
-    [KEYS.IDENTITY_AccountDescription]:`
+    [KEYS.WALLET_AccountHeader]:`계정`,
+    [KEYS.WALLET_AccountDescription]:`
 		계정은 여러분의 자금을 보유하고 있으며 블록체인에서 컨트랙트를 체결 할 수 있게 해줍니다.
 		신원인증 ID와 관련하여, 이것을 여권에 연결된 은행계좌처럼 생각할 수 있습니다.
 		언제든지 이것을 변경할 수 있습니다.
     `,
-    [KEYS.IDENTITY_PersonalHeader]:`개인 정보`,
-    [KEYS.IDENTITY_PersonalDescription]:`
+    [KEYS.WALLET_PersonalHeader]:`개인 정보`,
+    [KEYS.WALLET_PersonalDescription]:`
 		개인 정보는 이것이 필요한 응용 프로그램을 위해 계정에 추가 할 수 있습니다. 
 		예를 들어 쇼핑 웹사이트는 구매 상품을 수령할 사람을 알기 위해 이름 정보가 필요할 수 있습니다.
     `,
-    [KEYS.IDENTITY_LocationHeader]:`지역 정보`,
-    [KEYS.IDENTITY_LocationDescription]:`
+    [KEYS.WALLET_LocationHeader]:`지역 정보`,
+    [KEYS.WALLET_LocationDescription]:`
 		위치 정보를 요구하는 응용 프로그램을 위해 위치 정보를 계정에 추가 할 수 있습니다.
 		예를 들어 쇼핑 웹사이트는 구입한 상품의 배송지 정보를 위해 배송 주소가 필요할 수 있습니다.
     `,
@@ -124,7 +124,7 @@ export default {
 		권한은 사용할 응용 프로그램에 계정인증 ID를 제공하거나 
 		승인 대기없이 컨트랙트 액션을 허용 목록에 추가 할 때 설정됩니다.
     `,
-    [KEYS.PERMISSION_RevokeIdentity]:`신원 인증 ID 취소`,
+    [KEYS.PERMISSION_RevokeWallet]:`신원 인증 ID 취소`,
     [KEYS.PERMISSION_RevokeContract]:`컨트랙트 취소`,
     [KEYS.PERMISSION_RevokeAction]:`액션 취소`,
 
@@ -224,20 +224,20 @@ export default {
     },
 
     //2
-    [KEYS.ALERT_BadIdentityName]:[
+    [KEYS.ALERT_BadWalletName]:[
         '잘못된 신원인증 ID 이름',
 
         `ID 이름은 3자에서 20자 사이여야 합니다. 
 		 알파벳과 숫자 조합이어야하지만 공백, 대시 및 밑줄도 포함될 수 있습니다.`
     ],
     //2
-    [KEYS.ALERT_IdentityNameExists]:[
+    [KEYS.ALERT_WalletNameExists]:[
         '신원인증 ID가 존재함',
 
         '이 신원인증 ID 이름은 다른 신원인증에 이미 등록되었습니다.'
     ],
     //2
-    [KEYS.ALERT_NoSuchIdentityName]:[
+    [KEYS.ALERT_NoSuchWalletName]:[
         '해당되는 신원인증 ID가 없음',
 
         '이 신원인증 ID는 RIDL에 존재하지 않습니다.'
@@ -305,13 +305,13 @@ export default {
         `스캐터의 승인된 네트워크는 제거 할 수 없습니다.`
     ],
     //2
-    [KEYS.ALERT_NoIdentityWithProperties]:fields => [
+    [KEYS.ALERT_NoWalletWithProperties]:fields => [
         '신원인증 정보 없음',
 
         `이 응용 프로그램은 가지고 있지 않은 속성을 포함한 신원인증 ID를 요청하고 있습니다. 요청하는 속성 : '${fields.join(', ')}'`
     ],
     //2
-    [KEYS.ALERT_YouMustSelectAnIdentity]:[
+    [KEYS.ALERT_YouMustSelectAnWallet]:[
         '신원인증 ID 선택',
 
         `신원을 공개하고 싶지 않으면 거부 버튼을 누르십시오. 그렇지 않으면 이 요청을 승인하기 위해 신원을 선택해야합니다.`
@@ -323,7 +323,7 @@ export default {
         '백업을 다시 확인할 수 있는 마지막 기회입니다.'
     ],
     //2
-    [KEYS.PROMPT_RevokingIdentity]:domain => [
+    [KEYS.PROMPT_RevokingWallet]:domain => [
         '신원인증 ID 해지',
 
         `${domain}으로부터 신원인증 ID를 해지합니다. 
@@ -342,17 +342,17 @@ export default {
         `${domain}으로부터 모든 액션을 해지합니다.`
     ],
     //2
-    [KEYS.PROMPT_RemovingIdentity]:name => [
+    [KEYS.PROMPT_RemovingWallet]:name => [
         '신원인증 ID 제거',
 
         `이름이 '${name}'인 신원증명 ID를 제거합니다. 신원인증 ID 제거는 되돌릴 수 없으며 모든 사용 권한도 되돌릴 수 없습니다. 
 		 신원인증 ID가 응용 프로그램에서 사용되고 있다면 먼저 비활성화 해야 할 수 있습니다.`
     ],
     //2
-    [KEYS.PROMPT_DeletingKeyPair]:identities => [
+    [KEYS.PROMPT_DeletingKeyPair]:wallets => [
         '키 쌍 삭제 중',
 
-        identities.length ? `이 키 쌍은 다음에서 사용되고 있습니다. : '${identities.join(', ')}'` : `이 키 쌍은 어떠한 신원인증 ID에서도 사용되고 있지 않습니다.`
+        wallets.length ? `이 키 쌍은 다음에서 사용되고 있습니다. : '${wallets.join(', ')}'` : `이 키 쌍은 어떠한 신원인증 ID에서도 사용되고 있지 않습니다.`
     ],
     //2
     [KEYS.PROMPT_RemovingAccount]:formattedAccountName => [
@@ -381,7 +381,7 @@ export default {
         '이 신원인증 ID에 사용할 계정과 권한을 선택하십시오. 한 번에 하나씩만 선택할 수 있습니다.'
     ],
     //2
-    [KEYS.PROMPT_ClaimIdentity]:[
+    [KEYS.PROMPT_ClaimWallet]:[
         '신원인증 ID 요청',
 
         '신원인증 ID 이름에 대한 파일의 퍼블릭 키와 일치하는 프라이빗 키를 입력하십시오.'
@@ -397,7 +397,7 @@ export default {
 		 이 인터페이스를 통해 네트워크를 추가하면 설정 패널에서 직접 수동으로 추가 할 필요가 없습니다.`
     ],
     //5
-    [KEYS.REQUEST_Identity]:[
+    [KEYS.REQUEST_Wallet]:[
         /*{DOMAIN}*/ '이(가) 추가 정보를 요청하고 있습니다.',
 
         `때로는 응용 프로그램이 귀하의 이메일이나 생년월일과 같은 정보를 요구합니다. 
@@ -411,7 +411,7 @@ export default {
         /*{DOMAIN}*/ `이(가) 추가 정보를 요청하지는 않습니다. 그들이 요구하는 것은 신원인증 ID 해시 및 이름입니다.`
     ],
     //2
-    [KEYS.REQUEST_IdentityNoIdentities]:[
+    [KEYS.REQUEST_WalletNoWallets]:[
         `이 응용 프로그램에 필요한 필드와 일치하는 신원인증 ID가 없습니다.`,
 
         `이 도메인에서 신원인증 ID를 사용하려면 해당 신원인증 ID를 업데이트하고 요구 사항을 충족해야합니다. 왼쪽 패널에서 이 도메인에 필요한 항목을 볼 수 있습니다.`

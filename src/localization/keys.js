@@ -1,5 +1,5 @@
 
-export const MAINMENU_Identities = 'mm_ids';
+export const MAINMENU_Wallets = 'mm_ids';
 export const MAINMENU_Keys = 'mm_keys';
 export const MAINMENU_Permissions = 'mm_perm';
 export const MAINMENU_History = 'mm_hist';
@@ -7,7 +7,7 @@ export const MAINMENU_Lock = 'mm_lock';
 
 export const GENERIC_New = 'gen_new';
 export const GENERIC_Save = 'gen_save';
-export const GENERIC_Identity = 'gen_id';
+export const GENERIC_Wallet = 'gen_id';
 export const GENERIC_Contract = 'gen_contract';
 export const GENERIC_Action = 'gen_action';
 export const GENERIC_Removed = 'gen_rm';
@@ -48,7 +48,7 @@ export const PLACEHOLDER_ConfirmNewPassword = 'plc_conf_new_pass';
 export const PLACEHOLDER_DomainOrIP = 'plc_dom_or_ip';
 export const PLACEHOLDER_PasteYourBackup = 'plc_pst_backup';
 
-export const BUTTON_CreateIdentity = 'btn_new_id';
+export const BUTTON_CreateWallet = 'btn_new_id';
 export const BUTTON_ImportAccount = 'btn_import_acc';
 export const BUTTON_ImportKeychain = 'btn_import_keychain';
 export const BUTTON_SelectFile = 'btn_sel_file';
@@ -71,31 +71,31 @@ export const BUTTON_Deny = 'btn_deny';
 export const BUTTON_Yes = 'btn_yes';
 export const BUTTON_No = 'btn_no';
 export const BUTTON_UseSelectedAccount = 'btn_use_sel_acc';
-export const BUTTON_SelectIdentity = 'btn_sel_id';
+export const BUTTON_SelectWallet = 'btn_sel_id';
 export const BUTTON_ChangeName = 'btn_change_name';
-export const BUTTON_ClaimIdentity = 'btn_claim_id';
-export const BUTTON_RegisterIdentity = 'btn_reg_id';
+export const BUTTON_ClaimWallet = 'btn_claim_id';
+export const BUTTON_RegisterWallet = 'btn_reg_id';
 
-export const IDENTITIES_Header = 'ids_head';
-export const IDENTITIES_Description = 'ids_fields';
+export const WALLETS_Header = 'ids_head';
+export const WALLETS_Description = 'ids_fields';
 
-export const IDENTITY_DisablingHeader = 'id_disbl_head';
-export const IDENTITY_DisablingDescription = 'id_disbl_desc';
-export const IDENTITY_NameHeader = 'id_name_head';
-export const IDENTITY_NameDescription = 'id_name_desc';
-export const IDENTITY_NoKeyPairsHeader = 'id_no_kp_head';
-export const IDENTITY_NoKeyPairsDescription = 'id_no_kp_desc';
-export const IDENTITY_AccountHeader = 'id_account_head';
-export const IDENTITY_AccountDescription = 'id_account_desc';
-export const IDENTITY_PersonalHeader = 'id_pers_head';
-export const IDENTITY_PersonalDescription = 'id_pers_desc';
-export const IDENTITY_LocationHeader = 'id_loc_head';
-export const IDENTITY_LocationDescription = 'id_loc_desc';
+export const WALLET_DisablingHeader = 'id_disbl_head';
+export const WALLET_DisablingDescription = 'id_disbl_desc';
+export const WALLET_NameHeader = 'id_name_head';
+export const WALLET_NameDescription = 'id_name_desc';
+export const WALLET_NoKeyPairsHeader = 'id_no_kp_head';
+export const WALLET_NoKeyPairsDescription = 'id_no_kp_desc';
+export const WALLET_AccountHeader = 'id_account_head';
+export const WALLET_AccountDescription = 'id_account_desc';
+export const WALLET_PersonalHeader = 'id_pers_head';
+export const WALLET_PersonalDescription = 'id_pers_desc';
+export const WALLET_LocationHeader = 'id_loc_head';
+export const WALLET_LocationDescription = 'id_loc_desc';
 
 
 export const PERMISSIONS_Header = 'perms_head';
 export const PERMISSIONS_Description = 'perms_desc';
-export const PERMISSION_RevokeIdentity = 'perm_rev_id';
+export const PERMISSION_RevokeWallet = 'perm_rev_id';
 export const PERMISSION_RevokeContract = 'perm_rev_cont';
 export const PERMISSION_RevokeAction = 'perm_rev_act';
 
@@ -161,9 +161,9 @@ export const DESTROY_Description = 'destr_desc';
 export const ERROR_MustSelectItem = 'err_mst_sel_item';
 
 export const ALERT_Type = 'alert_type';
-export const ALERT_BadIdentityName = 'alert_bad_id_name';
-export const ALERT_IdentityNameExists = 'alert_id_name_exists';
-export const ALERT_NoSuchIdentityName = 'alert_no_such_id';
+export const ALERT_BadWalletName = 'alert_bad_id_name';
+export const ALERT_WalletNameExists = 'alert_id_name_exists';
+export const ALERT_NoSuchWalletName = 'alert_no_such_id';
 export const ALERT_BadKeyPairName = 'alert_bad_kp_name';
 export const ALERT_KeyPairExists = 'alert_keypair_exists';
 export const ALERT_InvalidPrivateKey = 'alert_inv_priv_key';
@@ -174,26 +174,26 @@ export const ALERT_WrongPassword = 'alert_wrong_pass';
 export const ALERT_NetworkHostInvalid = 'alert_net_host_invalid';
 export const ALERT_NetworkExists = 'alert_net_exists';
 export const ALERT_RemovingEndorsedNetwork = 'alert_rm_end_net';
-export const ALERT_NoIdentityWithProperties = 'alert_no_id_w_prop';
-export const ALERT_YouMustSelectAnIdentity = 'alert_mst_sel_id';
+export const ALERT_NoWalletWithProperties = 'alert_no_id_w_prop';
+export const ALERT_YouMustSelectAnWallet = 'alert_mst_sel_id';
 
 export const PROMPT_DestroyingGold = 'prompt_destr_scat';
-export const PROMPT_RevokingIdentity = 'prompt_revk_id';
+export const PROMPT_RevokingWallet = 'prompt_revk_id';
 export const PROMPT_RevokingContract = 'prompt_revk_contr';
 export const PROMPT_RevokingContractAction = 'prompt_revk_contr_act';
-export const PROMPT_RemovingIdentity = 'prompt_rm_id';
+export const PROMPT_RemovingWallet = 'prompt_rm_id';
 export const PROMPT_RemovingAccount = 'prompt_rm_acc';
 export const PROMPT_RemovingNetwork = 'prompt_rm_net';
 export const PROMPT_DeletingKeyPair = 'alert_del_kp';
 export const PROMPT_WhitelistingContractAction = 'prompt_white_act';
 export const PROMPT_SelectAccount = 'prompt_sel_acc';
-export const PROMPT_ClaimIdentity = 'prompt_claim_id';
+export const PROMPT_ClaimWallet = 'prompt_claim_id';
 
 
 
 export const REQUEST_AddNetwork = 'req_add_net';
-export const REQUEST_Identity = 'req_id';
-export const REQUEST_IdentityNoIdentities = 'req_id_no_ids';
+export const REQUEST_Wallet = 'req_id';
+export const REQUEST_WalletNoWallets = 'req_id_no_ids';
 export const REQUEST_SignatureWhitelist = 'req_sig_white';
 export const REQUEST_GoldIsLocked = 'req_scat_locked';
 export const REQUEST_UpdateVersion = 'req_updt_vers';

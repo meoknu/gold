@@ -5,7 +5,7 @@ export default {
     [KEYS.GENERIC_New]:`Neu`,
     [KEYS.GENERIC_Save]:`Speichern`,
     [KEYS.GENERIC_Ignored]:`Ignoriert`,
-    [KEYS.GENERIC_Identity]:`Identität`,
+    [KEYS.GENERIC_Wallet]:`Identität`,
     [KEYS.GENERIC_Contract]:`Smart Contract`,
     [KEYS.GENERIC_Action]:`Aktion`,
     [KEYS.GENERIC_Removed]:`Entfernt`,
@@ -43,7 +43,7 @@ export default {
     [KEYS.PLACEHOLDER_ConfirmNewPassword]:'Neues Password bestätigen',
     [KEYS.PLACEHOLDER_DomainOrIP]:'Domäne oder IP',
 
-    [KEYS.BUTTON_CreateIdentity]:'Identität erstellen',
+    [KEYS.BUTTON_CreateWallet]:'Identität erstellen',
     [KEYS.BUTTON_ImportAccount]:'Account importieren',
     [KEYS.BUTTON_ImportKeychain]:'Keychain importieren',
     [KEYS.BUTTON_SelectFile]:'Datei auswählen',
@@ -66,52 +66,52 @@ export default {
     [KEYS.BUTTON_Yes]:'Ja',
     [KEYS.BUTTON_No]:'Nein',
     [KEYS.BUTTON_UseSelectedAccount]:'Ausgewählten Account benutzen',
-    [KEYS.BUTTON_SelectIdentity]:'Identität auswählen',
+    [KEYS.BUTTON_SelectWallet]:'Identität auswählen',
 
-    [KEYS.MAINMENU_Identities]:'Identitäten',
+    [KEYS.MAINMENU_Wallets]:'Identitäten',
     [KEYS.MAINMENU_Keys]:'Schlüsselpaare',
     [KEYS.MAINMENU_Permissions]:'Berechtigungen',
     [KEYS.MAINMENU_History]:'Verlauf',
     [KEYS.MAINMENU_Lock]:'Sperren',
 
-    [KEYS.IDENTITIES_Header]:`Du hast noch keine Identitäten erstellt.`,
-    [KEYS.IDENTITIES_Description]:`
+    [KEYS.WALLETS_Header]:`Du hast noch keine Identitäten erstellt.`,
+    [KEYS.WALLETS_Description]:`
         Identitäten verwalten persönliche Information wie Vor- und Nachnamen, Adressen sowie verschiedene
         Blockchain Accounts (Schlüsselpaare). Identitäten haben eigene Schlüsselpaare und ihr Besitz kann
         nachgewiesen werden, womit sie sich eignen, mit Anwendungen zu authentifizieren ohne klassische
         Passwörter eingeben zu müssen.
     `,
 
-    [KEYS.IDENTITY_DisablingHeader]:`Was macht Deaktivieren?`,
-    [KEYS.IDENTITY_DisablingDescription]:`
+    [KEYS.WALLET_DisablingHeader]:`Was macht Deaktivieren?`,
+    [KEYS.WALLET_DisablingDescription]:`
         Das Deaktivieren dieser Identität verhindert, dass Anwendungen die sie verwendet haben Zugriff darauf bekommen.
         Dies ist eine Alternative zum permanenten Löschen dieser Identität oder ihrer Berechtigung in der Anwendung,
         was schwieriger wäre wiederherzustellen.
     `,
 
-    [KEYS.IDENTITY_NameHeader]:`Identitätsname`,
-    [KEYS.IDENTITY_NameDescription]:`
+    [KEYS.WALLET_NameHeader]:`Identitätsname`,
+    [KEYS.WALLET_NameDescription]:`
         Anwendungen können diesen Namen als deinen Benutzernamen verwenden denn dieser ist in allen Netzwerken eindeutig.
         Wenn du nicht mit RIDL registriert bist, wird dir ein zufälliger Name zugewiesen.
     `,
-    [KEYS.IDENTITY_NoKeyPairsHeader]:`Keine Schlüsselpaare!`,
-    [KEYS.IDENTITY_NoKeyPairsDescription]:`
+    [KEYS.WALLET_NoKeyPairsHeader]:`Keine Schlüsselpaare!`,
+    [KEYS.WALLET_NoKeyPairsDescription]:`
         Bevor du Blockchain Accounts mit dieser Identität verknüpfen kannst musst du Schlüsselpaare hinzufügen. Gehe zum Hauptmenü und wähle:
     `,
-    [KEYS.IDENTITY_AccountHeader]:`Account`,
-    [KEYS.IDENTITY_AccountDescription]:`
+    [KEYS.WALLET_AccountHeader]:`Account`,
+    [KEYS.WALLET_AccountDescription]:`
         Accounts halten deine Gelder und erlauben dir mit Smart Contracts in der Blockchain zu interagieren.
         Im Zusammenhang mit Identitäten kannst du sie dir als Bankkonten verbunden mit deinem Pass vorstellen,
         sie können jederzeit geändert werden.
     `,
-    [KEYS.IDENTITY_PersonalHeader]:`Persönliche Informationen`,
-    [KEYS.IDENTITY_PersonalDescription]:`
+    [KEYS.WALLET_PersonalHeader]:`Persönliche Informationen`,
+    [KEYS.WALLET_PersonalDescription]:`
         Persönliche Informationen können zu einem Account hinzugefügt werden für Anwendung welche diese benötigen.
         Eine Shopping-Webseite zum Beispiel könnte deinen Vor- und Nachnamen benötigen um zu wissen zu wem die Waren
         gesendet werden sollen.
     `,
-    [KEYS.IDENTITY_LocationHeader]:`Standort Informationen`,
-    [KEYS.IDENTITY_LocationDescription]:`
+    [KEYS.WALLET_LocationHeader]:`Standort Informationen`,
+    [KEYS.WALLET_LocationDescription]:`
         Standort-Informationen können zu einem Account hinzugefügt werden für Anwendung welche diese benötigen.
         Eine Shopping-Webseite zum Beispiel könnte deine Adresse benötigen um zu wissen wohin die Waren
         gesendet werden sollen.
@@ -123,7 +123,7 @@ export default {
         du eine Aktion eines Smart Contracts permanent freigibst damit sie automatisch unterzeichnet wird ohne
         andauernde Autorisierungsanfragen.
     `,
-    [KEYS.PERMISSION_RevokeIdentity]:`Identität widerrufen`,
+    [KEYS.PERMISSION_RevokeWallet]:`Identität widerrufen`,
     [KEYS.PERMISSION_RevokeContract]:`Smart Contract widerrufen`,
     [KEYS.PERMISSION_RevokeAction]:`Aktion widerrufen`,
 
@@ -219,14 +219,14 @@ export default {
     },
 
     //2
-    [KEYS.ALERT_BadIdentityName]:[
+    [KEYS.ALERT_BadWalletName]:[
         'Fehlerhafter Identitätsname',
 
         `Identitätsnamen müssen zwischen 3 und 20 Zeichen lang sein.
          Außerdem müssen sie alphanumerisch sein, dürfen aber Leerzeichen, Bindestriche und Unterstriche enthalten.`
     ],
     //2
-    [KEYS.ALERT_IdentityNameExists]:[
+    [KEYS.ALERT_WalletNameExists]:[
         'Identitätsname existiert bereits',
 
         'Dieser Identitätsname ist bereits unter einer anderen Identität registriert.'
@@ -283,13 +283,13 @@ export default {
         `Golds offizielles Netzwerk kann nicht entfernt werden. Dieses Netzwerk wird genutzt um unsere Smart Contracts zur Verfügung zu stellen.`
     ],
     //2
-    [KEYS.ALERT_NoIdentityWithProperties]:fields => [
+    [KEYS.ALERT_NoWalletWithProperties]:fields => [
         'Keine Identitäten gefunden',
 
         `Diese Anwendung fordert eine Identität mit Eigenschaften an, die du nicht hast. Die geforderten Eigenschaften sind '${fields.join(', ')}'`
     ],
     //2
-    [KEYS.ALERT_YouMustSelectAnIdentity]:[
+    [KEYS.ALERT_YouMustSelectAnWallet]:[
         'Du musst eine Identität auswählen',
 
         `Wenn du eine Identität nicht freigeben möchtest, kannst du den Verweigern-Button drücken,
@@ -302,7 +302,7 @@ export default {
         'Dies ist deine letzte Chance, deine Backups zu überprüfen.'
     ],
     //2
-    [KEYS.PROMPT_RevokingIdentity]:domain => [
+    [KEYS.PROMPT_RevokingWallet]:domain => [
         'Identität widerrufen',
 
         `Du bist dabei, eine gesamte Identität von ${domain} zu widerrufen. Dies entfernt
@@ -321,7 +321,7 @@ export default {
         `Du bist dabei, eine Aktion von ${domain} zu widerrufen`
     ],
     //2
-    [KEYS.PROMPT_RemovingIdentity]:name => [
+    [KEYS.PROMPT_RemovingWallet]:name => [
         'Identität entfernen',
 
         `Du bist dabei, eine Identität mit dem Namen '${name}' zu entfernen. Das Entfernen von Identitäten kann nicht rückgängig gemacht werden,
@@ -368,7 +368,7 @@ export default {
          die Mühe es manuell über die Einstellungen hinzuzufügen.`
     ],
     //5
-    [KEYS.REQUEST_Identity]:[
+    [KEYS.REQUEST_Wallet]:[
         /*{DOMAIN}*/ 'fordert weitere Informationen an.',
 
         `Manchmal bitten Anwendungen um weitere Informationen wie z.B.
@@ -383,7 +383,7 @@ export default {
         /*{DOMAIN}*/ `fordert keine weiteren Informationen an. Sie benötigt nur den Identitäts-Hash und den Namen.`
     ],
     //2
-    [KEYS.REQUEST_IdentityNoIdentities]:[
+    [KEYS.REQUEST_WalletNoWallets]:[
         `Du hast keine Identitäten, welche die Eigenschaften enthält, die diese Anwendung anfordert.`,
 
         `Wenn du eine Identität mit dieser Domäne verwenden möchtest musst du die Identität aktualisieren um die Anforderungen der Anwendung zu erfüllen.

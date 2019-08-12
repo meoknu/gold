@@ -1,51 +1,51 @@
 <template>
-    <section class="identity scroller" v-if="identity">
+    <section class="wallet scroller" v-if="wallet">
 
         <nav-actions :actions="[
             {event:'submit', text:locale(langKeys.GENERIC_Save)}
-        ]" v-if="!saving" v-on:submit="saveIdentity"></nav-actions>
+        ]" v-if="!saving" v-on:submit="saveWallet"></nav-actions>
 
         <!-- Disabling -->
         <!-- <section class="panel" style="background:#fff;" v-if="!isNew">
-            <figure class="header">{{locale(langKeys.IDENTITY_DisablingHeader)}}</figure>
-            <figure class="sub-header" style="margin-bottom:0;">{{locale(langKeys.IDENTITY_DisablingDescription)}}</figure>
+            <figure class="header">{{locale(langKeys.WALLET_DisablingHeader)}}</figure>
+            <figure class="sub-header" style="margin-bottom:0;">{{locale(langKeys.WALLET_DisablingDescription)}}</figure>
         </section> -->
 
-        <!-- Identity Name -->
+        <!-- Wallet Name -->
         <section class="panel">
-            <figure class="header">{{locale(langKeys.IDENTITY_NameHeader)}}</figure>
-            <figure class="sub-header" style="margin-bottom:0;">{{locale(langKeys.IDENTITY_NameDescription)}}</figure>
-            <cin v-if="identity.ridl > 0 || !registeringIdentity" :text="identity.name" v-on:changed="changed => bind(changed, 'identity.name')"></cin>
+            <figure class="header">{{locale(langKeys.WALLET_NameHeader)}}</figure>
+            <figure class="sub-header" style="margin-bottom:0;">{{locale(langKeys.WALLET_NameDescription)}}</figure>
+            <cin v-if="wallet.ridl > 0 || !registeringWallet" :text="wallet.name" v-on:changed="changed => bind(changed, 'wallet.name')"></cin>
             <cin v-else :placeholder="locale(langKeys.PLACEHOLDER_Name)" :text="newName" v-on:changed="changed => bind(changed, 'newName')"></cin>
-            <!--<section v-if="identity.ridl <= 0">-->
-                <!--<btn v-if="!isNew && !registeringIdentity"-->
-                     <!--:text="registeringIdentity ? locale(langKeys.BUTTON_RegisterIdentity) : locale(langKeys.BUTTON_ChangeName)"-->
-                     <!--v-on:clicked="registerIdentity" :is-blue="registeringIdentity" margined="true"></btn>-->
+            <!--<section v-if="wallet.ridl <= 0">-->
+                <!--<btn v-if="!isNew && !registeringWallet"-->
+                     <!--:text="registeringWallet ? locale(langKeys.BUTTON_RegisterWallet) : locale(langKeys.BUTTON_ChangeName)"-->
+                     <!--v-on:clicked="registerWallet" :is-blue="registeringWallet" margined="true"></btn>-->
 
-                <!--<btn v-if="!isNew && registeringIdentity"-->
-                     <!--:text="locale(langKeys.BUTTON_ClaimIdentity)"-->
-                     <!--v-on:clicked="claimIdentity" is-blue="true" margined="true"></btn>-->
+                <!--<btn v-if="!isNew && registeringWallet"-->
+                     <!--:text="locale(langKeys.BUTTON_ClaimWallet)"-->
+                     <!--v-on:clicked="claimWallet" is-blue="true" margined="true"></btn>-->
 
-                <!--<btn v-if="!isNew && registeringIdentity"-->
+                <!--<btn v-if="!isNew && registeringWallet"-->
                      <!--:text="locale(langKeys.BUTTON_Cancel)"-->
-                     <!--v-on:clicked="registeringIdentity = false" margined="true" :is-red="true"></btn>-->
+                     <!--v-on:clicked="registeringWallet = false" margined="true" :is-red="true"></btn>-->
             <!--</section>-->
         </section>
 
         <!-- Account -->
         <section class="panel" v-if="keypairs.length">
-            <figure class="header">{{locale(langKeys.IDENTITY_AccountHeader)}}</figure>
-            <figure class="sub-header" style="margin-bottom:0;">{{locale(langKeys.IDENTITY_AccountDescription)}}</figure>
+            <figure class="header">{{locale(langKeys.WALLET_AccountHeader)}}</figure>
+            <figure class="sub-header" style="margin-bottom:0;">{{locale(langKeys.WALLET_AccountDescription)}}</figure>
 
             <sel :disabled="importing" :selected="networks[0]" :options="networks" :parser="(network) => network.name.length ? network.name : network.unique()" v-on:changed="selectNetwork"></sel>
 
             <cin :disabled="importing"
-                 v-if="identity.networkedAccount(selectedNetwork)"
-                 :tag="identity.networkedAccount(selectedNetwork).name"
-                 :text="identity.networkedAccount(selectedNetwork).name"
+                 v-if="wallet.networkedAccount(selectedNetwork)"
+                 :tag="wallet.networkedAccount(selectedNetwork).name"
+                 :text="wallet.networkedAccount(selectedNetwork).name"
                  v-on:untagged="removeAccount"></cin>
 
-            <sel v-if="!identity.networkedAccount(selectedNetwork)"
+            <sel v-if="!wallet.networkedAccount(selectedNetwork)"
                  :disabled="importing"
                  :selected="noKeypair"
                  :options="filteredKeypairs()"
@@ -59,28 +59,28 @@
 
         <!-- NO KEY PAIRS -->
         <section class="panel" v-else>
-            <figure class="header">{{locale(langKeys.IDENTITY_NoKeyPairsHeader)}}</figure>
-            <figure class="sub-header" style="margin-bottom:0;">{{locale(langKeys.IDENTITY_NoKeyPairsDescription)}}{{locale(langKeys.SETTINGSMENU_Keypairs)}}</figure>
+            <figure class="header">{{locale(langKeys.WALLET_NoKeyPairsHeader)}}</figure>
+            <figure class="sub-header" style="margin-bottom:0;">{{locale(langKeys.WALLET_NoKeyPairsDescription)}}{{locale(langKeys.SETTINGSMENU_Keypairs)}}</figure>
         </section>
 
         <!-- Personal Information -->
         <!-- <section class="panel">
-            <figure class="header">{{locale(langKeys.IDENTITY_PersonalHeader)}}</figure>
-            <figure class="sub-header" style="margin-bottom:0;">{{locale(langKeys.IDENTITY_PersonalDescription)}}</figure>
+            <figure class="header">{{locale(langKeys.WALLET_PersonalHeader)}}</figure>
+            <figure class="sub-header" style="margin-bottom:0;">{{locale(langKeys.WALLET_PersonalDescription)}}</figure>
 
-            <cin :placeholder="locale(langKeys.PLACEHOLDER_FirstName)" :text="identity.personal.firstname" v-on:changed="changed => bind(changed, 'identity.personal.firstname')"></cin>
-            <cin :placeholder="locale(langKeys.PLACEHOLDER_LastName)" :text="identity.personal.lastname" v-on:changed="changed => bind(changed, 'identity.personal.lastname')"></cin>
-            <cin :placeholder="locale(langKeys.PLACEHOLDER_Email)" :text="identity.personal.email" v-on:changed="changed => bind(changed, 'identity.personal.email')"></cin>
-            <cin :placeholder="locale(langKeys.PLACEHOLDER_BirthDate)" type="date" :text="identity.personal.birthdate" v-on:changed="changed => bind(changed, 'identity.personal.birthdate')"></cin>
+            <cin :placeholder="locale(langKeys.PLACEHOLDER_FirstName)" :text="wallet.personal.firstname" v-on:changed="changed => bind(changed, 'wallet.personal.firstname')"></cin>
+            <cin :placeholder="locale(langKeys.PLACEHOLDER_LastName)" :text="wallet.personal.lastname" v-on:changed="changed => bind(changed, 'wallet.personal.lastname')"></cin>
+            <cin :placeholder="locale(langKeys.PLACEHOLDER_Email)" :text="wallet.personal.email" v-on:changed="changed => bind(changed, 'wallet.personal.email')"></cin>
+            <cin :placeholder="locale(langKeys.PLACEHOLDER_BirthDate)" type="date" :text="wallet.personal.birthdate" v-on:changed="changed => bind(changed, 'wallet.personal.birthdate')"></cin>
         </section> -->
 
         <!-- Location Information -->
         <!-- <section class="panel">
-            <figure class="header">{{locale(langKeys.IDENTITY_LocationHeader)}}</figure>
-            <figure class="sub-header">{{locale(langKeys.IDENTITY_LocationDescription)}}</figure>
+            <figure class="header">{{locale(langKeys.WALLET_LocationHeader)}}</figure>
+            <figure class="sub-header">{{locale(langKeys.WALLET_LocationDescription)}}</figure>
 
             <btn :text="locale(langKeys.BUTTON_AddNewLocation)" v-on:clicked="addNewLocation"></btn>
-            <sel :selected="selectedLocation" :options="identity.locations" :parser="(location) => location.name.length ? location.name : langKeys.PLACEHOLDER_DefaultLocationName"
+            <sel :selected="selectedLocation" :options="wallet.locations" :parser="(location) => location.name.length ? location.name : langKeys.PLACEHOLDER_DefaultLocationName"
                  v-on:changed="changed => bind(changed, 'selectedLocation')"></sel>
         </section> -->
 
@@ -104,7 +104,7 @@
                  thirty="true" :text="selectedLocation.state" v-on:changed="changed => bind(changed, 'selectedLocation.state')"
                  :key="locationKey(8)"></cin>
 
-            <btn v-if="identity.locations.length > 1" margined="true" is-red="true"
+            <btn v-if="wallet.locations.length > 1" margined="true" is-red="true"
                  :text="locale(langKeys.BUTTON_RemoveLocation)" v-on:clicked="removeSelectedLocation"></btn>
         </section> -->
 
@@ -115,13 +115,13 @@
     import { mapActions, mapGetters, mapState } from 'vuex'
     import * as Actions from '../store/constants';
     import {RouteNames} from '../vue/Routing'
-    import Identity from '../models/Identity'
+    import Wallet from '../models/Wallet'
     import Gold from '../models/Gold'
     import Account from '../models/Account'
     import KeyPair from '../models/KeyPair'
-    import {LocationInformation} from '../models/Identity'
+    import {LocationInformation} from '../models/Wallet'
     import AlertMsg from '../models/alerts/AlertMsg'
-    import IdentityService from '../services/IdentityService'
+    import WalletService from '../services/WalletService'
     import AccountService from '../services/AccountService'
     import EOSKeygen from '../util/EOSKeygen'
     import {Countries} from '../data/Countries'
@@ -131,7 +131,7 @@
 
     export default {
         data(){ return {
-            identity:null,
+            wallet:null,
             accountNameOrPrivateKey:'',
             isNew:false,
             countries: Countries,
@@ -141,7 +141,7 @@
 
             importing:false,
             noKeypair:KeyPair.fromJson({name:'None'}),
-            registeringIdentity:false,
+            registeringWallet:false,
             newName:'',
             saving:false,
         }},
@@ -156,29 +156,29 @@
         },
         mounted(){
             this.selectNetwork(this.networks[0]);
-            const existing = this.gold.keychain.identities.find(x => x.publicKey === this.$route.query.publicKey);
-            if(existing) this.identity = existing.clone();
+            const existing = this.gold.keychain.wallets.find(x => x.publicKey === this.$route.query.publicKey);
+            if(existing) this.wallet = existing.clone();
             else {
-                this.identity = Identity.placeholder();
-                this.identity.initialize(this.gold.hash).then(() => {
-                    this.identity.name = `${this.locale(this.langKeys.GENERIC_New)} ${this.locale(this.langKeys.GENERIC_Identity)}`;
+                this.wallet = Wallet.placeholder();
+                this.wallet.initialize(this.gold.hash).then(() => {
+                    this.wallet.name = `${this.locale(this.langKeys.GENERIC_New)} ${this.locale(this.langKeys.GENERIC_Wallet)}`;
                 })
             }
 
-            this.selectedLocation = this.identity.defaultLocation();
+            this.selectedLocation = this.wallet.defaultLocation();
 
             this.isNew = !existing;
         },
         methods: {
-            registerIdentity(){
-                if(!this.registeringIdentity) return this.registeringIdentity = true;
+            registerWallet(){
+                if(!this.registeringWallet) return this.registeringWallet = true;
             },
-            async claimIdentity(){
-                const updatedIdentity = await RIDLService.claimIdentity(this.newName, this.identity.clone(), this).catch(() => null);
-                if(updatedIdentity) {
+            async claimWallet(){
+                const updatedWallet = await RIDLService.claimWallet(this.newName, this.wallet.clone(), this).catch(() => null);
+                if(updatedWallet) {
                     const gold = this.gold.clone();
-                    this.identity.name = updatedIdentity.name;
-                    gold.keychain.updateOrPushIdentity(updatedIdentity);
+                    this.wallet.name = updatedWallet.name;
+                    gold.keychain.updateOrPushWallet(updatedWallet);
                     await this[Actions.UPDATE_STORED_GOLD](gold);
                     this.$router.back();
                 }
@@ -187,7 +187,7 @@
                 return [this.noKeypair].concat(this.keypairs.filter(keypair => keypair.blockchain === this.selectedNetwork.blockchain));
             },
             // This is just a fix for vuejs reusing components and losing uniqueness
-            locationKey(index){ return this.identity.locations.indexOf(this.selectedLocation)+index; },
+            locationKey(index){ return this.wallet.locations.indexOf(this.selectedLocation)+index; },
             bind(changed, dotNotation) {
                 let props = dotNotation.split(".");
                 const lastKey = props.pop();
@@ -201,12 +201,12 @@
                 this.selectedKeypair = !keypair.publicKey.length ? null : keypair;
             },
             removeAccount(){
-                const account = this.identity.accounts[this.selectedNetwork.unique()];
+                const account = this.wallet.accounts[this.selectedNetwork.unique()];
                 const formattedAccount = PluginRepository.plugin(this.selectedNetwork.blockchain).accountFormatter(account);
 
                 this[Actions.PUSH_ALERT](AlertMsg.RemovingAccount(formattedAccount)).then(res => {
                     if(!res || !res.hasOwnProperty('accepted')) return false;
-                    this.identity.removeAccount(this.selectedNetwork);
+                    this.wallet.removeAccount(this.selectedNetwork);
                     const refreshHelper = this.selectedNetwork;
                     this.selectedNetwork = null;
                     this.selectedNetwork = refreshHelper;
@@ -220,37 +220,37 @@
                         this.importing = false;
                         return false;
                     }
-                    this.identity.setAccount(this.selectedNetwork, imported.account);
+                    this.wallet.setAccount(this.selectedNetwork, imported.account);
                     this.importing = false;
                 }).catch(() => this.importing = false);
             },
             setAsDefaultLocation(){
-                this.identity.defaultLocation().isDefault = false;
+                this.wallet.defaultLocation().isDefault = false;
                 this.selectedLocation.isDefault = true;
             },
             addNewLocation(){
-                if(!this.identity.locations.find(location => location.isDefault)){
-                    this.identity.locations[0].isDefault = true;
+                if(!this.wallet.locations.find(location => location.isDefault)){
+                    this.wallet.locations[0].isDefault = true;
                 }
 
                 const newLocation = LocationInformation.placeholder();
-                this.identity.locations.push(newLocation);
+                this.wallet.locations.push(newLocation);
                 this.selectedLocation = newLocation;
             },
             removeSelectedLocation(){
                 const wasDefault = this.selectedLocation.isDefault;
-                const index = this.identity.locations.indexOf(this.selectedLocation);
-                this.identity.locations.splice(index, 1);
-                if(wasDefault) this.identity.locations[0].isDefault = true;
-                this.selectedLocation = this.identity.locations[0];
+                const index = this.wallet.locations.indexOf(this.selectedLocation);
+                this.wallet.locations.splice(index, 1);
+                if(wasDefault) this.wallet.locations[0].isDefault = true;
+                this.selectedLocation = this.wallet.locations[0];
             },
-            async saveIdentity(){
+            async saveWallet(){
                 this.saving = true;
 
                 if(this.isNew) {
-                    const identified = await RIDLService.identify(this.identity.publicKey);
+                    const identified = await RIDLService.identify(this.wallet.publicKey);
                     if(!identified) return null;
-                    this.identity.name = identified;
+                    this.wallet.name = identified;
                 }
 
                 //TODO: More Error handling
@@ -260,7 +260,7 @@
                 // * State ( if exists, only 2 characters )
 
                 const gold = this.gold.clone();
-                gold.keychain.updateOrPushIdentity(this.identity);
+                gold.keychain.updateOrPushWallet(this.wallet);
                 this[Actions.UPDATE_STORED_GOLD](gold).then(() => this.$router.back());
 
             },
@@ -274,7 +274,7 @@
 </script>
 
 <style lang="scss">
-    .identity {
+    .wallet {
         font-family:'Ubuntu', sans-serif;
 
 

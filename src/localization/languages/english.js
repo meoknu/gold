@@ -5,7 +5,7 @@ export default {
     [KEYS.GENERIC_New]:`New`,
     [KEYS.GENERIC_Save]:`Save`,
     [KEYS.GENERIC_Ignored]:`Ignored`,
-    [KEYS.GENERIC_Identity]:`Wallet`,
+    [KEYS.GENERIC_Wallet]:`Wallet`,
     [KEYS.GENERIC_Contract]:`Contract`,
     [KEYS.GENERIC_Action]:`Action`,
     [KEYS.GENERIC_Removed]:`Removed`,
@@ -45,7 +45,7 @@ export default {
     [KEYS.PLACEHOLDER_DomainOrIP]:'Domain or IP',
     [KEYS.PLACEHOLDER_PasteYourBackup]:'Paste your Backup',
 
-    [KEYS.BUTTON_CreateIdentity]:'Create Wallet',
+    [KEYS.BUTTON_CreateWallet]:'Create Wallet',
     [KEYS.BUTTON_ImportAccount]:'Import Account',
     [KEYS.BUTTON_ImportKeychain]:'Import Keychain',
     [KEYS.BUTTON_SelectFile]:'Select File',
@@ -68,53 +68,53 @@ export default {
     [KEYS.BUTTON_Yes]:'Yes',
     [KEYS.BUTTON_No]:'No',
     [KEYS.BUTTON_UseSelectedAccount]:'Use Selected Account',
-    [KEYS.BUTTON_SelectIdentity]:'Select Wallet',
+    [KEYS.BUTTON_SelectWallet]:'Select Wallet',
     [KEYS.BUTTON_ChangeName]:'Change Name',
-    [KEYS.BUTTON_ClaimIdentity]:'Claim Wallet',
-    [KEYS.BUTTON_RegisterIdentity]:'Register Wallet',
+    [KEYS.BUTTON_ClaimWallet]:'Claim Wallet',
+    [KEYS.BUTTON_RegisterWallet]:'Register Wallet',
 
-    [KEYS.MAINMENU_Identities]:'Wallets',
+    [KEYS.MAINMENU_Wallets]:'Wallets',
     [KEYS.MAINMENU_Keys]:'Key Pairs',
     [KEYS.MAINMENU_Permissions]:'Permissions',
     [KEYS.MAINMENU_History]:'History',
     [KEYS.MAINMENU_Lock]:'Lock',
 
-    [KEYS.IDENTITIES_Header]:`You don't have any Wallets yet.`,
-    [KEYS.IDENTITIES_Description]:`
+    [KEYS.WALLETS_Header]:`You don't have any Wallets yet.`,
+    [KEYS.WALLETS_Description]:`
         Wallets are containers for personal information such as first and last names, addresses and
         various blockchain accounts/keypairs. Wallets also have keypairs and their ownership 
         can be proven which makes them a way to authenticate with applications without passwords.
     `,
 
-    [KEYS.IDENTITY_DisablingHeader]:`What does Disabling do?`,
-    [KEYS.IDENTITY_DisablingDescription]:`
+    [KEYS.WALLET_DisablingHeader]:`What does Disabling do?`,
+    [KEYS.WALLET_DisablingDescription]:`
         Disabling this Wallet will stop it from being used in applications that have a reference to it.
         This can be used instead of permanently deleting this Wallet or it's Permissions on an application,
         which would be harder to recover.
     `,
 
-    [KEYS.IDENTITY_NameHeader]:`Wallet Name`,
-    [KEYS.IDENTITY_NameDescription]:`
+    [KEYS.WALLET_NameHeader]:`Wallet Name`,
+    [KEYS.WALLET_NameDescription]:`
         Applications may choose to use this name as your username as it is unique across all networks.
         If you are not registered with RIDL you will be assigned a random name.
     `,
-    [KEYS.IDENTITY_NoKeyPairsHeader]:`No Key Pairs!`,
-    [KEYS.IDENTITY_NoKeyPairsDescription]:`
+    [KEYS.WALLET_NoKeyPairsHeader]:`No Key Pairs!`,
+    [KEYS.WALLET_NoKeyPairsDescription]:`
         Before you can add blockchain accounts to this Wallet you need to add some key pairs. Go to the main menu and select: 
     `,
-    [KEYS.IDENTITY_AccountHeader]:`Account`,
-    [KEYS.IDENTITY_AccountDescription]:`
+    [KEYS.WALLET_AccountHeader]:`Account`,
+    [KEYS.WALLET_AccountDescription]:`
         Accounts are what hold your funds and allow you to interact with contracts on the Blockchain. 
         In relation to Wallets think of them like the bank accounts connected to your passport, they can 
         be changed at any time.
     `,
-    [KEYS.IDENTITY_PersonalHeader]:`Personal Information`,
-    [KEYS.IDENTITY_PersonalDescription]:`
+    [KEYS.WALLET_PersonalHeader]:`Personal Information`,
+    [KEYS.WALLET_PersonalDescription]:`
         Personal information can be added to an account for applications that require it. For instance a shopping 
         website might need your full name in order to know who to send your purchased goods to.
     `,
-    [KEYS.IDENTITY_LocationHeader]:`Location Information`,
-    [KEYS.IDENTITY_LocationDescription]:`
+    [KEYS.WALLET_LocationHeader]:`Location Information`,
+    [KEYS.WALLET_LocationDescription]:`
         Location information can be added to an account for applications that require it. 
         For instance a shopping website might need your shipping address in order to know where to send 
         your purchased goods to.
@@ -125,7 +125,7 @@ export default {
         Permissions are set when you either provide an Wallet for an application to use, or when you whitelist 
         a contract action to be signed without authorization prompts.
     `,
-    [KEYS.PERMISSION_RevokeIdentity]:`Revoke Wallet`,
+    [KEYS.PERMISSION_RevokeWallet]:`Revoke Wallet`,
     [KEYS.PERMISSION_RevokeContract]:`Revoke Contract`,
     [KEYS.PERMISSION_RevokeAction]:`Revoke Action`,
 
@@ -229,20 +229,20 @@ export default {
     },
 
     //2
-    [KEYS.ALERT_BadIdentityName]:[
+    [KEYS.ALERT_BadWalletName]:[
         'Bad Wallet Name',
 
         `Wallet names must be between 3 and 20 characters long.
          They must also be alphanumeric but may also contain spaces, dashes, and underscores.`
     ],
     //2
-    [KEYS.ALERT_IdentityNameExists]:[
+    [KEYS.ALERT_WalletNameExists]:[
         'Wallet Name Exists',
 
         'This Wallet name is registered to another Wallet.'
     ],
     //2
-    [KEYS.ALERT_NoSuchIdentityName]:[
+    [KEYS.ALERT_NoSuchWalletName]:[
         'No such Wallet name',
 
         'This Wallet name is not reserved in RIDL.'
@@ -309,13 +309,13 @@ export default {
         `You cannot remove Gold's endorsed Networks.`
     ],
     //2
-    [KEYS.ALERT_NoIdentityWithProperties]:fields => [
+    [KEYS.ALERT_NoWalletWithProperties]:fields => [
         'No Wallets Found',
 
         `This application is requesting an Wallet with properties you do not have. The properties they want are '${fields.join(', ')}'`
     ],
     //2
-    [KEYS.ALERT_YouMustSelectAnIdentity]:[
+    [KEYS.ALERT_YouMustSelectAnWallet]:[
         'You Must Select An Wallet',
 
         `If you do not wish to expose an Wallet you can press the Deny button, otherwise an Wallet must be
@@ -328,7 +328,7 @@ export default {
         'This is your last chance to double check your backups.'
     ],
     //2
-    [KEYS.PROMPT_RevokingIdentity]:domain => [
+    [KEYS.PROMPT_RevokingWallet]:domain => [
         'Revoking Wallet',
 
         `You are about to revoke an entire Wallet from ${domain}. This will remove 
@@ -347,17 +347,17 @@ export default {
         `You are about to revoke an action from ${domain}`
     ],
     //2
-    [KEYS.PROMPT_RemovingIdentity]:name => [
+    [KEYS.PROMPT_RemovingWallet]:name => [
         'Removing Wallet',
 
         `You are about to remove an Wallet with the name '${name}'. Removing Wallets is not reversible and
          all permissions will be deleted. If the Wallet is being used on applications perhaps you should just disable it instead.`
     ],
     //2
-    [KEYS.PROMPT_DeletingKeyPair]:identities => [
+    [KEYS.PROMPT_DeletingKeyPair]:wallets => [
         'Deleting Key Pair',
 
-        identities.length ? `This Key Pair is used in: '${identities.join(', ')}'` : `This keypair is not used in any Wallets.`
+        wallets.length ? `This Key Pair is used in: '${wallets.join(', ')}'` : `This keypair is not used in any Wallets.`
     ],
     //2
     [KEYS.PROMPT_RemovingAccount]:formattedAccountName => [
@@ -389,7 +389,7 @@ export default {
         'Select the account and authorization you wish to use for this Wallet. You can only select one at a time. In almost all cases you should select your @active account'
     ],
     //2
-    [KEYS.PROMPT_ClaimIdentity]:[
+    [KEYS.PROMPT_ClaimWallet]:[
         'Claim Wallet',
 
         'Put in the private key that matches the public key on file for your wallet name.'
@@ -406,7 +406,7 @@ export default {
          the effort of manually adding it from your Settings panel.`
     ],
     //5
-    [KEYS.REQUEST_Identity]:[
+    [KEYS.REQUEST_Wallet]:[
         /*{DOMAIN}*/ 'is requesting additional information.',
 
         `Sometimes applications ask for some more information such as
@@ -422,7 +422,7 @@ export default {
         /*{DOMAIN}*/ `is not requesting any additional information. The only thing that they are requiring is an Wallet hash and name.`
     ],
     //2
-    [KEYS.REQUEST_IdentityNoIdentities]:[
+    [KEYS.REQUEST_WalletNoWallets]:[
         `You don't have any Wallets that match the properties that this application is requiring.`,
 
         `If you would like to use an Wallet with this domain, you will need to update that Wallet and fulfill the requirements.

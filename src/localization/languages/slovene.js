@@ -5,7 +5,7 @@ export default {
     [KEYS.GENERIC_New]:`Novo`,
     [KEYS.GENERIC_Save]:`Shrani`,
     [KEYS.GENERIC_Ignored]:`Ignoriran`,
-    [KEYS.GENERIC_Identity]:`Identiteta`,
+    [KEYS.GENERIC_Wallet]:`Identiteta`,
     [KEYS.GENERIC_Contract]:`Pogodba`,
     [KEYS.GENERIC_Action]:`Akcija`,
     [KEYS.GENERIC_Removed]:`Odstranjen`,
@@ -39,7 +39,7 @@ export default {
     [KEYS.PLACEHOLDER_ConfirmNewPassword]:'Potrdite novo geslo',
     [KEYS.PLACEHOLDER_DomainOrIP]:'Domena ali IP',
 
-    [KEYS.BUTTON_CreateIdentity]:'Ustvari račun',
+    [KEYS.BUTTON_CreateWallet]:'Ustvari račun',
     [KEYS.BUTTON_ImportAccount]:'Uvozi račun',
     [KEYS.BUTTON_AddNewLocation]:'Dodaj novo lokacijo',
     [KEYS.BUTTON_SetAsDefaultLocation]:'Izberi kot privzeto lokacijo',
@@ -60,40 +60,40 @@ export default {
     [KEYS.BUTTON_Yes]:'Da',
     [KEYS.BUTTON_No]:'Ne',
     [KEYS.BUTTON_UseSelectedAccount]:'Uporabi izbrani račun',
-    [KEYS.BUTTON_SelectIdentity]:'Izberi identiteto',
+    [KEYS.BUTTON_SelectWallet]:'Izberi identiteto',
 
-    [KEYS.MAINMENU_Identities]:'Identitete',
+    [KEYS.MAINMENU_Wallets]:'Identitete',
     [KEYS.MAINMENU_Permissions]:'Pravice',
     [KEYS.MAINMENU_History]:'Zgodovina',
     [KEYS.MAINMENU_Lock]:'Zakleni',
 
-    [KEYS.IDENTITIES_Header]:`Trenutno nimate nobene identitete.`,
-    [KEYS.IDENTITIES_Description]:`
+    [KEYS.WALLETS_Header]:`Trenutno nimate nobene identitete.`,
+    [KEYS.WALLETS_Description]:`
         Identiteta je zbirka osebnih podatkov kot so ime in priimek, naslov. Vsebuje tudi različne
         blockchain račune. Identitete vsebujejo tudi privatne in javne ključe lastnika, kar omogoča
         avtentikacijo uporabnnika brez vnosa gesla.
     `,
 
-    [KEYS.IDENTITY_DisablingHeader]:`Zakaj uporabim preklic identitete?`,
-    [KEYS.IDENTITY_DisablingDescription]:`
+    [KEYS.WALLET_DisablingHeader]:`Zakaj uporabim preklic identitete?`,
+    [KEYS.WALLET_DisablingDescription]:`
         Preklic ali izključitev identitete bo onemogočila uporabo le te v aplikacijah, ki se nanjo sklicujejo.
     `,
 
-    [KEYS.IDENTITY_NameHeader]:`Naziv identitete`,
-    [KEYS.IDENTITY_NameDescription]:`
+    [KEYS.WALLET_NameHeader]:`Naziv identitete`,
+    [KEYS.WALLET_NameDescription]:`
         Aplikacija lahko uporabi naziv identitete kot vaše enolično uporabniško ime na omrežju. 
     `,
-    [KEYS.IDENTITY_AccountHeader]:`Račun`,
-    [KEYS.IDENTITY_AccountDescription]:`
+    [KEYS.WALLET_AccountHeader]:`Račun`,
+    [KEYS.WALLET_AccountDescription]:`
         Na računu so shranjena vaša sredstva in z njim lahko upravljate s pogodbami na Blockchain-u.
     `,
-    [KEYS.IDENTITY_PersonalHeader]:`Osebni podatki`,
-    [KEYS.IDENTITY_PersonalDescription]:`
+    [KEYS.WALLET_PersonalHeader]:`Osebni podatki`,
+    [KEYS.WALLET_PersonalDescription]:`
         Osebne podatke lahko spremenite kadarkoli. V primeru, da neka aplikacija zahteva popolne podatke (kot so naprimer
         spletne trgovine), lahko osebne podatke spremenite in nato povrnete v prvotno stanje.
     `,
-    [KEYS.IDENTITY_LocationHeader]:`Podatki o naslovu`,
-    [KEYS.IDENTITY_LocationDescription]:`
+    [KEYS.WALLET_LocationHeader]:`Podatki o naslovu`,
+    [KEYS.WALLET_LocationDescription]:`
         Podatki o naslovu uporabnika.
     `,
 
@@ -101,7 +101,7 @@ export default {
     [KEYS.PERMISSIONS_Description]:`
         Dovoljenja so nastavljena, ko bodisi zagotovite identiteto za aplikacijo, ki jo želite uporabiti.
     `,
-    [KEYS.PERMISSION_RevokeIdentity]:`Reaktiviraj identiteto`,
+    [KEYS.PERMISSION_RevokeWallet]:`Reaktiviraj identiteto`,
     [KEYS.PERMISSION_RevokeContract]:`Reaktiviraj pogodbo/kontrakt`,
     [KEYS.PERMISSION_RevokeAction]:`Reaktiviraj akcijo`,
 
@@ -195,13 +195,13 @@ export default {
         }
     },
 
-    [KEYS.ALERT_BadIdentityName]:[
+    [KEYS.ALERT_BadWalletName]:[
         'Nepravilen vnos Identitete',
 
         `Identiteta mora biti dolžine med 3 in 20 znaki.
          Zahtevan je alfanumerični vnos. Niz lahko vsebuje tudi presledke in vezaj.`
     ],
-    [KEYS.ALERT_IdentityNameExists]:[
+    [KEYS.ALERT_WalletNameExists]:[
         'Identiteta s tem nazivom že obstaja',
 
         'Identiteta s tem nazivom je že registrirana.'
@@ -249,12 +249,12 @@ export default {
 
         `Omrežje je v uporabi za shrambo pogodb.`
     ],
-    [KEYS.ALERT_NoIdentityWithProperties]:fields => [
+    [KEYS.ALERT_NoWalletWithProperties]:fields => [
         'Identiteta ne obstaja',
 
         `Ta aplikacija zahteva identifikacijo z lastnostmi, ki jih nimate. Lastnosti, ki jih želijo, so '${fields.join(', ')}'`
     ],
-    [KEYS.ALERT_YouMustSelectAnIdentity]:[
+    [KEYS.ALERT_YouMustSelectAnWallet]:[
         'Izbrati morate identiteto',
 
         `Če ne želite izpostaviti identitete, lahko pritisnete gumb prepovej, sicer mora biti podana identiteta
@@ -266,7 +266,7 @@ export default {
 
         'To je vaša zadnja možnost zato še enkrat preverite varnostno kopijo.'
     ],
-    [KEYS.PROMPT_RevokingIdentity]:domain => [
+    [KEYS.PROMPT_RevokingWallet]:domain => [
         'Zavrnitev identitete',
 
         `Ste pred zavrnitvijo identitete ${domain}. To bo onemogočilo vse pravice 
@@ -282,7 +282,7 @@ export default {
 
         `Ste pred zavrnitvijo akcije za pogodbo ${domain}`
     ],
-    [KEYS.PROMPT_RemovingIdentity]:name => [
+    [KEYS.PROMPT_RemovingWallet]:name => [
         'Odstranitev identitete',
 
         `Ste pred odstranitvijo identitete '${name}'. Odstranjeno identite in pravic ni mogoče povrniti. 
@@ -321,7 +321,7 @@ export default {
          Dodajanje omrežja preko te akcije samo olajša vnos omrežja, da ga ni
          potrebno ročno dodajati preko nastavitvenega panela.`
     ],
-    [KEYS.REQUEST_Identity]:[
+    [KEYS.REQUEST_Wallet]:[
         /*{DOMAIN}*/ ' potrebuje dodatne podatke ali informacije.',
 
         `Včasih vas nekatere aplikacije povprašajo po dodatnih kot so 
@@ -334,7 +334,7 @@ export default {
 
         ``
     ],
-    [KEYS.REQUEST_IdentityNoIdentities]:[
+    [KEYS.REQUEST_WalletNoWallets]:[
         `Nimate nobene identitete (podatka) katerega zahteva aplikacija.`,
 
         `Če želite uporabiti identiteto na tej domeni, potem morate ažurirati lastnosti,
@@ -347,7 +347,7 @@ export default {
          Every property that has a check next to it will become mutable, meaning that you can allow
          certain properties of this transaction to change and only if the other properties are changed will
          it fail to be whitelisted.`,
-        `This includes required personal information, and changes to your Identity do not remove permissions.`,
+        `This includes required personal information, and changes to your Wallet do not remove permissions.`,
         `If you have multiple locations and a transaction requires a location you will always be prompted.`
     ],
     [KEYS.REQUEST_GoldIsLocked]:[

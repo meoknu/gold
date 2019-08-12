@@ -26,16 +26,16 @@
                     </figure>
                 </section>
 
-                <!-- Provided Identity -->
-                <section class="panel" v-if="hist.type === historyTypes.PROVIDED_IDENTITY">
-                    <figure class="header small reverse-margin">{{locale(langKeys.GENERIC_Identity)}}</figure>
+                <!-- Provided Wallet -->
+                <section class="panel" v-if="hist.type === historyTypes.PROVIDED_WALLET">
+                    <figure class="header small reverse-margin">{{locale(langKeys.GENERIC_Wallet)}}</figure>
                     <section class="items">
                         <section class="item">
                             <span>{{locale(langKeys.GENERIC_Name)}}</span>
                             <span>
-                                <router-link :class="{'link':findIdentity(hist.data.publicKey)}" :to="(findIdentity(hist.data.publicKey)) ?
-                                    {name:routeNames.IDENTITY, query:{hash:findIdentity(hist.data.publicKey).publicKey}} : {}">
-                                    {{hist.data.identityName}} <i v-if="!findIdentity(hist.data.publicKey)">( removed )</i>
+                                <router-link :class="{'link':findWallet(hist.data.publicKey)}" :to="(findWallet(hist.data.publicKey)) ?
+                                    {name:routeNames.WALLET, query:{hash:findWallet(hist.data.publicKey).publicKey}} : {}">
+                                    {{hist.data.walletName}} <i v-if="!findWallet(hist.data.publicKey)">( removed )</i>
                                 </router-link>
                             </span>
                         </section>
@@ -44,14 +44,14 @@
 
                 <!-- Signed Transaction -->
                 <section class="panel" v-if="hist.type === historyTypes.SIGNED_TRANSACTION">
-                    <figure class="header small reverse-margin">identity</figure>
+                    <figure class="header small reverse-margin">wallet</figure>
                     <section class="items">
                         <section class="item">
                             <span>name</span>
                             <span>
-                                <router-link :class="{'link':findIdentity(hist.data.publicKey)}" :to="(findIdentity(hist.data.publicKey)) ?
-                                    {name:routeNames.IDENTITY, query:{hash:findIdentity(hist.data.publicKey).publicKey}} : {}">
-                                    {{hist.data.identityName}} <i v-if="!findIdentity(hist.data.publicKey)">( {{locale(langKeys.GENERIC_Removed)}} )</i>
+                                <router-link :class="{'link':findWallet(hist.data.publicKey)}" :to="(findWallet(hist.data.publicKey)) ?
+                                    {name:routeNames.WALLET, query:{hash:findWallet(hist.data.publicKey).publicKey}} : {}">
+                                    {{hist.data.walletName}} <i v-if="!findWallet(hist.data.publicKey)">( {{locale(langKeys.GENERIC_Removed)}} )</i>
                                 </router-link>
                             </span>
                         </section>
@@ -110,11 +110,11 @@
         methods: {
             bind(changed, original) { this[original] = changed },
             filterBySearch(){ return this.histories.filter(x => JSON.stringify(x).indexOf(this.searchText) > -1) },
-            findIdentity(hash){ return this.gold.keychain.findIdentity(hash); },
+            findWallet(hash){ return this.gold.keychain.findWallet(hash); },
             typeIcon(type){
                 switch(type){
                     case HistoricEventTypes.SIGNED_TRANSACTION: return 'fa-cubes';
-                    case HistoricEventTypes.PROVIDED_IDENTITY: return 'fa-cube';
+                    case HistoricEventTypes.PROVIDED_WALLET: return 'fa-cube';
                 }
                 return '';
             },

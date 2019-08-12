@@ -48,8 +48,8 @@
                 <cin :placeholder="`${locale(langKeys.GENERIC_Account)} ${locale(langKeys.GENERIC_Name)}`" v-on:changed="changed => bind(changed, 'returnedText')"></cin>
             </section>
 
-            <!-- Claim Identity -->
-            <section style="padding:10px;" v-if="alerts[0].type === alertTypes.ClaimIdentity">
+            <!-- Claim Wallet -->
+            <section style="padding:10px;" v-if="alerts[0].type === alertTypes.ClaimWallet">
                 <cin :placeholder="locale(langKeys.PLACEHOLDER_PrivateKey)" v-on:changed="changed => bind(changed, 'returnedText')"></cin>
             </section>
 
@@ -103,7 +103,7 @@
                 this[Actions.PUSH_ALERT_RESULT]({selected:this.selectedItem});
             },
             returnsText(){
-                return this.alerts[0].type === AlertTypes.ClaimIdentity
+                return this.alerts[0].type === AlertTypes.ClaimWallet
                     || this.alerts[0].type === AlertTypes.NamedAccount
             },
             returnText(){

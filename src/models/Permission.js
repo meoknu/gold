@@ -1,5 +1,5 @@
 import Network from './Network';
-import Identity from './Identity';
+import Wallet from './Wallet';
 
 export default class Permission {
 
@@ -7,7 +7,7 @@ export default class Permission {
         // Mandatory
         this.domain = '';
         this.network = '';
-        this.identity = '';
+        this.wallet = '';
         this.keypair = '';
 
         // Optional
@@ -28,19 +28,19 @@ export default class Permission {
         return p;
     }
 
-    getIdentity(keychain){
-        return keychain.findIdentity(this.identity);
+    getWallet(keychain){
+        return keychain.findWallet(this.wallet);
     }
 
-    isIdentityOnly(){
+    isWalletOnly(){
         return !this.contract && !this.action
     }
 
     isContractAction(){
-        return !this.isIdentityOnly() && this.contract.length && this.action.length
+        return !this.isWalletOnly() && this.contract.length && this.action.length
     }
 
-    isIdentityFor(domain){
-        return this.isIdentityOnly() && this.domain === domain;
+    isWalletFor(domain){
+        return this.isWalletOnly() && this.domain === domain;
     }
 }

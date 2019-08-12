@@ -6,7 +6,7 @@ import StorageService from './services/StorageService'
 import SignatureService from './services/SignatureService'
 import Gold from './models/Gold'
 import Network from './models/Network'
-import IdentityService from './services/IdentityService'
+import WalletService from './services/WalletService'
 import NotificationService from './services/NotificationService'
 import HistoricEvent from './models/histories/HistoricEvent'
 import * as HistoricEventTypes from './models/histories/HistoricEventTypes'
@@ -65,9 +65,9 @@ export default class Background {
             case InternalMessageTypes.UPDATE:                           Background.update(sendResponse, message.payload); break;
             case InternalMessageTypes.PUB_TO_PRIV:                      Background.publicToPrivate(sendResponse, message.payload); break;
             case InternalMessageTypes.DESTROY:                          Background.destroy(sendResponse); break;
-            case InternalMessageTypes.IDENTITY_FROM_PERMISSIONS:        Background.identityFromPermissions(sendResponse, message.payload); break;
-            case InternalMessageTypes.GET_OR_REQUEST_IDENTITY:          Background.getOrRequestIdentity(sendResponse, message.payload); break;
-            case InternalMessageTypes.FORGET_IDENTITY:                  Background.forgetIdentity(sendResponse, message.payload); break;
+            case InternalMessageTypes.WALLET_FROM_PERMISSIONS:        Background.walletFromPermissions(sendResponse, message.payload); break;
+            case InternalMessageTypes.GET_OR_REQUEST_WALLET:          Background.getOrRequestWallet(sendResponse, message.payload); break;
+            case InternalMessageTypes.FORGET_WALLET:                  Background.forgetWallet(sendResponse, message.payload); break;
             case InternalMessageTypes.REQUEST_SIGNATURE:                Background.requestSignature(sendResponse, message.payload); break;
             case InternalMessageTypes.REQUEST_ARBITRARY_SIGNATURE:      Background.requestArbitrarySignature(sendResponse, message.payload); break;
             case InternalMessageTypes.REQUEST_ADD_NETWORK:              Background.requestAddNetwork(sendResponse, message.payload); break;
@@ -163,7 +163,7 @@ export default class Background {
 
             // Private Keys are always separately encrypted
             gold.keychain.keypairs.map(keypair => keypair.encrypt(seed));
-            gold.keychain.identities.map(id => id.encrypt(seed));
+            gold.keychain.wallets.map(id => id.encrypt(seed));
 
             // Keychain is always stored encrypted.
             gold.encrypt(seed);
@@ -186,7 +186,7 @@ export default class Background {
             StorageService.get().then(gold => {
                 gold.decrypt(seed);
                 let keypair = gold.keychain.keypairs.find(keypair => keypair.publicKey === publicKey);
-                if(!keypair) keypair = gold.keychain.identities.find(id => id.publicKey === publicKey);
+                if(!keypair) keypair = gold.keychain.wallets.find(id => id.publicKey === publicKey);
                 sendResponse((keypair) ? AES.decrypt(keypair.privateKey, seed) : null);
             })
         })
@@ -237,7 +237,7 @@ export default class Background {
     /*              Web Application             */
     /********************************************/
 
-    static identityFromPermissions(sendResponse, payload){
+    static walletFromPermissions(sendResponse, payload){
         if(!seed.length) {
             sendResponse(null);
             return false;
@@ -245,59 +245,59 @@ export default class Background {
 
         Background.load(gold => {
             const domain = payload.domain;
-            const permission = IdentityService.identityPermission(domain, gold);
+            const permission = WalletService.walletPermission(domain, gold);
             if(!permission){
                 sendResponse(null);
                 return false;
             }
-            const identity = permission.getIdentity(gold.keychain);
-            sendResponse(identity.asOnlyRequiredFields(permission.fields));
+            const wallet = permission.getWallet(gold.keychain);
+            sendResponse(wallet.asOnlyRequiredFields(permission.fields));
         });
     }
 
     /***
-     * Prompts a request for Identity provision
+     * Prompts a request for Wallet provision
      * @param sendResponse
      * @param payload
      */
-    static getOrRequestIdentity(sendResponse, payload){
+    static getOrRequestWallet(sendResponse, payload){
         this.lockGuard(sendResponse, () => {
             Background.load(gold => {
                 const {domain, fields} = payload;
 
-                IdentityService.getOrRequestIdentity(domain, fields, gold, (identity, fromPermission) => {
-                    if(!identity){
-                        sendResponse(Error.signatureError("identity_rejected", "User rejected the provision of an Identity"));
+                WalletService.getOrRequestWallet(domain, fields, gold, (wallet, fromPermission) => {
+                    if(!wallet){
+                        sendResponse(Error.signatureError("wallet_rejected", "User rejected the provision of an Wallet"));
                         return false;
                     }
 
                     if(!fromPermission) {
-                        this.addHistory(HistoricEventTypes.PROVIDED_IDENTITY, {
+                        this.addHistory(HistoricEventTypes.PROVIDED_WALLET, {
                             domain,
-                            provided:!!identity,
-                            identityName:identity ? identity.name : false,
-                            publicKey:(identity) ? identity.publicKey : false
+                            provided:!!wallet,
+                            walletName:wallet ? wallet.name : false,
+                            publicKey:(wallet) ? wallet.publicKey : false
                         });
 
                         this.addPermissions([Permission.fromJson({
                             domain,
-                            identity:identity.publicKey,
+                            wallet:wallet.publicKey,
                             timestamp:+ new Date(),
                             fields,
                             checksum:domain
                         })])
                     }
 
-                    sendResponse(identity);
+                    sendResponse(wallet);
                 });
             });
         })
     }
 
-    static forgetIdentity(sendResponse, payload){
+    static forgetWallet(sendResponse, payload){
         this.lockGuard(sendResponse, () => {
             Background.load(gold => {
-                const permission = gold.keychain.permissions.find(permission => permission.isIdentityOnly() && permission.domain === payload.domain);
+                const permission = gold.keychain.permissions.find(permission => permission.isWalletOnly() && permission.domain === payload.domain);
                 if(!permission){
                     sendResponse(true);
                     return false;
@@ -314,20 +314,20 @@ export default class Background {
     }
 
     /***
-     * Authenticates the Identity by returning a signed passphrase using the
-     * private key associated with the Identity
+     * Authenticates the Wallet by returning a signed passphrase using the
+     * private key associated with the Wallet
      * @param sendResponse
      * @param payload
      */
     static authenticate(sendResponse, payload){
         this.lockGuard(sendResponse, () => {
             Background.load(gold => {
-                const identity = gold.keychain.findIdentity(payload.publicKey);
-                if(!identity) return sendResponse(Error.identityMissing());
-                identity.decrypt(seed);
+                const wallet = gold.keychain.findWallet(payload.publicKey);
+                if(!wallet) return sendResponse(Error.walletMissing());
+                wallet.decrypt(seed);
 
                 const plugin = PluginRepository.plugin(Blockchains.EOS);
-                plugin.signer(this, {data:payload.domain}, identity.publicKey, sendResponse, true);
+                plugin.signer(this, {data:payload.domain}, wallet.publicKey, sendResponse, true);
             })
         })
     }

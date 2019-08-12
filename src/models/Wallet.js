@@ -36,14 +36,14 @@ export const AccountFields = {
     network:'network'
 };
 
-export const IdentityBaseFields = {
+export const WalletBaseFields = {
     account:'accounts'
 };
 
 
 /*
 //EXAMPLE
-gold.getIdentity({
+gold.getWallet({
     personal:['email'],
     accounts:[
         {blockchain:Blockchains.EOS,network:{chainId:1}},
@@ -54,16 +54,16 @@ gold.getIdentity({
 */
 
 
-export class IdentityRequiredFields {
+export class WalletRequiredFields {
     constructor(){
         this.accounts = [];
         this.personal = [];
         this.location = [];
     }
 
-    static placeholder(){ return new IdentityRequiredFields(); }
+    static placeholder(){ return new WalletRequiredFields(); }
     static fromJson(json){
-        const p = Object.assign(new IdentityRequiredFields(), json);
+        const p = Object.assign(new WalletRequiredFields(), json);
         p.accounts = json.hasOwnProperty('accounts') ? json.accounts.map(Network.fromJson) : [];
         return p;
     }
@@ -75,7 +75,7 @@ export class IdentityRequiredFields {
     }
 
     isValid(){
-        if(JSON.stringify(Object.keys(new IdentityRequiredFields())) !== JSON.stringify(Object.keys(this))) return false;
+        if(JSON.stringify(Object.keys(new WalletRequiredFields())) !== JSON.stringify(Object.keys(this))) return false;
         if(!this.personal.every(field => Object.keys(PersonalFields).includes(field))) return false;
         if(!this.location.every(field => Object.keys(LocationFields).includes(field))) return false;
         if(this.accounts.length && !this.accounts.every(network => network.isValid())) return false;
@@ -85,7 +85,7 @@ export class IdentityRequiredFields {
     toFieldsArray(){
         let fields = [];
         Object.keys(this).map(key => {
-            if(key === IdentityBaseFields.account)
+            if(key === WalletBaseFields.account)
                 this[key].map(network => fields.push(`ACCOUNT: ${network.unique()}`));
             else this[key].map(subKey => fields.push(subKey))
         });
@@ -136,12 +136,12 @@ export class LocationInformation {
 
 
 /********************************************/
-/*                 Identity                 */
+/*                 Wallet                 */
 /********************************************/
 
 let {PrivateKey} = require('eosjs-ecc');
 
-export default class Identity {
+export default class Wallet {
 
     constructor(){
         // Basic fields
@@ -171,7 +171,7 @@ export default class Identity {
         });
     }
 
-    static placeholder(){ return new Identity(); }
+    static placeholder(){ return new Wallet(); }
     static fromJson(json){
         let p = Object.assign(this.placeholder(), json);
         if(json.hasOwnProperty('accounts')) p.accounts = Object.keys(json.accounts).reduce((acc, network) => {
@@ -184,7 +184,7 @@ export default class Identity {
         return p;
     }
 
-    clone(){ return Identity.fromJson(JSON.parse(JSON.stringify(this))) }
+    clone(){ return Wallet.fromJson(JSON.parse(JSON.stringify(this))) }
     isEncrypted(){ return this.privateKey.length > 70 }
     encrypt(seed){ if(!this.isEncrypted()) this.privateKey = AES.encrypt(this.privateKey, seed); }
     decrypt(seed){ if(this.isEncrypted()) this.privateKey = AES.decrypt(this.privateKey, seed); }
@@ -208,13 +208,13 @@ export default class Identity {
 
 
     /***
-     * Checks if an Identity has specified fields.
+     * Checks if an Wallet has specified fields.
      * This is used when an interacting application requires specific information.
      * @param fields - The fields to check for
      * @returns {boolean}
      */
     hasRequiredFields(fields){
-        const requiredFields = IdentityRequiredFields.fromJson(fields);
+        const requiredFields = WalletRequiredFields.fromJson(fields);
         if(!requiredFields.isValid()) return false;
 
         if(requiredFields.personal.length)
@@ -233,38 +233,38 @@ export default class Identity {
     }
 
     /***
-     * Returns an object with only the required fields from this Identity
+     * Returns an object with only the required fields from this Wallet
      * @param fields
      * @param location
      */
     asOnlyRequiredFields(fields, location = null){
-        const requiredFields = IdentityRequiredFields.fromJson(fields);
+        const requiredFields = WalletRequiredFields.fromJson(fields);
         if(!requiredFields.isValid()) return null;
 
 
-        const identity = {hash:this.hash, publicKey:this.publicKey, name:this.name, kyc:this.kyc};
+        const wallet = {hash:this.hash, publicKey:this.publicKey, name:this.name, kyc:this.kyc};
 
         if(requiredFields.personal.length){
-            identity.personal = {};
-            requiredFields.personal.map(field => identity.personal[field] = this.personal[field]);
+            wallet.personal = {};
+            requiredFields.personal.map(field => wallet.personal[field] = this.personal[field]);
         }
 
         if(requiredFields.location.length){
-            identity.location = {};
+            wallet.location = {};
             if(!location) location = this.defaultLocation();
-            requiredFields.location.map(field => identity.location[field] = location[field]);
+            requiredFields.location.map(field => wallet.location[field] = location[field]);
         }
 
         if(requiredFields.accounts.length){
-            identity.accounts = [];
+            wallet.accounts = [];
 
             requiredFields.accounts.map(network => {
                 const account = PluginRepository.plugin(network.blockchain).returnableAccount(this.networkedAccount(network));
-                identity.accounts.push(Object.assign(account, {blockchain:network.blockchain}));
+                wallet.accounts.push(Object.assign(account, {blockchain:network.blockchain}));
             });
         }
 
-        return identity;
+        return wallet;
     }
 
     /***

@@ -16,14 +16,14 @@ export default class RIDLService {
 
     constructor(){}
 
-    static async claimIdentity(newName, identity, context){
+    static async claimWallet(newName, wallet, context){
         return new Promise(async(resolve,reject) => {
 
             if(!newName.length) return reject(null);
-            const hash = await ridl.identity.getHash(newName);
-            if(!hash) return reject(context[Actions.PUSH_ALERT](AlertMsg.NoSuchIdentityName()));
+            const hash = await ridl.wallet.getHash(newName);
+            if(!hash) return reject(context[Actions.PUSH_ALERT](AlertMsg.NoSuchWalletName()));
 
-            context[Actions.PUSH_ALERT](AlertMsg.ClaimIdentity(newName)).then(async res => {
+            context[Actions.PUSH_ALERT](AlertMsg.ClaimWallet(newName)).then(async res => {
                 if(!res || !res.hasOwnProperty('text')) return reject(null);
 
                 if(!PluginRepository.plugin(Blockchains.EOS).validPrivateKey(res.text))
@@ -32,19 +32,19 @@ export default class RIDLService {
                 const signedHash = ridl.sign(hash, res.text);
                 delete res.text;
 
-                const claimed = await ridl.identity.claim(newName, signedHash, identity.publicKey);
-                if(!claimed) return reject(context[Actions.PUSH_ALERT](AlertMsg.NoSuchIdentityName()));
+                const claimed = await ridl.wallet.claim(newName, signedHash, wallet.publicKey);
+                if(!claimed) return reject(context[Actions.PUSH_ALERT](AlertMsg.NoSuchWalletName()));
 
                 // Removing now unused randomized RIDL account
-                if(!await ridl.identity.registered(identity.name)) {
-                    const previousHash = await ridl.identity.getHash(identity.name);
-                    const signedStaleHash = previousHash ? await context[Actions.SIGN_RIDL]({hash:previousHash, publicKey:identity.publicKey}) : false;
-                    if(signedStaleHash) await ridl.identity.release(identity.name, signedStaleHash);
+                if(!await ridl.wallet.registered(wallet.name)) {
+                    const previousHash = await ridl.wallet.getHash(wallet.name);
+                    const signedStaleHash = previousHash ? await context[Actions.SIGN_RIDL]({hash:previousHash, publicKey:wallet.publicKey}) : false;
+                    if(signedStaleHash) await ridl.wallet.release(wallet.name, signedStaleHash);
                 }
 
-                identity.name = newName;
-                identity.ridl = parseInt(claimed.registered);
-                resolve(identity);
+                wallet.name = newName;
+                wallet.ridl = parseInt(claimed.registered);
+                resolve(wallet);
                 //5KjbZQLH3EAfgXF3jejYM2WZjzJCUQH7NEkT1mVcBy2xoFdSWro
             })
 
@@ -54,9 +54,9 @@ export default class RIDLService {
     }
 
     static async identify(publicKey){
-        if(!enabled) return ridl.identity.randomName();
-        const name = await ridl.identity.randomUniqueName();
-        if(!await ridl.identity.identify(name, publicKey)) return null;
+        if(!enabled) return ridl.wallet.randomName();
+        const name = await ridl.wallet.randomUniqueName();
+        if(!await ridl.wallet.identify(name, publicKey)) return null;
         return name;
     }
 }

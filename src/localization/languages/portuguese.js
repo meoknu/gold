@@ -5,7 +5,7 @@ export default {
     [KEYS.GENERIC_New]:`Nova`,
     [KEYS.GENERIC_Save]:`Salvar`,
     [KEYS.GENERIC_Ignored]:`Ignorado`,
-    [KEYS.GENERIC_Identity]:`Identidade`,
+    [KEYS.GENERIC_Wallet]:`Identidade`,
     [KEYS.GENERIC_Contract]:`Contrato`,
     [KEYS.GENERIC_Action]:`Ação`,
     [KEYS.GENERIC_Removed]:`Removido`,
@@ -40,7 +40,7 @@ export default {
     [KEYS.PLACEHOLDER_DomainOrIP]:'Domínio ou IP',
     [KEYS.GENERIC_Import]:'Importar',
 
-    [KEYS.BUTTON_CreateIdentity]:'Criar Identidade',
+    [KEYS.BUTTON_CreateWallet]:'Criar Identidade',
     [KEYS.BUTTON_ImportAccount]:'Importar Conta',
     [KEYS.BUTTON_AddNewLocation]:'Adicionar Nova Localização',
     [KEYS.BUTTON_SetAsDefaultLocation]:'Marcar Como Localização Padrão',
@@ -61,45 +61,45 @@ export default {
     [KEYS.BUTTON_Yes]:'Sim',
     [KEYS.BUTTON_No]:'Não',
     [KEYS.BUTTON_UseSelectedAccount]:'Usar Conta Selecionada',
-    [KEYS.BUTTON_SelectIdentity]:'Selecionar Identidade',
+    [KEYS.BUTTON_SelectWallet]:'Selecionar Identidade',
 
-    [KEYS.MAINMENU_Identities]:'Identidades',
+    [KEYS.MAINMENU_Wallets]:'Identidades',
     [KEYS.MAINMENU_Permissions]:'Permissões',
     [KEYS.MAINMENU_History]:'Histórico',
     [KEYS.MAINMENU_Lock]:'Bloquear',
 
-    [KEYS.IDENTITIES_Header]:`Você ainda não tem nenhuma Identidade.`,
-    [KEYS.IDENTITIES_Description]:`
+    [KEYS.WALLETS_Header]:`Você ainda não tem nenhuma Identidade.`,
+    [KEYS.WALLETS_Description]:`
         As Identidades são onde armazenamos informações pessoais, como nome, sobrenome, endereços e
         várias contas blockchain/pares de chaves. Identidades também têm pares de chaves e sua propriedade
         pode ser comprovada, o que os torna uma maneira de autenticar em aplicativos sem precisar digitar senhas.
     `,
 
-    [KEYS.IDENTITY_DisablingHeader]:`O que a Desativação faz?`,
-    [KEYS.IDENTITY_DisablingDescription]:`
+    [KEYS.WALLET_DisablingHeader]:`O que a Desativação faz?`,
+    [KEYS.WALLET_DisablingDescription]:`
         Desabilitar essa Identidade impedirá que ela seja usada em aplicativos que tenham uma referência a ela.
         Isso pode ser usado em vez de excluir permanentemente essa identidade ou suas permissões em um aplicativo,
         o que seria mais difícil de recuperar.
     `,
 
-    [KEYS.IDENTITY_NameHeader]:`Nome da Identidade`,
-    [KEYS.IDENTITY_NameDescription]:`
+    [KEYS.WALLET_NameHeader]:`Nome da Identidade`,
+    [KEYS.WALLET_NameDescription]:`
         Aplicações podem optar por usar esse nome como seu nome de usuário, pois ele é único em todas as redes.
         Se você não está registrado no RIDL, receberá um nome aleatório.
     `,
-    [KEYS.IDENTITY_AccountHeader]:`Conta`,
-    [KEYS.IDENTITY_AccountDescription]:`
+    [KEYS.WALLET_AccountHeader]:`Conta`,
+    [KEYS.WALLET_AccountDescription]:`
         Contas são o que mantêm seus fundos e permitem que você interaja com contratos no Blockchain.
         Em relação às Identidades, pense nelas como as contas bancárias conectadas ao seu passaporte, elas podem
         ser alteradas a qualquer momento.
     `,
-    [KEYS.IDENTITY_PersonalHeader]:`Informações Pessoais`,
-    [KEYS.IDENTITY_PersonalDescription]:`
+    [KEYS.WALLET_PersonalHeader]:`Informações Pessoais`,
+    [KEYS.WALLET_PersonalDescription]:`
         Informações pessoais podem ser adicionadas a uma conta para aplicativos que exigem isso. Por exemplo, o site
         de uma loja pode precisar do seu nome completo para saber para quem enviar os itens adquiridos.
     `,
-    [KEYS.IDENTITY_LocationHeader]:`Informações de Localização`,
-    [KEYS.IDENTITY_LocationDescription]:`
+    [KEYS.WALLET_LocationHeader]:`Informações de Localização`,
+    [KEYS.WALLET_LocationDescription]:`
         As informações de localização podem ser adicionadas a uma conta para aplicativos que exigem isso.
         Por exemplo, um site de compras pode precisar do endereço de envio para saber para onde enviar
         seus bens adquiridos.
@@ -110,7 +110,7 @@ export default {
         As permissões são definidas quando você fornece uma Identidade para utilizar um aplicativo ou quando você
         adiciona uma ação de um contrato na whitelist para ser assinada sem prompts de autorização.
     `,
-    [KEYS.PERMISSION_RevokeIdentity]:`Revogar Identidade`,
+    [KEYS.PERMISSION_RevokeWallet]:`Revogar Identidade`,
     [KEYS.PERMISSION_RevokeContract]:`Revogar Contrato`,
     [KEYS.PERMISSION_RevokeAction]:`Revogar Ação`,
 
@@ -204,13 +204,13 @@ export default {
         }
     },
 
-    [KEYS.ALERT_BadIdentityName]:[
+    [KEYS.ALERT_BadWalletName]:[
         'Nome de Identidade inválido',
 
         `Os nomes de Identidade devem ter entre 3 e 20 caracteres.
          Eles também devem ser alfanuméricos, podem conter espaços, traços e sublinhados.`
     ],
-    [KEYS.ALERT_IdentityNameExists]:[
+    [KEYS.ALERT_WalletNameExists]:[
         'Nome de Identidade Já Existe',
 
         'Este nome de Identidade ja foi registrado para outra Identidade.'
@@ -259,12 +259,12 @@ export default {
 
         `Você não pode remover a rede endossada do Gold. Usamos essa rede para hospedar nossos contratos.`
     ],
-    [KEYS.ALERT_NoIdentityWithProperties]:fields => [
+    [KEYS.ALERT_NoWalletWithProperties]:fields => [
         'Identidade Não Encontrada',
 
         `Este aplicativo está solicitando uma Identidade com propriedades que você não possui. As propriedades solicitades são '${fields.join(', ')}'`
     ],
-    [KEYS.ALERT_YouMustSelectAnIdentity]:[
+    [KEYS.ALERT_YouMustSelectAnWallet]:[
         'Você Deve Selecionar Uma Identidade',
 
         `Se você não deseja expor uma Identidade, pressione o botão Negar, caso contrário, uma Identidade deve ser
@@ -276,7 +276,7 @@ export default {
 
         'Esta é sua última chance de verificar novamente seus backups.'
     ],
-    [KEYS.PROMPT_RevokingIdentity]:domain => [
+    [KEYS.PROMPT_RevokingWallet]:domain => [
         'Revogando Identidade',
 
         `Você está prestes a revogar uma Identidade inteira de ${domain}. Isso removerá
@@ -292,7 +292,7 @@ export default {
 
         `Você está prestes a revogar uma ação de ${domain}`
     ],
-    [KEYS.PROMPT_RemovingIdentity]:name => [
+    [KEYS.PROMPT_RemovingWallet]:name => [
         'Removendo Identidade',
 
         `Você está prestes a remover uma Identidade com o nome '${name}'. Remover Identidades não é reversível e
@@ -335,7 +335,7 @@ export default {
          o esforço de adicioná-la manualmente a partir do painel Configurações.`
 
     ],
-    [KEYS.REQUEST_Identity]:[
+    [KEYS.REQUEST_Wallet]:[
         /*{DOMAIN}*/ 'está solicitando informações adicionais.',
 
         `Às vezes, os aplicativos pedem mais informações, como
@@ -350,7 +350,7 @@ export default {
 
         `não está solicitando nenhuma informação adicional. A única coisa que eles estão exigindo é um hash da Identidade e nome.`
     ],
-    [KEYS.REQUEST_IdentityNoIdentities]:[
+    [KEYS.REQUEST_WalletNoWallets]:[
         `Você não tem nenhuma Identidade que corresponda aos campos que esse aplicativo exige.`,
 
         `Se você gostaria de usar uma Identidade com este domínio, você precisará atualizar essa identidade e cumprir os requisitos.

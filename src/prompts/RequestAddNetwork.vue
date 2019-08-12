@@ -43,9 +43,9 @@
     import * as Actions from '../store/constants';
     import {RouteNames} from '../vue/Routing'
     import AlertMsg from '../models/alerts/AlertMsg'
-    import IdentityService from '../services/IdentityService'
+    import WalletService from '../services/WalletService'
     import NotificationService from '../services/NotificationService'
-    import Identity from '../models/Identity'
+    import Wallet from '../models/Wallet'
 
     export default {
         data(){ return {
@@ -79,12 +79,12 @@
     .prompt-body {
         font-family: 'Open Sans', sans-serif;
 
-        .identity-header {
+        .wallet-header {
             width:calc(100% - 98px);
             display:inline-block;
         }
 
-        .select-identity {
+        .select-wallet {
             cursor: pointer;
             padding:0 10px;
             height:24px;

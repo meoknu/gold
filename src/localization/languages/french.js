@@ -5,7 +5,7 @@ export default {
     [KEYS.GENERIC_New]:`Nouveau`,
     [KEYS.GENERIC_Save]:`Enregistrer`,
     [KEYS.GENERIC_Ignored]:`Ignoré`,
-    [KEYS.GENERIC_Identity]:`Identité`,
+    [KEYS.GENERIC_Wallet]:`Identité`,
     [KEYS.GENERIC_Contract]:`Contrat`,
     [KEYS.GENERIC_Action]:`Action`,
     [KEYS.GENERIC_Removed]:`Supprimé`,
@@ -43,7 +43,7 @@ export default {
     [KEYS.PLACEHOLDER_ConfirmNewPassword]:'Confirmez votre Nouveau Mot de Passe',
     [KEYS.PLACEHOLDER_DomainOrIP]:'Domaine ou IP',
 
-    [KEYS.BUTTON_CreateIdentity]:'Créer identité',
+    [KEYS.BUTTON_CreateWallet]:'Créer identité',
     [KEYS.BUTTON_ImportAccount]:'Importer Compte',
     [KEYS.BUTTON_ImportKeychain]:'Importer Porte-clés',
     [KEYS.BUTTON_SelectFile]:'Choisir Fichier',
@@ -66,61 +66,61 @@ export default {
     [KEYS.BUTTON_Yes]:'Oui',
     [KEYS.BUTTON_No]:'Non',
     [KEYS.BUTTON_UseSelectedAccount]:'Utiliser le Compte sélectionné',
-    [KEYS.BUTTON_SelectIdentity]:'Choisir l\'Identité',
+    [KEYS.BUTTON_SelectWallet]:'Choisir l\'Identité',
     [KEYS.BUTTON_ChangeName]:'Changer le Nom',
-    [KEYS.BUTTON_ClaimIdentity]:'Revendiquer l\'Identité',
-    [KEYS.BUTTON_RegisterIdentity]:'Enregistrer l\'Identité',
+    [KEYS.BUTTON_ClaimWallet]:'Revendiquer l\'Identité',
+    [KEYS.BUTTON_RegisterWallet]:'Enregistrer l\'Identité',
 
-    [KEYS.MAINMENU_Identities]:'Identités',
+    [KEYS.MAINMENU_Wallets]:'Identités',
     [KEYS.MAINMENU_Keys]:'Paire de clés',
     [KEYS.MAINMENU_Permissions]:'Permissions',
     [KEYS.MAINMENU_History]:'Historique',
     [KEYS.MAINMENU_Lock]:'Verrouiller',
 
-    [KEYS.IDENTITIES_Header]:`Vous n'avez pas encore d'Identités`,
-    [KEYS.IDENTITIES_Description]:`
+    [KEYS.WALLETS_Header]:`Vous n'avez pas encore d'Identités`,
+    [KEYS.WALLETS_Description]:`
         Les Identités sont des contenants pour vos informations personnelles telles que votre prénom,
         votre nom, vos emplacements et plusieurs comptes/paires de clés blockchain. Les Identités 
         ont une paire de clés et il est possible de prouver que l'on en est propriétaire, ce qui 
         en fait un bon moyen de s'identifier auprès d'applications sans utiliser de mot de passe.
     `,
 
-    [KEYS.IDENTITY_DisablingHeader]:`A quoi sert Désactiver ?`,
-    [KEYS.IDENTITY_DisablingDescription]:`
+    [KEYS.WALLET_DisablingHeader]:`A quoi sert Désactiver ?`,
+    [KEYS.WALLET_DisablingDescription]:`
         Désactiver cette Identité provoque que les applications qui en ont une référence ne peuvent s'en servir.
         Cette fonction peut être utilisée plutôt que de supprimer de manière permanente cette Identité ou les 
         Permissions accordées par elle à une application et qui pourraient être difficilement récupérables.
     `,
 
-    [KEYS.IDENTITY_NameHeader]:`Nom de l'Identité`,
-    [KEYS.IDENTITY_NameDescription]:`
+    [KEYS.WALLET_NameHeader]:`Nom de l'Identité`,
+    [KEYS.WALLET_NameDescription]:`
         Les applications peuvent choisir de vous attribuer ce nom en tant que nom d'utilisateur étant donné
         que celui-ci est unique sur tous les réseaux.
         Si vous n'êtes pas inscrit sur RIDL, un nom aléatoire vous sera attribué.
     `,
 
-    [KEYS.IDENTITY_NoKeyPairsHeader]:`Pas de Paire de Clés!`,
-    [KEYS.IDENTITY_NoKeyPairsDescription]:`
+    [KEYS.WALLET_NoKeyPairsHeader]:`Pas de Paire de Clés!`,
+    [KEYS.WALLET_NoKeyPairsDescription]:`
         Avant que vous ne puissiez ajouter des comptes blockchain à cette Identité, vous devez ajouter au moins une 
         Paire de Clés.
         Rendez-vous sur le menu principal et choisissez:
     `,
 
-    [KEYS.IDENTITY_AccountHeader]:`Compte`,
-    [KEYS.IDENTITY_AccountDescription]:`
+    [KEYS.WALLET_AccountHeader]:`Compte`,
+    [KEYS.WALLET_AccountDescription]:`
         Les comptes détiennent vos fonds et vous permettent d'interagir avec les contrats sur la Blockchain.
         Leur relation aux Identités peut être vue comme les comptes bancaires attachés à votre passeport: 
         ceux-ci peuvent être changés à tout moment.
     `,
 
-    [KEYS.IDENTITY_PersonalHeader]:`Informations Personnelles`,
-    [KEYS.IDENTITY_PersonalDescription]:`
+    [KEYS.WALLET_PersonalHeader]:`Informations Personnelles`,
+    [KEYS.WALLET_PersonalDescription]:`
         Vos informations personnelles peuvent être ajoutées à un compte pour les applications qui les demandent.
         Par exemple, un site marchant pourrait exiger votre nom complet afin de savoir à qui envoyer les articles.
     `,
 
-    [KEYS.IDENTITY_LocationHeader]:`Emplacements`,
-    [KEYS.IDENTITY_LocationDescription]:`
+    [KEYS.WALLET_LocationHeader]:`Emplacements`,
+    [KEYS.WALLET_LocationDescription]:`
         Les informations relatives à vos emplacements peuvent être ajoutées à un compte pour les applications qui
         les demandent. Par exemple, un site marchant pourrait exiger votre adresse de livraison afin de savoir où 
         envoyer les articles.
@@ -132,7 +132,7 @@ export default {
         que la signature d'une action de contrat s'effectue sans message d'autorisation.
     `,
 
-    [KEYS.PERMISSION_RevokeIdentity]:`Révoquer l'Identité`,
+    [KEYS.PERMISSION_RevokeWallet]:`Révoquer l'Identité`,
     [KEYS.PERMISSION_RevokeContract]:`Révoquer le Contrat`,
     [KEYS.PERMISSION_RevokeAction]:`Révoquer l'Action`,
 
@@ -244,7 +244,7 @@ export default {
     },
 
     //2
-    [KEYS.ALERT_BadIdentityName]:[
+    [KEYS.ALERT_BadWalletName]:[
         'Nom d\'Identité incorrect',
 
         `Votre nom d'Identité doit comporter de 3 à 20 caractères.
@@ -252,13 +252,13 @@ export default {
          des tirets (-) et des traits de soulignement (_).`
     ],
     //2
-    [KEYS.ALERT_IdentityNameExists]:[
+    [KEYS.ALERT_WalletNameExists]:[
         'Ce Nom d\'Identité existe déjà.',
 
         'Ce Nom d\'Identité a été enregistré par une autre Identité.'
     ],
     //2
-    [KEYS.ALERT_NoSuchIdentityName]:[
+    [KEYS.ALERT_NoSuchWalletName]:[
         'Ce Nom d\'Identité n\'existe pas.',
 
         'Ce Nom d\'Identité n\'a pas été enregistré dans RIDL.'
@@ -328,13 +328,13 @@ export default {
         `Vous ne pouvez pas supprimer les Réseaux Approuvés par Gold.`
     ],
     //2
-    [KEYS.ALERT_NoIdentityWithProperties]:fields => [
+    [KEYS.ALERT_NoWalletWithProperties]:fields => [
         'Aucune Identité trouvée',
 
         `Cette application demande une Identité possédant des propriétés que vous n'avez pas rempli. Les propriétés demandées sont: '${fields.join(', ')}'`
     ],
     //2
-    [KEYS.ALERT_YouMustSelectAnIdentity]:[
+    [KEYS.ALERT_YouMustSelectAnWallet]:[
         'Vous devez choisir une Identité',
 
         `Si vous ne désirez pas dévoiler d'Identité, vous pouvez appuyez sur le bouton Refuser. Dans le cas contraire, vous
@@ -347,7 +347,7 @@ export default {
         'C\'est votre dernière chance de vérifier vos sauvegardes.'
     ],
     //2
-    [KEYS.PROMPT_RevokingIdentity]:domain => [
+    [KEYS.PROMPT_RevokingWallet]:domain => [
         'Révocation d\'Identité',
 
         `Vous êtes sur le point de révoquer une Identité entière de ${domain}. Cette action supprimera les permissions 
@@ -367,7 +367,7 @@ export default {
         `Vous êtes sur le point de révoquer une action de ${domain}`
     ],
     //2
-    [KEYS.PROMPT_RemovingIdentity]:name => [
+    [KEYS.PROMPT_RemovingWallet]:name => [
         'Suppression d\'Identité ',
 
         `Vous êtes sur le point de supprimer une Identité avec le nom '${name}'. La suppression est irréversible et 
@@ -375,10 +375,10 @@ export default {
          peut-être préférable de plutôt la désactiver.`
     ],
     //2
-    [KEYS.PROMPT_DeletingKeyPair]:identities => [
+    [KEYS.PROMPT_DeletingKeyPair]:wallets => [
         'Suppression d\'une Paire de Clés',
 
-        identities.length ? `Cette Paire de Clés est utilisée par: '${identities.join(', ')}'` : `Cette Paire de Clés n'est utilisée par aucune Identité.`
+        wallets.length ? `Cette Paire de Clés est utilisée par: '${wallets.join(', ')}'` : `Cette Paire de Clés n'est utilisée par aucune Identité.`
     ],
     //2
     [KEYS.PROMPT_RemovingAccount]:formattedAccountName => [
@@ -412,7 +412,7 @@ export default {
         'Choisissez le compte et l\'autorité que vous désirez utiliser pour cette identité. Vous ne pouvez choisir qu\'un compte à la fois.'
     ],
     //2
-    [KEYS.PROMPT_ClaimIdentity]:[
+    [KEYS.PROMPT_ClaimWallet]:[
         'Revendiquer l\'Identité',
 
         'Veuillez renseigner la clé privée associée à la clé publique enregistrée pour votre nom d\'Identité.'
@@ -430,7 +430,7 @@ export default {
          configuration.`
     ],
     //5
-    [KEYS.REQUEST_Identity]:[
+    [KEYS.REQUEST_Wallet]:[
         /*{DOMAIN}*/ 'demande des informations supplémentaires.',
 
         `Parfois certaines applications demandent des informations
@@ -450,7 +450,7 @@ export default {
         /*{DOMAIN}*/ ` ne demande aucune information supplémentaire. La seule demande est un hash et un nom d'Identité.`
     ],
     //2
-    [KEYS.REQUEST_IdentityNoIdentities]:[
+    [KEYS.REQUEST_WalletNoWallets]:[
         `Vous n'avez aucune Identité dont les propriétés demandées par cette application sont renseignées.`,
 
         `Si vous voulez utiliser cette Identité sur ce domaine, vous devez mettre à jour cette Identité et fournir les informations

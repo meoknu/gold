@@ -35,8 +35,8 @@ let publicKey = new WeakMap();
 let currentVersion = new WeakMap();
 let requiredVersion = new WeakMap();
 
-const throwIfNoIdentity = () => {
-    if(!publicKey) throws('There is no identity with an account set on your Gold instance.');
+const throwIfNoWallet = () => {
+    if(!publicKey) throws('There is no wallet with an account set on your Gold instance.');
 };
 
 
@@ -86,7 +86,7 @@ const _send = (_type, _payload) => {
 
 const setupSigProviders = context => {
     PluginRepository.signatureProviders().map(sigProvider => {
-        context[sigProvider.name] = sigProvider.signatureProvider(_send, throwIfNoIdentity);
+        context[sigProvider.name] = sigProvider.signatureProvider(_send, throwIfNoWallet);
     })
 };
 
@@ -99,7 +99,7 @@ export default class Golddapp {
 
     constructor(_stream, _options){
         currentVersion = parseFloat(_options.version);
-        this.useIdentity(_options.identity);
+        this.useWallet(_options.wallet);
         stream = _stream;
         resolvers = [];
 
@@ -108,9 +108,9 @@ export default class Golddapp {
         _subscribe();
     }
 
-    useIdentity(identity){
-        this.identity = identity;
-        publicKey = identity ? identity.publicKey : '';
+    useWallet(wallet){
+        this.wallet = wallet;
+        publicKey = wallet ? wallet.publicKey : '';
     }
 
     /***
@@ -124,28 +124,28 @@ export default class Golddapp {
     }
 
     /***
-     * Gets an Identity from the user to use.
+     * Gets an Wallet from the user to use.
      * @param fields - You can specify required fields such as ['email', 'country', 'firstname']
      */
-    getIdentity(fields = {}){
-        return _send(NetworkMessageTypes.GET_OR_REQUEST_IDENTITY, {
+    getWallet(fields = {}){
+        return _send(NetworkMessageTypes.GET_OR_REQUEST_WALLET, {
             network:network,
             fields
-        }).then(async identity => {
-            this.useIdentity(identity);
-            return identity;
+        }).then(async wallet => {
+            this.useWallet(wallet);
+            return wallet;
         });
     }
 
     /***
-     * Authenticates the identity on scope
+     * Authenticates the wallet on scope
      * Returns a signature which can be used to self verify against the domain name
      * @returns {Promise.<T>}
      */
     async authenticate(){
-        throwIfNoIdentity();
+        throwIfNoWallet();
 
-        // TODO: Verify identity matches RIDL registration
+        // TODO: Verify wallet matches RIDL registration
 
         const signature = await _send(NetworkMessageTypes.AUTHENTICATE, {
             publicKey
@@ -156,20 +156,20 @@ export default class Golddapp {
 
         try { if(ecc.verify(signature, strippedHost(), publicKey)) return signature; }
         catch (e) {
-            this.identity = null;
+            this.wallet = null;
             publicKey = '';
-            throws('Could not authenticate identity');
+            throws('Could not authenticate wallet');
         }
     }
 
     /***
-     * Signs out the identity.
+     * Signs out the wallet.
      * @returns {Promise.<TResult>}
      */
-    forgetIdentity(){
-        throwIfNoIdentity();
-        return _send(NetworkMessageTypes.FORGET_IDENTITY, {}).then(() => {
-            this.identity = null;
+    forgetWallet(){
+        throwIfNoWallet();
+        return _send(NetworkMessageTypes.FORGET_WALLET, {}).then(() => {
+            this.wallet = null;
             publicKey = null;
             return true;
         });

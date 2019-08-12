@@ -1,8 +1,8 @@
 export const ERROR = 'error';
 export const PUSH_GOLD = 'pushGold';
-export const GET_OR_REQUEST_IDENTITY = 'getOrRequestIdentity';
-export const IDENTITY_FROM_PERMISSIONS = 'identityFromPermissions';
-export const FORGET_IDENTITY = 'forgetIdentity';
+export const GET_OR_REQUEST_WALLET = 'getOrRequestWallet';
+export const WALLET_FROM_PERMISSIONS = 'walletFromPermissions';
+export const FORGET_WALLET = 'forgetWallet';
 export const REQUEST_SIGNATURE = 'requestSignature';
 export const ABI_CACHE = 'abiCache';
 export const REQUEST_ARBITRARY_SIGNATURE = 'requestArbitrarySignature';

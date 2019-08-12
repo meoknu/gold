@@ -6,10 +6,10 @@ export const UPDATE = 'update';
 export const PUB_TO_PRIV = 'publicToPrivateKey';
 export const DESTROY = 'destroy';
 
-export const IDENTITY_FROM_PERMISSIONS = 'identityFromPermissions';
+export const WALLET_FROM_PERMISSIONS = 'walletFromPermissions';
 export const ABI_CACHE = 'abiCache';
-export const GET_OR_REQUEST_IDENTITY = 'getOrRequestIdentity';
-export const FORGET_IDENTITY = 'forgetIdentity';
+export const GET_OR_REQUEST_WALLET = 'getOrRequestWallet';
+export const FORGET_WALLET = 'forgetWallet';
 export const REQUEST_SIGNATURE = 'requestSignature';
 export const REQUEST_ARBITRARY_SIGNATURE = 'requestArbitrarySignature';
 export const REQUEST_ADD_NETWORK = 'requestAddNetwork';

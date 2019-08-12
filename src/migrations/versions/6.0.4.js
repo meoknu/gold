@@ -15,7 +15,7 @@ export const m6_0_4 = async gold => {
         }
     });
 
-    gold.keychain.identities.map(id => {
+    gold.keychain.wallets.map(id => {
         const filtered = {};
         Object.keys(id.accounts).map(key => {
             if(gold.settings.networks.find(net => net.unique() === key))

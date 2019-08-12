@@ -72,7 +72,7 @@
             ]),
             ...mapGetters([
                 'keypairs',
-                'identities'
+                'wallets'
             ])
         },
         methods: {
@@ -86,19 +86,19 @@
             createKeyPair(){ this.$router.push({ name:RouteNames.KEYPAIRS }) },
             filterBySearch(){ return this.keypairs.filter(keypair => JSON.stringify(keypair).indexOf(this.searchText) > -1) },
             deleteKeypair(keypair){
-                const usedInIdentities = [];
-                this.identities.map(id => {
+                const usedInWallets = [];
+                this.wallets.map(id => {
                     if(id.getAccountFromPublicKey(keypair.publicKey))
-                        usedInIdentities.push(id);
+                        usedInWallets.push(id);
                 });
-                this[Actions.PUSH_ALERT](AlertMsg.DeletingKeyPair(usedInIdentities.map(id => id.name))).then(accepted => {
+                this[Actions.PUSH_ALERT](AlertMsg.DeletingKeyPair(usedInWallets.map(id => id.name))).then(accepted => {
                     if(!accepted || !accepted.hasOwnProperty('accepted')) return false;
 
                     const gold = this.gold.clone();
-                    if(usedInIdentities.length){
-                        usedInIdentities.map(_id => {
-                            const id = gold.keychain.identities.find(x => x.publicKey === _id.publicKey)
-                            // Remove account from identities
+                    if(usedInWallets.length){
+                        usedInWallets.map(_id => {
+                            const id = gold.keychain.wallets.find(x => x.publicKey === _id.publicKey)
+                            // Remove account from wallets
                             Object.keys(id.accounts).map(network => {
                                 if(id.accounts[network].publicKey === keypair.publicKey)
                                     id.removeAccount(network);

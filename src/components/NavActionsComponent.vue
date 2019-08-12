@@ -11,7 +11,7 @@
     import { mapActions, mapGetters, mapState } from 'vuex'
     import * as Actions from '../store/constants';
     import {RouteNames} from '../vue/Routing'
-    import Identity from '../models/Identity'
+    import Wallet from '../models/Wallet'
 
     export default {
         methods: { emit(action){ this.$emit(action.event) } },

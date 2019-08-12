@@ -41,10 +41,10 @@ class Content {
         // encrypted streams are synced.
         stream.onSync(async () => {
             const version = await this.getVersion();
-            const identity = await this.identityFromPermissions();
+            const wallet = await this.walletFromPermissions();
 
             // Pushing an instance of Golddapp to the web application
-            stream.send(NetworkMessage.payload(NetworkMessageTypes.PUSH_GOLD, {version, identity}), PairingTags.INJECTED);
+            stream.send(NetworkMessage.payload(NetworkMessageTypes.PUSH_GOLD, {version, wallet}), PairingTags.INJECTED);
 
             // Dispatching the loaded event to the web application.
             isReady = true;
@@ -86,14 +86,14 @@ class Content {
         let nonSyncMessage = NetworkMessage.fromJson(msg);
         switch(msg.type){
             case 'sync': this.sync(msg); break;
-            case NetworkMessageTypes.GET_OR_REQUEST_IDENTITY:           this.getOrRequestIdentity(nonSyncMessage); break;
-            case NetworkMessageTypes.FORGET_IDENTITY:                   this.forgetIdentity(nonSyncMessage); break;
+            case NetworkMessageTypes.GET_OR_REQUEST_WALLET:           this.getOrRequestWallet(nonSyncMessage); break;
+            case NetworkMessageTypes.FORGET_WALLET:                   this.forgetWallet(nonSyncMessage); break;
             case NetworkMessageTypes.REQUEST_SIGNATURE:                 this.requestSignature(nonSyncMessage); break;
             case NetworkMessageTypes.REQUEST_ARBITRARY_SIGNATURE:       this.requestArbitrarySignature(nonSyncMessage); break;
             case NetworkMessageTypes.REQUEST_ADD_NETWORK:               this.requestAddNetwork(nonSyncMessage); break;
             case NetworkMessageTypes.REQUEST_VERSION_UPDATE:            this.requestVersionUpdate(nonSyncMessage); break;
             case NetworkMessageTypes.AUTHENTICATE:                      this.authenticate(nonSyncMessage); break;
-            case NetworkMessageTypes.IDENTITY_FROM_PERMISSIONS:         this.identityFromPermissions(nonSyncMessage); break;
+            case NetworkMessageTypes.WALLET_FROM_PERMISSIONS:         this.walletFromPermissions(nonSyncMessage); break;
             case NetworkMessageTypes.ABI_CACHE:                         this.abiCache(nonSyncMessage); break;
             default:                                                    stream.send(nonSyncMessage.error(Error.maliciousEvent()), PairingTags.INJECTED)
         }
@@ -113,8 +113,8 @@ class Content {
         stream.synced = true;
     }
 
-    identityFromPermissions(message = null){
-        const promise = InternalMessage.payload(InternalMessageTypes.IDENTITY_FROM_PERMISSIONS, {domain:strippedHost()}).send();
+    walletFromPermissions(message = null){
+        const promise = InternalMessage.payload(InternalMessageTypes.WALLET_FROM_PERMISSIONS, {domain:strippedHost()}).send();
         if(!message) return promise;
         else promise.then(res => {
             if(message) this.respond(message, res);
@@ -127,15 +127,15 @@ class Content {
             .send().then(res => this.respond(message, res))
     }
 
-    getOrRequestIdentity(message){
+    getOrRequestWallet(message){
         if(!isReady) return;
-        InternalMessage.payload(InternalMessageTypes.GET_OR_REQUEST_IDENTITY, message.payload)
+        InternalMessage.payload(InternalMessageTypes.GET_OR_REQUEST_WALLET, message.payload)
             .send().then(res => this.respond(message, res))
     }
 
-    forgetIdentity(message){
+    forgetWallet(message){
         if(!isReady) return;
-        InternalMessage.payload(InternalMessageTypes.FORGET_IDENTITY, message.payload)
+        InternalMessage.payload(InternalMessageTypes.FORGET_WALLET, message.payload)
             .send().then(res => this.respond(message, res))
     }
 

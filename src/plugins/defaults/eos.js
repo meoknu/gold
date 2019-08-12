@@ -11,7 +11,7 @@ import AlertMsg from '../../models/alerts/AlertMsg'
 import * as Actions from '../../store/constants';
 import Eos from 'eosjs'
 let {ecc, Fcbuffer} = Eos.modules;
-import {IdentityRequiredFields} from '../../models/Identity';
+import {WalletRequiredFields} from '../../models/Wallet';
 import ObjectHelpers from '../../util/ObjectHelpers'
 import * as ricardianParser from 'eos-rc-parser';
 import StorageService from '../../services/StorageService'
@@ -19,7 +19,7 @@ import {strippedHost} from '../../util/GenericTools'
 
 let networkGetter = new WeakMap();
 let messageSender = new WeakMap();
-let throwIfNoIdentity = new WeakMap();
+let throwIfNoWallet = new WeakMap();
 
 const proxy = (dummy, handler) => new Proxy(dummy, handler);
 
@@ -133,7 +133,7 @@ export default class EOS extends Plugin {
     signatureProvider(...args){
 
         messageSender = args[0];
-        throwIfNoIdentity = args[1];
+        throwIfNoWallet = args[1];
 
         // Protocol will be deprecated.
         return (network, _eos, _options = {}, protocol = 'http') => {
@@ -165,12 +165,12 @@ export default class EOS extends Plugin {
                         if(args.find(arg => arg.hasOwnProperty('keyProvider'))) throw Error.usedKeyProvider();
 
                         let requiredFields = args.find(arg => arg.hasOwnProperty('requiredFields'));
-                        requiredFields = IdentityRequiredFields.fromJson(requiredFields ? requiredFields.requiredFields : {});
+                        requiredFields = WalletRequiredFields.fromJson(requiredFields ? requiredFields.requiredFields : {});
                         if(!requiredFields.isValid()) throw Error.malformedRequiredFields();
 
                         // The signature provider which gets elevated into the user's Gold
                         const signProvider = async signargs => {
-                            throwIfNoIdentity();
+                            throwIfNoWallet();
 
                             // Friendly formatting
                             signargs.messages = await requestParser(signargs, network);

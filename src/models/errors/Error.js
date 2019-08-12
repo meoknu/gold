@@ -38,12 +38,12 @@ export default class Error {
         return new Error(ErrorTypes.UPGRADE_REQUIRED, "The required version is newer than the User's Gold", ErrorCodes.UPGRADE_REQUIRED)
     }
 
-    static identityMissing(){
-        return this.signatureError("identity_missing", "Identity no longer exists on the user's keychain");
+    static walletMissing(){
+        return this.signatureError("wallet_missing", "Wallet no longer exists on the user's keychain");
     }
 
     static signatureAccountMissing(){
-        return this.signatureError("account_missing", "Missing required accounts, repull the identity");
+        return this.signatureError("account_missing", "Missing required accounts, repull the wallet");
     }
 
     static malformedRequiredFields(){
