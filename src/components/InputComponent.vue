@@ -89,6 +89,7 @@
             &:disabled {
                 cursor:not-allowed;
                 background:rgba(0,0,0,0.03);
+                background: rgb(210, 210, 210);
             }
 
             &:focus {

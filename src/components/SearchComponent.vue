@@ -27,7 +27,7 @@
         border-bottom:1px solid #f9f9f9;
         transition:transform 0.5s ease;
         transform:translateY(0px);
-        margin-top:1px;
+        // margin-top:1px;
 
         .icon {
             font-size:15px;

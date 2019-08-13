@@ -102,6 +102,7 @@
                 // color:#cecece;
                 // font-size:11px;
                 color: #505050;
+                color:#e0a839;
                 font-size: 15px;
                 text-transform: uppercase;
                 padding-bottom:5px;
@@ -111,9 +112,11 @@
             }
 
             .sub-header {
+                color: #dcdcdc;
                 // color:#aeaeae;
                 // font-size:9px;
                 color:#757575;
+                    color: #dcdcdc;
                 font-size:13px;
                 margin-bottom:20px;
             }

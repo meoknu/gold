@@ -462,6 +462,7 @@
 
                 .header {
                     color:rgba(0,0,0,0.8);
+                    color:#e0a839;
                     font-size:13px;
                     padding-bottom:5px;
                     margin-top:-5px;
@@ -471,6 +472,7 @@
 
                 .sub-header {
                     color:rgba(0,0,0,0.8);
+                    color: #dcdcdc;
                     font-size:9px;
                     margin-bottom:20px;
                 }

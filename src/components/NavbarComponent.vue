@@ -1,6 +1,9 @@
 <template>
     <nav :class="navState()">
-        <figure class="logo" v-if="showLogo()">Gold</figure>
+        <figure class="logo" v-if="showLogo()">
+            <img src="../copied/logo.png">
+            <span>Gold</span>
+        </figure>
         <section class="breadcrumb" v-else>
             <figure class="icon" v-on:click="back">
                 <i class="fa fa-chevron-left"></i>
@@ -111,6 +114,10 @@
             width:calc(100% - 60px);
             float:left;
             font-weight: 900;
+
+            img {
+                display: none;
+            }
         }
 
         .settings-button {
@@ -162,6 +169,16 @@
                 // color:#656565;
                 // width:100%;
                 text-align:center;
+
+                img {
+                    display: inline;
+                    width: 150px;
+                    margin-top: 70px;
+                }
+
+                span {
+                    display: none;
+                }
             }
         }
 
@@ -175,6 +192,16 @@
                 color: #e0a839;
                 width:100%;
                 text-align:center;
+
+                img {
+                    display: inline;
+                    width: 150px;
+                    margin-top: 150px;
+                }
+
+                span {
+                    display: none;
+                }
             }
         }
 

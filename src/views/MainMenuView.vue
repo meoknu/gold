@@ -4,7 +4,7 @@
             <router-link :to="{name:link.route}" v-if="link.name != locale(langKeys.MAINMENU_Lock)">
                 <figure class="icon"><i class="fa" :class="'fa-'+link.icon"></i></figure>
                 <figure class="text">{{link.name}}</figure>
-                <figure class="icon right"><i class="fa" :class="'fa-arrow-right'"></i></figure>
+                <!-- <figure class="icon right"><i class="fa" :class="'fa-arrow-right'"></i></figure> -->
             </router-link>
 
             <section v-else v-on:click="lockGold">
@@ -65,21 +65,35 @@
 
     .main-menu {
         // padding:40px 0;
-        padding:0px 0;
+        padding:10px;
 
         .item {
             cursor: pointer;
             // padding:0 40px;
             padding:0 15px;
             transition:background 0.2s ease;
-            border-bottom: 1px solid #e8e8e8;
+            // border-bottom: 1px solid #e8e8e8;
+            width: 50%;
+            float: left;
+
+            a {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin: 10px;
+                background-color: #f6e9b1;
+                padding: 10px;
+            }
 
             &:hover {
                 background:#f8f8f8;
+                background: #f6e9b1;
             }
 
             .icon {
                 padding:16px 0;
+                padding:10px 0 5px;
                 display:inline-block;
                 font-size:18px;
                 color:#656565;

@@ -8,7 +8,7 @@
                   <btn :text="locale(langKeys.BUTTON_CreateNewGold)" type="submit" margined="true"></btn>
                 </form>
             </section>
-            <figure class="line" style="background: #efefef"></figure>
+            <figure class="line" style=""></figure>
             <section class="p20">
                 <btn :text="locale(langKeys.BUTTON_LoadFromBackup)" v-on:clicked="importKeychain"></btn>
             </section>

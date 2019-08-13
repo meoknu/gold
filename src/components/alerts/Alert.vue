@@ -162,6 +162,7 @@
                 .header {
                     font-size:14px;
                     color:#717171;
+                    color:#e0a839;
                     margin-bottom:20px;
                 }
 

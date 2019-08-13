@@ -27,6 +27,7 @@ main {
 
   &.main-white-bg {
     background:#fff;
+    background: #4c4c4c;
   }
 }
 
@@ -35,6 +36,7 @@ main {
 .white-bg {
   // background:#fff;
   background: transparent;
+  background: #f1f1f1;
 }
 
 .line {
@@ -53,6 +55,7 @@ main {
 
   &.with-search {
     height:calc(600px - 91px);
+    padding: 10px;
   }
 }
 
@@ -61,13 +64,14 @@ main {
   margin:0px;
   margin-bottom:20px;
   padding:20px;
-  border:1px solid #eaeaea;
+  // border:1px solid #eaeaea;
   border-radius:4px;
 
   .header {
     font-size:18px;
     font-family:'Ubuntu',sans-serif;
     color:#888;
+    color:#e0a839;
   }
 
   .sub-header {
@@ -75,6 +79,7 @@ main {
     font-size:13px;
     font-family:'Ubuntu',sans-serif;
     color:#888;
+    color: #dcdcdc;
   }
 }
 
@@ -121,6 +126,7 @@ main {
     .header {
       font-size:12px;
       color: rgba(0,0,0,0.8);
+      color:#e0a839;
 
       &.big {
         // font-size:14px;

@@ -113,6 +113,7 @@
 
             .header {
                 color:#cecece;
+                color:#e0a839;
                 font-size:11px;
                 padding-bottom:5px;
                 margin-top:-5px;
@@ -122,6 +123,7 @@
 
             .sub-header {
                 color:#aeaeae;
+                color: #dcdcdc;
                 font-size:9px;
                 margin-bottom:20px;
             }

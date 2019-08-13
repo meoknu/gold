@@ -68,7 +68,8 @@
         justify-content: space-between;
         flex-wrap: wrap;
         text-align: center;
-
+        background: #f3e4c7;
+        
         .word {
             flex-basis: 33%;
             // color: #fff;
