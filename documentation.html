@@ -1,0 +1,327 @@
+<h1 id="goldclassic">Gold Classic</h1>
+
+<p>Gold is a browser extension that allows you to sign transactions for multiple blockchains and provide personal information to web applications without ever exposing your keys or filling out forms.</p>
+
+<h2 id="installation">Installation</h2>
+
+<h4 id="gettingthechromeextensionfiles">Getting the Chrome Extension files</h4>
+
+<p><strong>Note: If you are developing locally make sure you have enabled the</strong> <code>history_api</code> <strong>plugin in your nodeos config or you will not be able to import accounts!</strong></p>
+
+<p><strong>From The Repository</strong> </p>
+
+<ul>
+<li>Clone repository</li>
+
+<li><code>npm install</code> to get dependencies</li>
+
+<li>copy the <code>.env.example</code> file to <code>.env</code></li>
+
+<li><code>npm start</code> to compile a <code>build</code> folder.</li>
+</ul>
+
+<h4 id="installingadevbuildintochrome">Installing a dev build into Chrome</h4>
+
+<ul>
+<li>Open up <strong>Chrome</strong> and type <code>chrome://extensions/</code> into the url bar</li>
+
+<li>Click the <code>Load unpacked extension...</code> button and point it at the folder you just created/built 
+(<em>the folder should have a manifest.json inside of it</em>).</li>
+</ul>
+
+<h2 id="interactingwithgold">Interacting with Gold</h2>
+
+<h4 id="catchingbrowserswithgoldinstalled">Catching browsers with Gold installed</h4>
+
+<pre><code class="js language-js">document.addEventListener('goldLoaded', goldExtension =&gt; {
+    // Gold will now be available from the window scope.
+    // At this stage the connection to Gold from the application is 
+    // already encrypted. 
+    const gold = window.gold;
+
+    // It is good practice to take this off the window once you have 
+    // a reference to it.
+    window.gold = null;
+
+    // If you want to require a specific version of Gold
+    gold.requireVersion(3.0);
+
+    //...
+})
+</code></pre>
+
+<h2 id="wallets">Wallets</h2>
+
+<h4 id="requestinganwallet">Requesting an Wallet</h4>
+
+<p>In order to do anything with a user's Gold you will need to request an Wallet.
+Once an Wallet is provided it will not need to be re-approved every time unless the user removes the permission.</p>
+
+<pre><code class="js language-js">// You can require certain fields
+gold.getWallet().then(wallet =&gt; {
+    //...
+}).catch(error =&gt; {
+    //...
+});
+</code></pre>
+
+<p>The wallet can also be accessed on <code>gold.wallet</code> so that you don't have to keep a reference to it.</p>
+
+<p><strong>Note:</strong> Every time an wallet is returned you should check it against your cache of their wallet. Properties are subject 
+to change without notification to applications. Users have complete control over their own data. Do not rely on stale data for 
+sensitive things like shipping physical items.</p>
+
+<p>The <code>getWallet()</code> method can also take required fields. See the section about required fields below to 
+find out how to build the object.</p>
+
+<h4 id="authenticatinganwallet">Authenticating an Wallet</h4>
+
+<p>Wallets can be authenticated using asymmetric encryption.
+If the <code>authenticate</code> method does not throw an error then the wallet has been authenticated.</p>
+
+<pre><code class="js language-js">// Authenticate takes no parameters. 
+// It will fail if there is no wallet bound to Gold.
+gold.authenticate()
+    .then(sig =&gt; {
+        // This will return your `location.host` 
+        // signed with their Wallet's private key.
+        // It has already been validated, but you can validate it yourself as well using eosjs-ecc.
+
+        ecc.verify(sig, location.host, gold.wallet.publicKey);
+    })
+    .catch(err =&gt; console.log('auth err', err))
+</code></pre>
+
+<h4 id="forgettinganwalletsignout">Forgetting an Wallet ( Sign out )</h4>
+
+<p>To sign out a user you will be removing the permission in place for your domain to use an wallet.
+All sub-permissions such as contract and action whitelistings will be left in place and be available the next time the user 
+authenticates with your website.</p>
+
+<pre><code class="js language-js">gold.forgetWallet().then(() =&gt; {
+    //...
+});
+</code></pre>
+
+<p>Users can also do this without you providing a way for them to do so from their own permissions panel.</p>
+
+<h2 id="networks">Networks</h2>
+
+<p>Networks are used to connect to blockchain nodes and reference blockchain accounts. 
+They must be formatted like so:</p>
+
+<pre><code class="js language-js">const network = {
+    protocol:'http', // Defaults to https
+    blockchain:'eos',
+    host:'127.0.0.1', // ( or null if endorsed chainId )
+    port:8888, // ( or null if defaulting to 80 )
+    chainId:1 || 'abcd',
+}
+</code></pre>
+
+<p><strong>A note about chainId</strong> - If the user has a chainId in their network inside of Gold providing the host/port
+will not be enough. You should always aim for chainId inclusion.</p>
+
+<p>Gold has a few endorsed networks that is uses for retrieving information such as an 
+<code>EOS Mainnet ( chainId aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906 )</code> 
+and <code>ETH Mainnet ( chainId 1 )</code>. If you are using those you can 
+simply leave the <code>host</code> and <code>port</code> null and it will default to the chainId internally when fetching accounts from 
+the wallet. </p>
+
+<h4 id="suggestinganetworktotheuser">Suggesting a network to the user</h4>
+
+<p>You can <em>suggest</em> that the user add a network to their Gold if you are not using a generic network.</p>
+
+<pre><code class="js language-js">gold.suggestNetwork(network);
+</code></pre>
+
+<p>This will provide a prompt for them which will display the network they will be adding, and give them a chance
+to accept or deny the addition.</p>
+
+<h2 id="signatureproviders">Signature Providers</h2>
+
+<h4 id="usinggoldwitheosjshttpsgithubcomeosioeosjs">Using Gold with <a href="https://github.com/EOSIO/eosjs">eosjs</a></h4>
+
+<pre><code class="js language-js">// Set up any extra options you want to use eosjs with. 
+const eosOptions = {};
+
+// Get a reference to an 'Eosjs' instance with a Gold signature provider.
+const eos = gold.eos( network, Eos, eosOptions, 'https' );
+</code></pre>
+
+<h4 id="usinggoldwithweb3httpsgithubcomethereumweb3js">Using Gold with <a href="https://github.com/ethereum/web3.js/">web3</a></h4>
+
+<pre><code class="js language-js">// You can pass in either an HTTP or WebSocket provider prefix to the network
+const protocol = 'http' || 'ws';
+
+// Get a reference to a 'Web3' instance with a Gold signature provider.
+const web3 = gold.eth(network, Web3, protocol);
+</code></pre>
+
+<h4 id="requestingasignature">Requesting a Signature</h4>
+
+<p>Using Gold to provide signatures is no different than using <code>eosjs</code> or <code>web3</code>.
+It just handles all the signature provision for you.</p>
+
+<pre><code class="js language-js">// eosjs
+eos.contract('hello').then(contract =&gt; {
+    contract.hi(...args)
+});
+
+// Web3
+// Basic transaction
+web3.eth.sendTransaction({
+    from: account.publicKey,
+    to: '0x11f4d0.....',
+    value: '1'
+})
+
+// Or on a contract method
+const abi = require('some_abi.json');
+contract.methods.hello(...args).send({from:account.publicKey, abi})
+</code></pre>
+
+<h4 id="multipartsignaturesinvolvingtheapplicationandanwallet">Multi-part signatures involving the application AND an Wallet</h4>
+
+<p><em>Note: Ethereum does not support multiple signatures within one request</em></p>
+
+<p>You may also double-sign signatures using a private key from the application as well as one supplied by 
+the user.</p>
+
+<pre><code class="js language-js">// DO NOT DO THIS! If you do this you will give the client your keys.
+const signProvider = (buf, sign) =&gt; {
+    // You should validate the `buf` before signing it.
+    // If you do not you could be signing anything from a malicious Gold mimic
+
+    // Use the provided eosjs signer ( less secure, could be a mimic ) 
+    return sign(buf, 'SOME_PRIVATE_KEY');
+
+    // or use eosjs-ecc instead ( more secure as you own the reference )
+    return ecc.sign(buf, 'SOME_PRIVATE_KEY')
+};
+
+eos.contract('hello', { signProvider }).then(contract =&gt; {
+    contract.hi(...args);
+});
+
+
+// Instead of the above defer your signing to a backend
+const signProvider = async (buf, sign) =&gt; await YourApiService.sign(buf);
+</code></pre>
+
+<h2 id="requiringwalletfields">Requiring Wallet Fields</h2>
+
+<p>You can optionally pass a <code>RequiredFields</code> object into either the <code>getWallet()</code> method or 
+to individual transactions as options. </p>
+
+<p><strong>Do not rely on previously acquired Wallet 
+properties, since users might have multiple locations such as Work and Home, and they might have changed other properties 
+since the last time you cached them.</strong></p>
+
+<h5 id="requireablewalletfields">Requireable Wallet Fields</h5>
+
+<ul>
+<li><strong>accounts</strong> <code>[]</code> 
+
+
+<ul>
+<li>accepts an array of networks</li></ul>
+</li>
+</ul>
+
+<h5 id="fieldsthatalwaysreturnfromgetwallet">Fields that always return from <code>getWallet()</code></h5>
+
+<ul>
+<li><strong>name</strong> - The user's unique name.</li>
+
+<li><strong>publicKey</strong> - The public key associated with the Wallet.</li>
+
+<li><strong>hash</strong> - A hash of the Wallet's public key.</li>
+</ul>
+
+<h4 id="therequiredfieldsobject">The Required Fields Object</h4>
+
+<pre><code class="js language-js">const requiredFields = {
+    personal:['firstname', 'email'],
+    location:['country'],
+    accounts:[
+        {blockchain:'eos', host:'127.0.0.1', port:8888},
+        {blockchain:'eth', chainId:1}
+    ]
+};
+</code></pre>
+
+<p>This object can be passed into either the <code>getWallet()</code> method or individual transactions.</p>
+
+<pre><code class="js language-js">// Get Wallet
+gold.getWallet(requiredFields)...
+
+// eosjs
+const contract = await eos.contract('hello', {requiredFields});
+
+// Web3
+// On a regular transaction
+web3.eth.sendTransaction({
+    from: publicKey,
+    to: '0x11f4d......',
+    value: '1',
+    requiredFields,
+    fieldsCallback
+})
+
+const fieldsCallback = fields =&gt; console.log('Returned Fields', fields);
+const options = {from:publicKey, abi, requiredFields, fieldsCallback};
+contract.methods.hello(...args).send(options)
+</code></pre>
+
+<p>It's best practice to not request location fields until they are needed, as user's can have multiple 
+locations inside of an Wallet ( work/home ), and can select which one to user per signature request.</p>
+
+<p>This allows you to request all information needed for a physical sale with one click.</p>
+
+<p><em>For instance in this case we could be a shopping website that needs shipping details along with 
+the transfer of digital currency.</em></p>
+
+<h4 id="eosstipulations">EOS Stipulations</h4>
+
+<p>When using requiredFields on EOS transactions you need to put the requirements into the uppermost method and not the 
+action as requirements should fulfill any and all actions within; including multiple atomic transactions and not just per action.</p>
+
+<pre><code class="js language-js">//CORRECT
+eos.contract('hello', {requiredFields}).then(contract =&gt; contract.hi(...args))
+
+//INCORRECT
+eos.contract('hello').then(contract =&gt; contract.hi(...args, {requiredFields}))
+</code></pre>
+
+<h4 id="ethereumstipulations">Ethereum Stipulations</h4>
+
+<p>When you request signatures for contract methods you <strong>must</strong> supply the abi of the contract. This allows Gold to 
+display the decoded fields to the user so they can see exactly what they are signing.</p>
+
+<p><strong>Ethereum support is currently lacking as it is a new development.</strong> Some things are missing, such as the ability for users 
+to change gas price and limit.</p>
+
+<h4 id="findingaccountsbyblockchain">Finding Accounts by Blockchain</h4>
+
+<pre><code class="js language-js">const eosAccount = wallet.accounts.find(account =&gt; account.blockchain === 'eos');
+const ethAccount = wallet.accounts.find(account =&gt; account.blockchain === 'eth');
+</code></pre>
+
+<h2 id="arbitrarysignatures">Arbitrary signatures</h2>
+
+<p>You can request an arbitrary signature from Gold on any type of data you wish.
+Signatures on the Wallet will always use <code>eosjs-ecc</code> as they are EOS keys.</p>
+
+<pre><code class="js language-js">gold.getArbitrarySignature(
+    publicKey, 
+    data, 
+    whatfor = 'Login Authentication', 
+    isHash = false
+)
+</code></pre>
+
+<p>If you need to sign a <code>sha256</code> hash be sure to set <code>isHash</code> to <code>true</code> as this uses a different signing method.
+Otherwise always leave it to false.</p>
+
+<p><strong>User's will always see the exact data they are signing the same way they see transactions.</strong></p>
