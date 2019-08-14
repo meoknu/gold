@@ -155,6 +155,7 @@
             ])
         },
         mounted(){
+            console.log('wallet mounted');
             this.selectNetwork(this.networks[0]);
             const existing = this.gold.keychain.wallets.find(x => x.publicKey === this.$route.query.publicKey);
             if(existing) this.wallet = existing.clone();
@@ -250,7 +251,7 @@
                 if(this.isNew) {
                     const identified = await RIDLService.identify(this.wallet.publicKey);
                     if(!identified) return null;
-                    this.wallet.name = identified;
+                    // this.wallet.name = identified;
                 }
 
                 //TODO: More Error handling

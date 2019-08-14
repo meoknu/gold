@@ -2,7 +2,10 @@ import IdGenerator from './util/IdGenerator';
 import {EncryptedStream} from 'extension-streams';
 import * as PairingTags from './messages/PairingTags'
 import * as NetworkMessageTypes from './messages/NetworkMessageTypes'
-import Golddapp from './golddapp'
+import Golddapp from './golddapp';
+// Web3 = require('web3');
+import Web3 from 'web3';
+import eosjs from 'eosjs';
 
 /***
  * This is the javascript which gets injected into
@@ -20,6 +23,8 @@ class Inject {
         stream.listenWith(msg => {
             if(msg && msg.hasOwnProperty('type') && msg.type === NetworkMessageTypes.PUSH_GOLD)
                 window.gold = new Golddapp(stream, msg.payload);
+                window.Web3 = Web3;
+                window.Eos = eosjs;
         });
 
         // Syncing the streams between the

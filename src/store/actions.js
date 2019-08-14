@@ -100,13 +100,13 @@ export const actions = {
             }));
 
 
-            const firstWallet = Wallet.placeholder();
-            await firstWallet.initialize(gold.hash);
-            const identified = await RIDLService.identify(firstWallet.publicKey);
-            if(identified) {
-                firstWallet.name = identified;
-                gold.keychain.updateOrPushWallet(firstWallet);
-            }
+            // const firstWallet = Wallet.placeholder();
+            // await firstWallet.initialize(gold.hash);
+            // const identified = await RIDLService.identify(firstWallet.publicKey);
+            // if(identified) {
+            //     firstWallet.name = identified;
+            //     gold.keychain.updateOrPushWallet(firstWallet);
+            // }
 
             await StorageService.setSalt(Hasher.insecureHash(IdGenerator.text(32)));
 

@@ -202,7 +202,7 @@
                 border-bottom:1px solid #f6f6f6;
                 font-size:15px;
                 padding:15px 0;
-                // max-height:70px;
+                max-height:150px;
                 overflow-y:auto;
 
                 .item {

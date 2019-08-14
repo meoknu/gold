@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+  <textarea id="message" cols="30" rows="10">
+    
+  </textarea><br>
+  <button id="login">Login</button>
+  <button id="logout">Logout</button><br><br>
+  <form action="javascript:void(0);" id="transfer">
+    <input type="text" name="accountname" id="accountname" placeholder="accountname">
+    <input type="submit" value="send">
+  </form>
+  <script type="text/javascript">
+
+    var message = document.getElementById('message');
+    var login = document.getElementById('login');
+    var logout = document.getElementById('logout');
+    var transfer = document.getElementById('transfer');
+
+    const network = {
+      blockchain:'eos',
+      port: 443,
+      protocol: 'https',
+      host: 'jungle2.cryptolions.io',
+      chainId: 'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473'
+    };
+    const requiredFields = {
+      accounts:[network]
+    };
+
+    document.addEventListener('goldLoaded', () => {
+      login.onclick = function() {
+        gold.getWallet(requiredFields).then(wallet => {
+          login.hidden = true;
+          logout.hidden = false;
+          transfer.hidden = false;
+          message.value = 'Logged In'+'\n'+'successfully';
+        }).catch(err => {
+          console.log(err);
+          message.value = err.type+'\n'+err.message;
+        })
+      }
+
+      transfer.onsubmit = function() {
+        const eosOptions = {};
+        const eos = gold.eos(network, Eos, eosOptions);
+        const account = gold.wallet.accounts.find(x => x.blockchain === 'eos');
+        const transactionOptions = { authorization:[`${account.name}@${account.authority}`] };
+        eos.transfer(account.name, transfer.accountname.value, '0.0100 EOS', 'send by gold plugin', transactionOptions).then(trx => {
+          message.value = 'Transferred'+'\n'+'successfully';
+        }).catch(error => {
+          console.log(error);
+          message.value = (error);
+        });
+      }
+
+      logout.onclick = function() {
+        gold.forgetWallet();
+        login.hidden = false;
+        logout.hidden = true;
+        transfer.hidden = true;
+      }
+
+      if(gold.wallet) {
+        login.hidden = true;
+        logout.hidden = false;
+        transfer.hidden = false;
+        message.value = 'Logged In'+'\n'+'successfully';
+      } else {
+        login.hidden = false;
+        logout.hidden = true;
+        transfer.hidden = true;
+      }
+    
+    });
+	</script>
+</body>
+</html>

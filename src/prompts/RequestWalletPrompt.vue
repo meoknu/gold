@@ -1,16 +1,16 @@
 <template>
-    <section class="prompt-body">
+    <section class="prompt-body" style="padding: 0 20px;">
 
         <section class="partitioned">
 
             <section class="partition">
 
                 <section v-if="!walletFields.isEmpty()">
-                    <section class="description">
+                    <!-- <section class="description">
                         <b>{{prompt.domain}}</b> {{locale(langKeys.REQUEST_Wallet)[0]}}
-                    </section>
+                    </section> -->
 
-                    <section class="key-value">
+                    <!-- <section class="key-value">
                         <figure class="key">{{locale(langKeys.GENERIC_Requires)}}</figure>
                         <figure class="value" v-for="field in walletFields.personal">
                             {{field}}
@@ -21,10 +21,10 @@
                         <figure class="value" v-for="account in walletFields.accounts">
                             {{account.blockchain.toUpperCase()}} {{locale(langKeys.GENERIC_Account)}}
                         </figure>
-                    </section>
+                    </section> -->
 
-                    <section class="description">{{locale(langKeys.REQUEST_Wallet)[1]}}</section>
-                    <section class="description">{{locale(langKeys.REQUEST_Wallet)[2]}}</section>
+                    <!-- <section class="description">{{locale(langKeys.REQUEST_Wallet)[1]}}</section>
+                    <section class="description">{{locale(langKeys.REQUEST_Wallet)[2]}}</section> -->
                 </section>
 
                 <section v-else>
@@ -170,7 +170,7 @@
         }
     }
     .prompt-body {
-        padding: 0 20px;
+        padding: 0;
         font-family: 'Open Sans', sans-serif;
 
         .wallet-header {
@@ -227,7 +227,7 @@
                 }
 
                 &:first-child {
-                    padding:20px;
+                    padding:0 20px;
                     // padding:40px 50px;
 
                     .key-value {
@@ -235,6 +235,7 @@
                         border:2px dashed rgba(0,0,0,0.05);
                         border-radius: 4px;
                         margin-bottom:20px;
+                        margin-bottom:0px;
                         margin-top:20px;
 
                         .key {

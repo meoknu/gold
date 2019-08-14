@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <textarea id="message" cols="30" rows="10">
+    
+  </textarea><br>
+  <button id="login">Login</button>
+  <button id="logout">Logout</button><br><br>
+  <form action="javascript:void(0);" id="transfer">
+    <input type="text" name="accountname" id="accountname" placeholder="accountname" value="0xC3D6F33252C8089A3B2a9C010f524D473eF02972" disabled style="width: 350px;"><br><br>
+    <input type="submit" value="send 0.01 eth to 0xC3D6F33252C8089A3B2a9C010f524D473eF02972">
+  </form>
+  <script type="text/javascript">
+
+    var message = document.getElementById('message');
+    var login = document.getElementById('login');
+    var logout = document.getElementById('logout');
+    var transfer = document.getElementById('transfer');
+    
+    const network = {
+      blockchain:'eth',
+      port: '',
+      protocol: 'https',
+      host: 'ropsten.infura.io/v3/09e67dff570147d2a714bc4ed3e81b0e',
+      name: "ETH Mainnet",
+      chainId: '3'
+    };
+    const requiredFields = {
+      accounts:[network]
+    };
+
+    document.addEventListener('goldLoaded', () => {
+      login.onclick = function() {
+        gold.getWallet(requiredFields).then(wallet => {
+          login.hidden = true;
+          logout.hidden = false;
+          transfer.hidden = false;
+          message.value = 'Logged In'+'\n'+'successfully';
+        }).catch(err => {
+          console.log(err);
+          message.value = err.type+'\n'+err.message;
+        })
+      }
+
+      transfer.onsubmit = function() {
+        const account = gold.wallet.accounts.find(x => x.blockchain === 'eth');
+        const web3 = gold.eth(network, Web3, 'https');
+        const amountToSend = web3.utils.toWei('0.01', "ether"); //convert to wei value
+        var send = web3.eth.sendTransaction({
+          from:account.publicKey,
+          to:"0xC3D6F33252C8089A3B2a9C010f524D473eF02972",
+          value:amountToSend
+        }).then((tx) => {
+          console.log(tx);
+          message.value = 'Transferred'+'\n'+'successfully';
+        }).catch(err => {
+          console.err(err);
+          message.value = 'Transferred'+'\n'+'successfully';
+        });
+      }
+
+      logout.onclick = function() {
+        gold.forgetWallet();
+        login.hidden = false;
+        logout.hidden = true;
+        transfer.hidden = true;
+        message.value = 'Logged Out'+'\n'+'successfully';
+      }
+
+      if(gold.wallet) {
+        login.hidden = true;
+        logout.hidden = false;
+        transfer.hidden = false;
+        message.value = 'Logged In'+'\n'+'successfully';
+        if(!gold.wallet.accounts.find(x => x.blockchain === 'eth')) {
+          logout.click();
+        }
+      } else {
+        login.hidden = false;
+        logout.hidden = true;
+        transfer.hidden = true;
+      }
+    
+    });
+	</script>
+</body>
+</html>

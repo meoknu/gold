@@ -1,7 +1,7 @@
 <template>
     <section class="request-signature">
 
-        <section class="floating-header">
+        <!-- <section class="floating-header">
             <figure class="wallet-name">{{wallet().name}}</figure>
             <figure class="account-authority">{{formattedAccount()}}</figure>
             <figure class="switches">
@@ -12,7 +12,7 @@
                     {{displayType}}
                 </figure>
             </figure>
-        </section>
+        </section> -->
 
         <section class="prompt-body">
 
@@ -78,9 +78,9 @@
             </section>
         </section>
 
-        <section class="prompt-footer">
+        <!-- <section class="prompt-footer"> -->
 
-            <section class="whitelist">
+            <!-- <section class="whitelist">
                 <figure class="header">
                     {{locale(langKeys.REQUEST_SignatureWhitelist)[0]}}
                 </figure>
@@ -93,14 +93,15 @@
                     <b>{{locale(langKeys.REQUEST_SignatureWhitelist)[2]}}</b>
                     {{locale(langKeys.REQUEST_SignatureWhitelist)[3]}}
                 </figure>
+            </section> -->
+
+            <!-- <section class="actions"> -->
+            <section class="prompt-actions" style="display: flex;width: 100%;justify-content: space-evenly;align-items: center;">
+                <btn :text="locale(langKeys.BUTTON_Deny)" v-on:clicked="denied" style="width:45%;"></btn>
+                <btn :text="locale(langKeys.BUTTON_Accept)" is-blue="true" v-on:clicked="accepted" style="width:45%;"></btn>
             </section>
 
-            <section class="actions">
-                <btn :text="locale(langKeys.BUTTON_Deny)" v-on:clicked="denied"></btn>
-                <btn :text="locale(langKeys.BUTTON_Accept)" margined="true" is-blue="true" v-on:clicked="accepted"></btn>
-            </section>
-
-        </section>
+        <!-- </section> -->
 
     </section>
 </template>
@@ -382,7 +383,7 @@
                     }
 
                     .unboxed {
-                        padding:10px 50px;
+                        padding:10px 10px;
                     }
                 }
             }

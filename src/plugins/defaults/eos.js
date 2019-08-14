@@ -51,16 +51,25 @@ export default class EOS extends Plugin {
         const getAccountsFromPublicKey = (publicKey, network) => {
             return new Promise((resolve, reject) => {
                 const eos = Eos({httpEndpoint:`${network.protocol}://${network.hostport()}`});
-                eos.getKeyAccounts(publicKey).then(res => {
+                let promise;
+                if(network.name == "EOS Junglenet") {
+                    promise = fetch("https://www.api.bloks.io/jungle/dfuse?type=state_key_accounts&publicKey="+publicKey).then(body => body.json());
+                } else {
+                    promise = eos.getKeyAccounts(publicKey);
+                }
+                promise.then(res => {
                     if(!res || !res.hasOwnProperty('account_names')){ resolve([]); return false; }
 
                     Promise.all(res.account_names.map(name => eos.getAccount(name).catch(e => resolve([])))).then(multires => {
                         let accounts = [];
+                        // console.log(multires);
                         multires.map(account => {
                             account.permissions.map(permission => {
                                 accounts.push({name:account.account_name, authority:permission.perm_name});
                             });
                         });
+                        // accounts.push({name:'naveentestab', authority:'active'});
+                        // console.log(accounts);
                         resolve(accounts)
                     }).catch(e => resolve([]));
                 }).catch(e => resolve([]));

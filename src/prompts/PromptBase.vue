@@ -75,6 +75,7 @@
 
         .head {
             padding:20px;
+            display: none;
 
             .type {
                 color:#4f4f4f;
